@@ -1,0 +1,205 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/txtTwo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="구글맵이 들어갈 곳!!"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdbdb"
+        android:layout_below="@+id/txtTwo1"
+        android:id="@+id/viewTwo1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTwo1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewTwo1"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:text="위치  확인"
+            android:layout_width="41dp"
+            android:layout_height="55dp"
+            android:id="@+id/txtTwo2"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp" />
+
+
+
+
+            <RadioGroup
+                android:id="@+id/dynamic_radioarea_loc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdbdb"
+        android:layout_below="@+id/linearLayoutTwo1"
+        android:id="@+id/viewTwo2"
+        android:layout_marginTop="40dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTwo2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewTwo2"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:text="가능 요일"
+            android:layout_width="41dp"
+            android:layout_height="55dp"
+            android:id="@+id/txtTwo3"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp" />
+
+
+        <RadioGroup
+            android:id="@+id/dynamic_radioarea_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdbdb"
+        android:layout_below="@+id/linearLayoutTwo2"
+        android:id="@+id/viewTwo3"
+        android:layout_marginTop="40dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTwo3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewTwo3"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:text="가능 시간"
+            android:layout_width="41dp"
+            android:layout_height="55dp"
+            android:id="@+id/txtTwo4"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:text="06~08시"
+            android:background="@drawable/custom_button_off"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnTwo7"
+            />
+        <Button
+            android:text="10~11시"
+            android:background="@drawable/custom_button_off"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnTwo8"
+            />
+
+        <Button
+            android:text="15~17시"
+            android:background="@drawable/custom_button_off"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnTwo9"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdbdb"
+        android:layout_below="@+id/linearLayoutTwo3"
+        android:id="@+id/viewTwo4"
+        android:layout_marginTop="40dp" />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/viewTwo4"
+        android:id="@+id/linearLayoutTwo4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:layout_marginLeft="10dp"
+            android:text="장소 :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView9"
+            />
+
+        <TextView
+            android:text=" 서울 은평구 연신내"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTwo5"
+        android:layout_below="@+id/linearLayoutTwo4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="추가비용 :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            />
+
+        <TextView
+            android:text=" 없음"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10"
+            />
+
+    </LinearLayout>
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="#dcdbdb"-->
+        <!--android:layout_below="@+id/linearLayoutTwo5"-->
+        <!--android:id="@+id/viewTwo5"-->
+        <!--android:layout_marginTop="40dp" />-->
+
+
+
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/cardview_light_background"
+    tools:context="goriproject.ykjw.com.myapplication.Apply_3Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <goriproject.ykjw.com.myapplication.CircleImageView
+            android:id="@+id/img_apply_profile4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_apply3_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="바쁘셔도 이 페이지는 꼭 읽어보셔야 해요"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_apply_profile4" />
+
+        <TextView
+            android:id="@+id/tv_apply_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="탈잉 결제 금액 환불 요건"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply_5" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="아주 간단하게 신청서 작성"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply3_1" />
+
+        <TextView
+            android:id="@+id/tv_apply_5"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="첫 수강이후 튜터에게 \n잔여시간 수업료료 직접 입금"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_apply_3" />
+
+        <ImageView
+            android:id="@+id/iv_apply_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/textView4"
+            app:layout_constraintRight_toRightOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:srcCompat="@drawable/arrow_down" />
+
+        <ImageView
+            android:id="@+id/iv_apply_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="@+id/textView4"
+            app:layout_constraintRight_toRightOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply_2"
+            app:srcCompat="@drawable/arrow_down" />
+
+        <ImageView
+            android:id="@+id/iv_apply_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/textView4"
+            app:layout_constraintRight_toRightOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply_3"
+            app:srcCompat="@drawable/arrow_down" />
+
+        <TextView
+            android:id="@+id/tv_apply_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="매니저의 안내에 따라 1시간 수업료 선결제"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_apply_1" />
+
+        <TextView
+            android:id="@+id/tv_apply_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="프로세스 안내 받으신 후 튜터와 연결, 수업진행"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_apply_2" />
+
+        <TextView
+            android:id="@+id/tv_apply_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="첫수업 이전이면 결제금액의 100%가 환불됩니다. \n 첫수업 진행 이후면 환불이 불가합니다."
+            android:textSize="10sp"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply_6" />
+
+        <Button
+            android:id="@+id/btn_next4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/custom_signup_button"
+            android:text="다음"
+            android:textColor="@color/cardview_light_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

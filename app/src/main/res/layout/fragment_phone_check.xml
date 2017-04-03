@@ -1,0 +1,170 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="goriproject.ykjw.com.myapplication.PhoneCheckFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/bubble"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="수업 준비를 위해 아래 항목들에 대해\n미리 말씀해 주세요!"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_profile"
+            app:layout_constraintLeft_toRightOf="@+id/phone_profile"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone_profile" />
+
+        <View
+            android:id="@+id/phone2_batang"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorAccent"></View>
+
+        <View
+            android:id="@+id/phone2_batang2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_custom"
+            app:layout_constraintBottom_toTopOf="@+id/btn_phonenext"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_profile"
+            app:layout_constraintVertical_bias="0.0"></View>
+
+        <goriproject.ykjw.com.myapplication.CircleImageView
+            android:id="@+id/phone_profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone2_batang" />
+
+        <Button
+            android:id="@+id/btn_phonenext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/custom_signup_button"
+            android:text="다음"
+            android:textColor="@color/cardview_light_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <EditText
+            android:id="@+id/et_phone_send"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_custom"
+            android:ems="10"
+            android:inputType="phone"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintLeft_toLeftOf="@+id/phone2_batang2"
+            app:layout_constraintRight_toLeftOf="@+id/btn_send_confirmmsg"
+            app:layout_constraintTop_toTopOf="@+id/phone2_batang2" />
+
+        <EditText
+            android:id="@+id/et_phone_inputnumber"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_custom"
+            android:ems="10"
+            android:hint="숫자를 입력하세요"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="@+id/et_phone_send"
+            app:layout_constraintRight_toRightOf="@+id/btn_send_confirmmsg"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <Button
+            android:id="@+id/btn_send_confirmmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/edittext_custom"
+            android:text="인증번호 요청"
+            android:textColor="#b6b6b6"
+            app:layout_constraintBottom_toBottomOf="@+id/et_phone_send"
+            app:layout_constraintRight_toRightOf="@+id/phone2_batang2"
+            app:layout_constraintTop_toTopOf="@+id/et_phone_send" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:text="입력하신 전화번호로 5자리의 인증번호를 보냅니다."
+            app:layout_constraintLeft_toLeftOf="@+id/et_phone_send"
+            app:layout_constraintRight_toRightOf="@+id/btn_send_confirmmsg"
+            app:layout_constraintTop_toBottomOf="@+id/et_phone_send" />
+
+        <Button
+            android:id="@+id/btn_phone_confirm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/custom_signup_button"
+            android:text="확인"
+            android:textColor="#FFFFFF"
+            app:layout_constraintLeft_toLeftOf="@+id/et_phone_inputnumber"
+            app:layout_constraintRight_toRightOf="@+id/et_phone_inputnumber"
+            app:layout_constraintTop_toBottomOf="@+id/et_phone_inputnumber" />
+
+        <TextView
+            android:id="@+id/tv_phone_confirmmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            android:text="확인되었습니다. ^_^"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/phone2_batang2"
+            app:layout_constraintRight_toRightOf="@+id/phone2_batang2"
+            app:layout_constraintTop_toBottomOf="@+id/btn_phone_confirm" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

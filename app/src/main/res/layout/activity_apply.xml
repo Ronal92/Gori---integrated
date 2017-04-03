@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentbatang"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="goriproject.ykjw.com.myapplication.ApplyActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_process"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorAccent"
+            android:text="프로세스이해"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <goriproject.ykjw.com.myapplication.CircleImageView
+            android:id="@+id/apply_profile1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="81dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_process"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_sinchung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="신청서를 작성하기 전, 알아두세요! "
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apply_profile1" />
+
+        <TextView
+            android:id="@+id/tv_sinchung4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="신청서 \n작성"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toLeftOf="@+id/imgmatchline"
+            app:layout_constraintTop_toBottomOf="@+id/imgmatchline" />
+
+        <TextView
+            android:id="@+id/tv_sinchung5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="결제"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_sinchung4"
+            app:layout_constraintTop_toTopOf="@+id/tv_sinchung4" />
+
+        <TextView
+            android:id="@+id/tv_sinchung6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="튜터와 OT \n수업"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_sinchung5"
+            app:layout_constraintTop_toTopOf="@+id/tv_sinchung4" />
+
+        <TextView
+            android:id="@+id/tv_sinchung7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="수업결정"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_sinchung6"
+            app:layout_constraintTop_toTopOf="@+id/tv_sinchung4" />
+
+        <TextView
+            android:id="@+id/tv_sinchung2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="지금부터 수업신청을 도와드릴게요"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sinchung" />
+
+        <TextView
+            android:id="@+id/tv_sinchung3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="아래 그림은 전체 프로세스에요. \n 어렵지 않으니 천천히 따라 오시면 됩니다. \n 준비 되셨나요?"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sinchung2" />
+
+        <Button
+            android:id="@+id/btn_next1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/custom_signup_button"
+            android:onClick="click_next"
+            android:text="다음"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgmatchline"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sinchung3"
+            app:srcCompat="@drawable/matchline" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
