@@ -1,0 +1,494 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_second_campuscon"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignLeft="@+id/txtOne2"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtOne2"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="21dp"
+        android:background="#dcdbdb">
+
+        <TextView
+            android:id="@+id/txt_secondone_allprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="180,000원"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_secondone_alltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="총6시간 18시간"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewOne1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/cl_second_campuscon"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="튜터 정보"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/txt_one_tutorinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOne2"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="- 입사 후 엑셀 작업만 죽어라 한 대기업 대리.
+- 보고서 작업은 업무 소요시간을 줄이기 힘들어도, 엑셀은 필요한 함수 및 포인트들을 알면 시간을 많이 아낄 수 있음을 몸으로 터득함.
+- 반복되는 실무 함수 설명 및 숨겨진 노하우 전수를 통해 워크 라이프 밸런스가 갖춰진 사회를 만드는게 꿈." />
+
+    <View
+        android:id="@+id/viewOne2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/txt_one_tutorinfo"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="수업 대상"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/txt_one_whotuty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOne4"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="크게 두 부류로 나눌 수 있습니다.
+
+1) 처음부터 체계적으로 배워나가야 하는 왕초보
+(ex. 인턴/입사를 앞두고 엑셀이 걱정되시는 분,
+팀 이동 등을 통해 엑셀에 대한 막연한 두려움이 있으신 분)
+
+2) 노하우 습득을 통해 좀 더 빨리 퇴근하고 싶으신 분
+(ex. 엑셀은 대충 알지만 좀 더 능률있게 일하고 싶으신 분)
+
+1:1 강의의 경우 시간당 2만원 / 2명 이상 그룹 클래스의 경우 시간당 1.5만원 입니다." />
+
+    <View
+        android:id="@+id/viewOne3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/txt_one_whotuty"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne3"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="수업 소개"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/txt_one_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOne6"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="- 엑셀 활용 실무 업무경력을 살린 노하우 전수
+- 현업에서 활용할만한 업무 프로그램 소개
+- 업무 시간 단축의 핵심은 엑셀을 통해 얼마나 자동화 시킬 수 있느냐 이므로, 그 부분에 대해서 원리 설명
+- 2시간씩 3회 집중 학습 예정
+" />
+
+    <View
+        android:id="@+id/viewOne4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/txt_one_introduce"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="세부 커리큘럼"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_one_curiculum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtOne8"
+        android:orientation="vertical"
+        android:paddingBottom="0dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="0dp">
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewOne5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/ll_one_curiculum"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+
+    <TextView
+        android:id="@+id/txtOne9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="관련 영상"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <FrameLayout
+        android:id="@+id/fragment_youtube_player"
+        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/txtOne9"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp" />
+
+    <View
+        android:id="@+id/viewOne6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/fragment_youtube_player"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne6"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="관련 이미지"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <LinearLayout
+        android:id="@+id/li_one_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOne10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"></LinearLayout>
+
+    <View
+        android:id="@+id/viewOne7"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/li_one_img"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+    <TextView
+        android:id="@+id/txtOne11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOne7"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="다른 클래스"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_one_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOne11"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_one_otherimg4"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_one_otherimg2"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_one_otherimg2"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_one_otherimg3"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.201"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_one_otherimg2"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_one_otherimg1"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_one_otherimg4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg4"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg4"
+            app:layout_constraintTop_toBottomOf="@+id/iv_one_otherimg4" />
+
+        <TextView
+            android:id="@+id/tv_one_otherimg3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg1"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_one_otherimg3" />
+
+        <TextView
+            android:id="@+id/tv_one_otherimg2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg2"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg2"
+            app:layout_constraintTop_toBottomOf="@+id/iv_one_otherimg2" />
+
+        <TextView
+            android:id="@+id/tv_one_otherimg1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg1"
+            app:layout_constraintRight_toRightOf="@+id/iv_one_otherimg1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_one_otherimg1" />
+
+        <TextView
+            android:id="@+id/tv_one_otherlocation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="0dp"
+            android:background="#7d000000"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_one_otherlocation1"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg2"
+            app:layout_constraintTop_toTopOf="@+id/tv_one_otherlocation1" />
+
+        <TextView
+            android:id="@+id/tv_one_otherlocation1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="0dp"
+            android:background="#7d000000"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_one_otherimg1"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg1"
+            app:layout_constraintTop_toTopOf="@+id/iv_one_otherimg1"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <TextView
+            android:id="@+id/tv_one_otherlocation4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="0dp"
+            android:background="#7d000000"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_one_otherimg3"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg4"
+            app:layout_constraintTop_toTopOf="@+id/iv_one_otherimg3"
+            app:layout_constraintVertical_bias="0.805" />
+
+        <TextView
+            android:id="@+id/tv_one_otherlocation3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="0dp"
+            android:background="#7d000000"
+            android:text="TextView"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_one_otherimg3"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_one_otherimg3"
+            app:layout_constraintTop_toTopOf="@+id/iv_one_otherimg3"
+            app:layout_constraintVertical_bias="0.8" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewOne8"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/cl_one_other"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#dcdbdb" />
+
+
+</RelativeLayout>

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <goriproject.ykjw.com.myapplication.CircleImageView
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
             android:id="@+id/img_apply_profile4"
             android:layout_width="80dp"
             android:layout_height="80dp"

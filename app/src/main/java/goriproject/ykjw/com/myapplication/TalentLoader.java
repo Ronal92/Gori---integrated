@@ -30,6 +30,9 @@ public class TalentLoader {
         Talent1.setTalent_place("스터디룸");
         Talent1.setTalent_plusprice("없음");
         Talent1.setTalent_price("30,000원");
+        Talent1.setTimeperlesson("2시간/회");
+        Talent1.setMaxman("1~4명");
+        Talent1.setNumoftuty(150);
         talent_datas.add(Talent1);
 
         Talent Talent2 = new Talent();
@@ -49,6 +52,9 @@ public class TalentLoader {
         Talent2.setTalent_place("카페");
         Talent2.setTalent_plusprice("없음");
         Talent2.setTalent_price("20,000원");
+        Talent2.setTimeperlesson("3시간/회");
+        Talent2.setMaxman("1~3명");
+        Talent2.setNumoftuty(150);
         talent_datas.add(Talent2);
 
         Talent Talent3 = new Talent();
@@ -69,6 +75,9 @@ public class TalentLoader {
         Talent3.setTalent_place("스터디룸");
         Talent3.setTalent_plusprice("스터디룸예약비");
         Talent3.setTalent_price("30,000원");
+        Talent3.setTimeperlesson("2시간/회");
+        Talent3.setMaxman("1~4명");
+        Talent3.setNumoftuty(20);
         talent_datas.add(Talent3);
 
         Talent Talent4 = new Talent();
@@ -88,6 +97,9 @@ public class TalentLoader {
         Talent4.setTalent_place("스터디룸");
         Talent4.setTalent_plusprice("스터디룸예약비");
         Talent4.setTalent_price("30,000원");
+        Talent4.setTimeperlesson("3시간/회");
+        Talent4.setMaxman("1~2명");
+        Talent4.setNumoftuty(50);
         talent_datas.add(Talent4);
 
         Talent Talent5 = new Talent();
@@ -108,6 +120,9 @@ public class TalentLoader {
         Talent5.setTalent_place("스터디룸");
         Talent5.setTalent_plusprice("스터디룸예약비");
         Talent5.setTalent_price("30,000원");
+        Talent5.setTimeperlesson("2시간/회");
+        Talent5.setMaxman("1~4명");
+        Talent5.setNumoftuty(110);
         talent_datas.add(Talent5);
 
         Talent Talent6 = new Talent();
@@ -126,6 +141,9 @@ public class TalentLoader {
         Talent6.setTalent_place("교내카페");
         Talent6.setTalent_plusprice("커피값");
         Talent6.setTalent_price("60,000원");
+        Talent6.setTimeperlesson("2시간/회");
+        Talent6.setMaxman("1~4명");
+        Talent6.setNumoftuty(250);
         talent_datas.add(Talent6);
 
         Talent Talent7 = new Talent();
@@ -139,13 +157,16 @@ public class TalentLoader {
         Talent7.addTalent_time("10시-22시");
         Talent7.addTalent_time("14시-18시");
         Talent7.addTalent_time("22시-24시");
-        Talent7.addTalent_day("월");
+        Talent7.addTalent_day("월");//
         Talent7.addTalent_day("수");
         Talent7.addTalent_day("목");
         Talent7.addTalent_day("토");
         Talent7.setTalent_place("교내카페");
         Talent7.setTalent_plusprice("커피값");
         Talent7.setTalent_price("10,000원");
+        Talent7.setTimeperlesson("2시간/회");
+        Talent7.setMaxman("1~4명");
+        Talent7.setNumoftuty(0);
         talent_datas.add(Talent7);
 
         Talent Talent8 = new Talent();
@@ -165,6 +186,9 @@ public class TalentLoader {
         Talent8.setTalent_place("교내카페");
         Talent8.setTalent_plusprice("커피값");
         Talent8.setTalent_price("15,000원");
+        Talent8.setTimeperlesson("2시간/회");
+        Talent8.setMaxman("1~4명");
+        Talent8.setNumoftuty(150);
         talent_datas.add(Talent8);
 
 
@@ -183,6 +207,9 @@ public class TalentLoader {
         Talent9.setTalent_place("교내카페");
         Talent9.setTalent_plusprice("커피값");
         Talent9.setTalent_price("30,000원");
+        Talent9.setTimeperlesson("5시간/회");
+        Talent9.setMaxman("1~2명");
+        Talent9.setNumoftuty(150);
         talent_datas.add(Talent9);
 
         Talent Talent10 = new Talent();
@@ -204,6 +231,9 @@ public class TalentLoader {
         Talent10.setTalent_place("교내카페");
         Talent10.setTalent_plusprice("커피값");
         Talent10.setTalent_price("30,000원");
+        Talent10.setTimeperlesson("1시간/회");
+        Talent10.setMaxman("1~2명");
+        Talent10.setNumoftuty(150);
         talent_datas.add(Talent10);
 
     }

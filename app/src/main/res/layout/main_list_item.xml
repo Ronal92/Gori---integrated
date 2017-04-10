@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:background="@mipmap/ic_launcher">
 
-            <goriproject.ykjw.com.myapplication.CircleImageView
+            <goriproject.ykjw.com.myapplication.Custom.CircleImageView
                 android:id="@+id/imageView2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -73,7 +73,7 @@
                         android:layout_marginRight="8dp"
                         android:maxLines="1"
                         android:text="지겨운 코딩공부는 그만!"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/tutor_name"
                         app:layout_constraintLeft_toLeftOf="@+id/tutor_name"
                         app:layout_constraintRight_toRightOf="parent" />

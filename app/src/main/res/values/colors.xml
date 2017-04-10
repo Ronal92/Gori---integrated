@@ -2,11 +2,13 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4090</color>
+    <color name="colorAccent">#ee534f</color>
+    <color name="colorAccent1">#ff4090</color>
     <color name="duskYellow">#FFFF00</color>
     <color name="lightGrey">#D3D3D3</color>
     <color name="parent">#ff4081</color>
     <color name="customgrey">#b6b6b6</color>
+    <color name="colorMain">#ee534f</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

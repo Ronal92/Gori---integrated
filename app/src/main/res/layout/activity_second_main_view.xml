@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_top"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:text="칼퇴를 위한 실무 엑셀"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/subTitle"
+            android:textStyle="normal|bold"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:visibility="gone" />
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/subTab"
+            android:layout_below="@+id/subTitle"
+            app:tabSelectedTextColor="@color/colorAccent"
+            style="@style/viewPagerTitle"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+    <goriproject.ykjw.com.myapplication.Custom.CustomScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/linearLayout_top"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivlogo2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                    <!--app:srcCompat="@drawable/logo2" />-->
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp">
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="fitXY"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/list_dummy" />
+
+                    <goriproject.ykjw.com.myapplication.Custom.CircleImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/test2"
+                        android:transformPivotY="-20dp"
+                        app:layout_constraintRight_toRightOf="@+id/imageView1"
+                        app:layout_constraintLeft_toLeftOf="@+id/imageView1"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txt_second_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Ashton / Ashton"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txt_second_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="칼퇴를 위한 실무 엑셀"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+                <RatingBar
+                    android:id="@+id/rating_second"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:progressTint="@color/duskYellow"
+                    android:progressTintMode="src_atop"
+                    android:secondaryProgressTint="@color/lightGrey"
+                    android:secondaryProgressTintMode="src_atop" />
+
+                <TextView
+                    android:text="New"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:textAlignment="center"
+                    android:id="@+id/tv_second_new"
+                    android:textColor="@color/colorAccent"/>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/framelayout">
+
+                    <View
+                        android:id="@+id/sepa_second_row"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#dcdbdb"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></View>
+
+                    <View
+                        android:id="@+id/sepa_second_col"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:background="#dcdbdb"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></View>
+
+                    <ImageView
+                        android:id="@+id/img_second_location"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#00ffffff"
+                        app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
+                        app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
+                        app:layout_constraintTop_toTopOf="@+id/sepa_second_col"
+                        app:srcCompat="@drawable/location" />
+
+                    <ImageView
+                        android:id="@+id/img_second_maxman"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:background="#00ffffff"
+                        app:layout_constraintBottom_toBottomOf="@+id/sepa_second_col"
+                        app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
+                        app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
+                        app:srcCompat="@drawable/numpple" />
+
+                    <ImageView
+                        android:id="@+id/img_second_timeper"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#00ffffff"
+                        app:layout_constraintLeft_toRightOf="@+id/sepa_second_col"
+                        app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
+                        app:layout_constraintTop_toTopOf="@+id/sepa_second_col"
+                        app:srcCompat="@drawable/price" />
+
+                    <ImageView
+                        android:id="@+id/img_second_schedule"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:background="#00ffffff"
+                        app:layout_constraintLeft_toRightOf="@+id/sepa_second_col"
+                        app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
+                        app:srcCompat="@drawable/schedule"
+                        app:layout_constraintBottom_toBottomOf="@+id/sepa_second_col"
+                        android:layout_marginBottom="24dp" />
+
+                    <TextView
+                        android:id="@+id/tv_second_location"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:text="TextView"
+                        app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
+                        app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
+                        app:layout_constraintTop_toBottomOf="@+id/img_second_maxman" />
+
+                    <TextView
+                        android:id="@+id/tv_second_maxman"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:text="TextView"
+                        app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
+                        app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
+                        app:layout_constraintTop_toBottomOf="@+id/img_second_location" />
+
+                    <TextView
+                        android:id="@+id/tv_second_timeper"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:text="TextView"
+                        app:layout_constraintTop_toBottomOf="@+id/img_second_timeper"
+                        android:layout_marginRight="32dp"
+                        app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
+                        app:layout_constraintLeft_toRightOf="@+id/sepa_second_col" />
+
+                    <TextView
+                        android:id="@+id/tv_second_schedule"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:text="TextView"
+                        app:layout_constraintLeft_toRightOf="@+id/sepa_second_col"
+                        app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
+                        app:layout_constraintTop_toBottomOf="@+id/img_second_schedule" />
+
+                    <Button
+                        android:id="@+id/btn_second_numoftuty"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/custom_button7"
+                        android:text="Button"
+                        android:textColor="#ffffff"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/sepa_second_col"
+                        app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
+                        app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
+                        app:layout_constraintTop_toTopOf="@+id/sepa_second_col" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </LinearLayout>
+
+
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/relativeLayout">-->
+
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tab"
+                app:tabSelectedTextColor="@color/colorAccent"
+                style="@style/viewPagerTitle"/>
+
+            <goriproject.ykjw.com.myapplication.Custom.CustomPager
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewPager"
+                android:layout_below="@+id/tab"/>
+
+            <!--</RelativeLayout>-->
+
+        </LinearLayout>
+
+    </goriproject.ykjw.com.myapplication.Custom.CustomScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_second_apply"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@color/colorAccent"
+            android:text="수업 신청하기"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/checkbox_wishList"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/checkbox_wishList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#FFFFFFFF"
+            android:onClick="shareFacebook"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_menu_share" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package goriproject.ykjw.com.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONObject;
 
@@ -118,5 +120,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onBackPressed();
         Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void signingo(View view ) {
+        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void finishsignup(View view ) {
+        finish();
     }
 }

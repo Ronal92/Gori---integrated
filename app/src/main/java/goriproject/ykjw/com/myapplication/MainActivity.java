@@ -3,9 +3,13 @@ package goriproject.ykjw.com.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int category_menu_count = 0;
     ImageButton img,img2;
     ImageView mainimg;
-    List<tutor> datas2;
-    MainListAdapter rca;
+    static List<tutor> datas2 = new ArrayList<>();
+    static MainListAdapter rca;
     EditText editText;
     RecyclerView rv;
     ConstraintLayout location_menu, category_menu;
@@ -58,20 +63,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btn_campus_jungang, btn_location_jongro,btn_location_habjung,btn_location_yongsan,btn_location_hehwa, btn_location_mokdong;
     Button btn_category_music, btn_category_helth,btn_category_other,btn_campus_other,btn_location_other,btn_category_language,
             btn_category_cumputer, btn_category_sports, btn_category_major;
+
     DrawerLayout drawer;
     NavigationView navigationView;
 
     @Override
     protected void onResume() {
         super.onResume();
+
         if(TutorLoader.datas.size() == 0) {
             TutorLoader.loadData();
             sortTop(TutorLoader.datas);
+            //Toast.makeText(this, TutorLoader.datasRealy.size(), Toast.LENGTH_SHORT).show();
             if(datas2.size() ==0) {
                 datas2.addAll(TutorLoader.datas);
             }
         }
-
         if(TalentLoader.talent_datas.size() ==0) {
             TalentLoader.loadData();
         }
@@ -94,14 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
         navigationView  = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         location_menu = (ConstraintLayout)findViewById(R.id.location_menu);
         category_menu = (ConstraintLayout)findViewById(R.id.category_menu);
         editText = (EditText)findViewById(R.id.editText);
-        datas2 = new ArrayList<>();
 
         editText.addTextChangedListener(this);
 
@@ -121,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //3. 리사이클러 뷰에 아답터 세팅하기
         rv.setAdapter(rca);
+
 
         //4. 리사이클러 뷰 매니저 등록하기(뷰의 모양을 결정 : 그리드, 일반리스트, 비대칭그리드)
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             drawer.openDrawer(GravityCompat.END);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -586,8 +587,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-
+        Intent intent;
         if (id == R.id.menu_introduce_gori) {
+            intent= new Intent(MainActivity.this, IntroduceGoriActivity.class);
+            startActivity(intent);
            //TODO 고리소개 페이지로드
         } else if (id == R.id.menu_signinout) {
             if(userid != null) {
@@ -597,15 +600,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 item.setTitle("로그인");
                 Toast.makeText(MainActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
-                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
 
         } else if (id == R.id.menu_mypage) {
-
-            Intent intent = new Intent(this, MyPageActivity.class);
+            intent = new Intent(MainActivity.this, MyPageActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.menu_tutor_go) {
             // 아직 구현할 생각 없음
             Toast.makeText(MainActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_LONG).show();
@@ -624,5 +625,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public static void rcanoti() {
+        rca.notifyDataSetChanged();
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package goriproject.ykjw.com.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 public class ApplyActivity extends AppCompatActivity {
 
@@ -138,6 +140,11 @@ public class ApplyActivity extends AppCompatActivity {
 //        transaction.remove(detail);
 //        // 3. 커밋
 //        transaction.commit();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
 

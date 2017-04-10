@@ -39,10 +39,7 @@ public class Apply_1Fragment extends Fragment {
 
 
     public Apply_1Fragment() {
-
     }
-
-
 
     public static Apply_1Fragment newInstance(String param1, String param2) {
         Apply_1Fragment fragment = new Apply_1Fragment();

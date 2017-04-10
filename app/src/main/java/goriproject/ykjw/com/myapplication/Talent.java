@@ -21,6 +21,33 @@ public class Talent {
     String talent_price;
     String talent_place;
     String talent_plusprice;
+    String timeperlesson;
+    String maxman;
+    int numoftuty;
+
+    public int getNumoftuty() {
+        return numoftuty;
+    }
+
+    public void setNumoftuty(int numoftuty) {
+        this.numoftuty = numoftuty;
+    }
+
+    public String getTimeperlesson() {
+        return timeperlesson;
+    }
+
+    public void setTimeperlesson(String timeperlesson) {
+        this.timeperlesson = timeperlesson;
+    }
+
+    public String getMaxman() {
+        return maxman;
+    }
+
+    public void setMaxman(String maxman) {
+        this.maxman = maxman;
+    }
 
     public void setTalent_time(List<String> talent_time) {
         this.talent_time = talent_time;

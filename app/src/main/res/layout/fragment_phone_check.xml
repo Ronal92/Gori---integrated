@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/phone_profile"
             app:layout_constraintVertical_bias="0.0"></View>
 
-        <goriproject.ykjw.com.myapplication.CircleImageView
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
             android:id="@+id/phone_profile"
             android:layout_width="60dp"
             android:layout_height="60dp"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/recyclerview_listfragment_mypage_tutor"
+    app:layoutManager="LinearLayoutManager"
+    tools:listitem="@layout/fragment_mypage_tutor_fragment_one_carditem">
+
+</android.support.v7.widget.RecyclerView>

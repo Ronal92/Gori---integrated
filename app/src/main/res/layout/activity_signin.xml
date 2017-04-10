@@ -52,6 +52,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:elevation="11dp"
+        android:onClick="finishsignin"
         android:padding="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"

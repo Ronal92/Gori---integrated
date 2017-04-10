@@ -8,8 +8,8 @@
     <item android:state_pressed="false">
         <shape >
             <gradient android:angle="270"
-                android:endColor="#FF69B4"
-                android:startColor="#FF69B4"/>
+                android:endColor="@color/colorAccent"
+                android:startColor="@color/colorAccent"/>
         </shape>
     </item>
 </selector>

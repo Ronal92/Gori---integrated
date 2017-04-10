@@ -11,6 +11,25 @@ public class tutor {
     String category;
     String tutor_name;
     String class_name;
+    String imgUrl;
+    String profileurl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getProfileurl() {
+        return profileurl;
+    }
+
+    public void setProfileurl(String profileurl) {
+        this.profileurl = profileurl;
+    }
+
     int tutor_rating;
     int tutor_id;
 

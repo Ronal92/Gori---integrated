@@ -17,7 +17,7 @@
             android:id="@+id/apply1_batang"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorMain"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></View>
@@ -60,7 +60,7 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_place_confirm"
             app:layout_constraintRight_toLeftOf="@+id/textView3" />
 
-        <goriproject.ykjw.com.myapplication.CircleImageView
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
             android:id="@+id/img_apply1_profile"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -110,7 +110,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"></View>
+            app:layout_constraintTop_toBottomOf="@+id/tv_second_new"></View>
 
         <View
             android:id="@+id/apply1_sepa_bottom3"
@@ -135,7 +135,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_aply_cantime"></View>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_second_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -182,11 +182,11 @@
             android:layout_marginTop="0dp"
             android:minHeight="30dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_second_new"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/textView6"
             app:layout_constraintRight_toRightOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView7">
+            app:layout_constraintTop_toTopOf="@+id/tv_second_new">
 
 
         </LinearLayout>

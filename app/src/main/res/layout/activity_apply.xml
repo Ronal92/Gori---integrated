@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <goriproject.ykjw.com.myapplication.CircleImageView
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
             android:id="@+id/apply_profile1"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -57,7 +57,7 @@
             android:id="@+id/tv_sinchung4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="신청서 \n작성"

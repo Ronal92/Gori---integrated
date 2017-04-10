@@ -17,9 +17,7 @@ import com.bumptech.glide.Glide;
 public class PhoneCheckFragment extends Fragment {
 
     ApplyActivity activity;
-
     ImageView phone_profile;
-
 
     public PhoneCheckFragment() {
         // Required empty public constructor

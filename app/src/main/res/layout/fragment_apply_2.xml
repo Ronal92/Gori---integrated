@@ -78,7 +78,7 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_place_confirm2"
             app:layout_constraintRight_toLeftOf="@+id/textView34" />
 
-        <goriproject.ykjw.com.myapplication.CircleImageView
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
             android:id="@+id/img_apply2_profile"
             android:layout_width="60dp"
             android:layout_height="60dp"
