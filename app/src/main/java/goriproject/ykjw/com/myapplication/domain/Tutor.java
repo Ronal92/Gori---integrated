@@ -1,12 +1,14 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Younkyu on 2017-04-06.
  */
 
 
 
-public class Tutor
+public class Tutor implements Serializable
 {
     private String is_verified;
 

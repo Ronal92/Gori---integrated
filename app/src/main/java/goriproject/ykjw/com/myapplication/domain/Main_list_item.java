@@ -1,14 +1,17 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Younkyu on 2017-04-06.
  */
 
-public class Main_list_item
+public class Main_list_item implements Serializable
 {
     private String created_date;
+
+    private String is_school;
 
     private String cover_image;
 
@@ -18,19 +21,31 @@ public class Main_list_item
 
     private String is_soldout;
 
+    private List<String> regions;
+
+    public List<String> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<String> regions) {
+        this.regions = regions;
+    }
+
+    private String type;
+
     private String price_per_hour;
 
     private String title;
 
+    private String category;
+
     private String number_of_class;
 
-    private String category_name;
-
-    private List<String> locations;
+    private String average_rate;
 
     private Tutor tutor;
 
-    private String type_name;
+    private String registration_count;
 
     private String pk;
 
@@ -42,6 +57,16 @@ public class Main_list_item
     public void setCreated_date (String created_date)
     {
         this.created_date = created_date;
+    }
+
+    public String getIs_school ()
+    {
+        return is_school;
+    }
+
+    public void setIs_school (String is_school)
+    {
+        this.is_school = is_school;
     }
 
     public String getCover_image ()
@@ -84,6 +109,16 @@ public class Main_list_item
         this.is_soldout = is_soldout;
     }
 
+    public String getType ()
+    {
+        return type;
+    }
+
+    public void setType (String type)
+    {
+        this.type = type;
+    }
+
     public String getPrice_per_hour ()
     {
         return price_per_hour;
@@ -104,6 +139,16 @@ public class Main_list_item
         this.title = title;
     }
 
+    public String getCategory ()
+    {
+        return category;
+    }
+
+    public void setCategory (String category)
+    {
+        this.category = category;
+    }
+
     public String getNumber_of_class ()
     {
         return number_of_class;
@@ -114,24 +159,14 @@ public class Main_list_item
         this.number_of_class = number_of_class;
     }
 
-    public String getCategory_name ()
+    public String getAverage_rate ()
     {
-        return category_name;
+        return average_rate;
     }
 
-    public void setCategory_name (String category_name)
+    public void setAverage_rate (String average_rate)
     {
-        this.category_name = category_name;
-    }
-
-    public List<String> getLocations ()
-    {
-        return locations;
-    }
-
-    public void setLocations (List<String> locations)
-    {
-        this.locations = locations;
+        this.average_rate = average_rate;
     }
 
     public Tutor getTutor ()
@@ -144,14 +179,14 @@ public class Main_list_item
         this.tutor = tutor;
     }
 
-    public String getType_name ()
+    public String getRegistration_count ()
     {
-        return type_name;
+        return registration_count;
     }
 
-    public void setType_name (String type_name)
+    public void setRegistration_count (String registration_count)
     {
-        this.type_name = type_name;
+        this.registration_count = registration_count;
     }
 
     public String getPk ()
@@ -167,6 +202,6 @@ public class Main_list_item
     @Override
     public String toString()
     {
-        return "ClassPojo [created_date = "+created_date+", cover_image = "+cover_image+", hours_per_class = "+hours_per_class+", review_count = "+review_count+", is_soldout = "+is_soldout+", price_per_hour = "+price_per_hour+", title = "+title+", number_of_class = "+number_of_class+", category_name = "+category_name+", locations = "+locations+", tutor = "+tutor+", type_name = "+type_name+", pk = "+pk+"]";
+        return "ClassPojo [created_date = "+created_date+", is_school = "+is_school+", cover_image = "+cover_image+", hours_per_class = "+hours_per_class+", review_count = "+review_count+", is_soldout = "+is_soldout+", regions = "+regions+", type = "+type+", price_per_hour = "+price_per_hour+", title = "+title+", category = "+category+", number_of_class = "+number_of_class+", average_rate = "+average_rate+", tutor = "+tutor+", registration_count = "+registration_count+", pk = "+pk+"]";
     }
 }

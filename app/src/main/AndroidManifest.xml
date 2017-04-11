@@ -25,7 +25,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SignInActivity"
@@ -39,22 +43,12 @@
             android:name=".ApplyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".SecondActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".IntroduceGoriActivity" />
+        <activity
             android:name=".MyPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SecondActivity"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-         </activity>
-
-        <activity android:name=".IntroduceGoriActivity" />
-
-
     </application>
 
 </manifest>

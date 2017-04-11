@@ -24,6 +24,10 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import goriproject.ykjw.com.myapplication.Interfaces.SignUpInterface;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static goriproject.ykjw.com.myapplication.Statics.useremail;
 import static goriproject.ykjw.com.myapplication.Statics.userid;
 import static goriproject.ykjw.com.myapplication.Statics.username;
@@ -43,6 +47,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
+    public void emailsignup(View view) {
+
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        SignUpInterface signUpInterface = retrofit.create(SignUpInterface.class);
+
+
+
+    }
+
 
     @Override
     public void onClick(View v) {

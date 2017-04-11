@@ -60,8 +60,8 @@
 
                 <ImageView
                     android:id="@+id/ivlogo2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
@@ -69,8 +69,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                    <!--app:srcCompat="@drawable/logo2" />-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo2" />
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -84,26 +84,30 @@
                     android:layout_height="230dp">
 
                     <ImageView
-                        android:id="@+id/imageView1"
+                        android:id="@+id/iv_second_cover"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="180dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
                         android:scaleType="fitXY"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/list_dummy" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <goriproject.ykjw.com.myapplication.Custom.CircleImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:id="@+id/iv_second_profile"
+                        android:layout_width="80dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center_horizontal"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/test2"
                         android:transformPivotY="-20dp"
-                        app:layout_constraintRight_toRightOf="@+id/imageView1"
-                        app:layout_constraintLeft_toLeftOf="@+id/imageView1"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        android:layout_marginRight="0dp"
+                        app:layout_constraintRight_toRightOf="@+id/iv_second_cover"
+                        android:layout_marginLeft="0dp"
+                        app:layout_constraintLeft_toLeftOf="@+id/iv_second_cover"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="0dp" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -115,7 +119,7 @@
                     android:textAlignment="center" />
 
                 <TextView
-                    android:id="@+id/txt_second_title"
+                    android:id="@+id/txt_second_Title"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:text="칼퇴를 위한 실무 엑셀"
@@ -149,7 +153,7 @@
                     <View
                         android:id="@+id/sepa_second_row"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="1dp"
                         android:layout_marginBottom="8dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
@@ -165,7 +169,7 @@
 
                     <View
                         android:id="@+id/sepa_second_col"
-                        android:layout_width="0dp"
+                        android:layout_width="1dp"
                         android:layout_height="0dp"
                         android:layout_marginBottom="32dp"
                         android:layout_marginEnd="32dp"
@@ -181,8 +185,8 @@
 
                     <ImageView
                         android:id="@+id/img_second_location"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -196,8 +200,8 @@
 
                     <ImageView
                         android:id="@+id/img_second_maxman"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginBottom="24dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
@@ -211,8 +215,8 @@
 
                     <ImageView
                         android:id="@+id/img_second_timeper"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -226,8 +230,8 @@
 
                     <ImageView
                         android:id="@+id/img_second_schedule"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -240,9 +244,9 @@
                         android:layout_marginBottom="24dp" />
 
                     <TextView
-                        android:id="@+id/tv_second_location"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:id="@+id/tv_second_maxman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -254,9 +258,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/img_second_maxman" />
 
                     <TextView
-                        android:id="@+id/tv_second_maxman"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:id="@+id/tv_second_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -269,8 +273,8 @@
 
                     <TextView
                         android:id="@+id/tv_second_timeper"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginStart="32dp"
@@ -283,8 +287,8 @@
 
                     <TextView
                         android:id="@+id/tv_second_schedule"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -297,8 +301,8 @@
 
                     <Button
                         android:id="@+id/btn_second_numoftuty"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="90dp"
+                        android:layout_height="15dp"
                         android:background="@drawable/custom_button7"
                         android:text="Button"
                         android:textColor="#ffffff"
@@ -315,10 +319,7 @@
 
 
 
-            <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/relativeLayout">-->
+
 
             <android.support.design.widget.TabLayout
                 android:layout_width="match_parent"
@@ -333,7 +334,7 @@
                 android:id="@+id/viewPager"
                 android:layout_below="@+id/tab"/>
 
-            <!--</RelativeLayout>-->
+
 
         </LinearLayout>
 
@@ -364,7 +365,7 @@
 
         <CheckBox
             android:id="@+id/checkbox_wishList"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="0dp"
             android:button="@drawable/custom_checkbox"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -374,7 +375,7 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="0dp"
             android:background="#FFFFFFFF"
             android:onClick="shareFacebook"

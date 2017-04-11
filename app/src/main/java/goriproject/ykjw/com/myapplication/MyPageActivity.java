@@ -1,37 +1,57 @@
 package goriproject.ykjw.com.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static goriproject.ykjw.com.myapplication.Statics.useremail;
+import static goriproject.ykjw.com.myapplication.Statics.userid;
+import static goriproject.ykjw.com.myapplication.Statics.username;
 
 /**
  * MyPage에서 수강생 탭과 튜터 탭을 보여준다.
  * inner Fragment로 MypageTuteeFragment, MypageTutorFragment가 있다.
  */
-public class MyPageActivity extends AppCompatActivity {
+public class MyPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private  MypageTuteeFragment TuteeFragment = null;
     private MypageTutorFragment TutorFragment = null;
+
+    DrawerLayout drawer;
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
+        // 드로어레이아웃
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mypage);
+        navigationView  = (NavigationView) findViewById(R.id.nav_view_mypage);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // 프래그먼트
         TuteeFragment = new MypageTuteeFragment();
         TutorFragment = new MypageTutorFragment();
 
@@ -85,6 +105,54 @@ public class MyPageActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    /**
+       네비게이션 드로어 설정
+     */
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+
+        int id = item.getItemId();
+
+        if (id == R.id.menu_introduce_gori) {
+            //TODO 고리소개 페이지로드
+        } else if (id == R.id.menu_signinout) {
+            if(userid != null) {
+                userid = null;
+                username = null;
+                useremail = null;
+                item.setTitle("로그인");
+                Toast.makeText(MyPageActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+            }else {
+                Intent intent = new Intent(MyPageActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+
+        } else if (id == R.id.menu_mypage) {
+
+        } else if (id == R.id.menu_tutor_go) {
+            // 아직 구현할 생각 없음
+            Toast.makeText(MyPageActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_LONG).show();
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
 
     /**
      * Mypage 수강생 탭에서 수업신청서, 수강목록, 위시리스트 페이저를 생성해준다.

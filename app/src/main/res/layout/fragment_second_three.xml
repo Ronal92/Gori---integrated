@@ -1,16 +1,343 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jinwoo.android.fragmenttab.ThreeFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Three"
-        android:textSize="24sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="295dp"
+                android:layout_height="81dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/lightGrey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.095"
+                android:id="@+id/constraintLayout3"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp">
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="리뷰"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                app:layout_constraintHorizontal_bias="0.381"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.229" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="(0)"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintLeft_toRightOf="@+id/textView14"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.22000003"
+                android:layout_marginStart="8dp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+                app:layout_constraintHorizontal_bias="0.266"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout3"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout3"
+                app:layout_constraintVertical_bias="0.469"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:text="0"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/ratingBar3"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout3"
+                app:layout_constraintVertical_bias="0.446" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                app:layout_constraintTop_toTopOf="@+id/textView17"
+                android:layout_marginTop="51dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView18"
+                app:layout_constraintHorizontal_bias="0.235"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="36dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView19"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                android:layout_marginTop="43dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView20"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/textView17"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                android:layout_marginRight="8dp"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.395"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <RatingBar
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                android:id="@+id/ratingBar5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/textView18"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar4"
+                app:layout_constraintHorizontal_bias="0.395"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <RatingBar
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                android:id="@+id/ratingBar6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/textView19"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="33dp"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar5"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.395"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <RatingBar
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                android:id="@+id/ratingBar7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/textView20"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="36dp"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar6"
+                app:layout_constraintHorizontal_bias="0.382"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <RatingBar
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/duskYellow"
+                android:progressTintMode="src_atop"
+                android:secondaryProgressTint="@color/lightGrey"
+                android:secondaryProgressTintMode="src_atop"
+                android:id="@+id/ratingBar8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/textView21"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="38dp"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar7"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.382"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnReview_second_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/custom_button2"
+                android:text="리뷰쓰기"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintHorizontal_bias="0.871"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycView_fragmentsecond_three"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="500dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
+</ScrollView>

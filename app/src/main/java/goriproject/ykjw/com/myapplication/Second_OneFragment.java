@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,12 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.Random;
 
+import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.Tutor;
+
+import static goriproject.ykjw.com.myapplication.Statics.datas;
+import static goriproject.ykjw.com.myapplication.Statics.maxsize;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +41,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     LinearLayout ll_one_curiculum;
     View view;
     private Talent talent;
-    tutor t1,t2,t3,t4;
+    Main_list_item t1,t2,t3,t4;
 
     SecondActivity activity;
 
@@ -153,14 +160,12 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
         TextView tv_one_otherlocation3 = (TextView)view.findViewById(R.id.tv_one_otherlocation3);
         TextView tv_one_otherlocation4 = (TextView)view.findViewById(R.id.tv_one_otherlocation4);
 
-
-        /*
         // 랜덤 생성
-        if(TutorLoader.datas.size() == 0) {
+        if(datas.size() == 0 || datas == null) {
             TutorLoader.loadData();
         }
-        int maxsize = TutorLoader.datas.size();
-        int[] arr = new int[10];  //1차원배열 방 10개를 만듭니다.
+        Log.e("ddddddddddddxxxxxd", String.valueOf(maxsize));
+        int[] arr = new int[maxsize];  //1차원배열 방 10개를 만듭니다.
         int ran=0;    //랜덤값을 받을 변수를 만듭니다.
         boolean cheak;    // 비교하기 위해 boolean형 변수를 만듭니다.
         Random r = new Random();    // Random형 객체를 만듭니다.
@@ -181,32 +186,51 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                 arr[i] = ran;    // ran에 받은 값을 arr[i]방에 넣습니다.
         }
 
+        TutorLoader.loadData();
+
         // 데이터 넣기
-        t1 = TutorLoader.datas.get(arr[0]);
-        Glide.with(getContext()).load(R.drawable.list_dummy).into(iv_one_otherimg1);
-        tv_one_otherimg1.setText(t1.getClass_name());
-        tv_one_otherlocation1.setText(t1.getLocation());
+        t1 = datas.get(arr[0]);
+        Glide.with(getContext()).load(t1.getCover_image()).into(iv_one_otherimg1);
+        tv_one_otherimg1.setText(t1.getTitle());
+        if(t1.getRegions() != null && t1.getRegions().size() != 0) {
+            tv_one_otherlocation1.setText(t1.getRegions().get(0));
+        } else {
+            tv_one_otherlocation1.setText("지역없음");
+        }
 
-        t2 = TutorLoader.datas.get(arr[1]);
-        Glide.with(getContext()).load(R.drawable.list_dummy).into(iv_one_otherimg2);
-        tv_one_otherimg2.setText(t2.getClass_name());
-        tv_one_otherlocation2.setText(t2.getLocation());
 
-        t3 = TutorLoader.datas.get(arr[2]);
-        Glide.with(getContext()).load(R.drawable.list_dummy).into(iv_one_otherimg3);
-        tv_one_otherimg3.setText(t3.getClass_name());
-        tv_one_otherlocation3.setText(t3.getLocation());
+        t2 = datas.get(arr[1]);
+        Glide.with(getContext()).load(t2.getCover_image()).into(iv_one_otherimg2);
+        tv_one_otherimg2.setText(t2.getTitle());
+        if(t2.getRegions() != null && t2.getRegions().size() != 0) {
+            tv_one_otherlocation2.setText(t2.getRegions().get(0));
+        } else {
+            tv_one_otherlocation2.setText("지역없음");
+        }
 
-        t4 = TutorLoader.datas.get(arr[3]);
-        Glide.with(getContext()).load(R.drawable.list_dummy).into(iv_one_otherimg4);
-        tv_one_otherimg4.setText(t4.getClass_name());
-        tv_one_otherlocation4.setText(t4.getLocation());
+        t3 = datas.get(arr[2]);
+        Glide.with(getContext()).load(t3.getCover_image()).into(iv_one_otherimg3);
+        tv_one_otherimg3.setText(t3.getTitle());
+        if(t3.getRegions() != null && t3.getRegions().size() != 0) {
+            tv_one_otherlocation3.setText(t3.getRegions().get(0));
+        } else {
+            tv_one_otherlocation3.setText("지역없음");
+        }
+
+        t4 = datas.get(arr[3]);
+        Glide.with(getContext()).load(t4.getCover_image()).into(iv_one_otherimg4);
+        tv_one_otherimg4.setText(t4.getTitle());
+        if(t4.getRegions() != null && t4.getRegions().size() != 0) {
+            tv_one_otherlocation4.setText(t4.getRegions().get(0));
+        } else {
+            tv_one_otherlocation4.setText("지역없음");
+        }
 
         iv_one_otherimg1.setOnClickListener(cl);
         iv_one_otherimg2.setOnClickListener(cl);
         iv_one_otherimg3.setOnClickListener(cl);
         iv_one_otherimg4.setOnClickListener(cl);
-        */
+
         return view;
     }
 
@@ -217,26 +241,34 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             switch (v.getId()) {
                 case R.id.iv_one_otherimg1 :
                     intent = new Intent(getContext(), SecondActivity.class);
-                    intent.putExtra("id",t1.getTutor_id());
+                    onDetach();
                     activity.finish();
+                    intent.putExtra("id",Integer.parseInt(t1.getPk().trim()));
+                    intent.putExtra("item",t1);
                     getContext().startActivity(intent);
                     break;
                 case R.id.iv_one_otherimg2 :
                     intent = new Intent(getContext(), SecondActivity.class);
-                    intent.putExtra("id",t2.getTutor_id());
+                    onDetach();
                     activity.finish();
+                    intent.putExtra("id",Integer.parseInt(t2.getPk().trim()));
+                    intent.putExtra("item",t2);
                     getContext().startActivity(intent);
                     break;
                 case R.id.iv_one_otherimg3 :
                     intent = new Intent(getContext(), SecondActivity.class);
-                    intent.putExtra("id",t3.getTutor_id());
+                    onDetach();
                     activity.finish();
+                    intent.putExtra("id",Integer.parseInt(t3.getPk().trim()));
+                    intent.putExtra("item",t3);
                     getContext().startActivity(intent);
                     break;
                 case R.id.iv_one_otherimg4 :
                     intent = new Intent(getContext(), SecondActivity.class);
-                    intent.putExtra("id",t4.getTutor_id());
+                    onDetach();
                     activity.finish();
+                    intent.putExtra("id",Integer.parseInt(t4.getPk().trim()));
+                    intent.putExtra("item",t4);
                     getContext().startActivity(intent);
                     break;
             }
