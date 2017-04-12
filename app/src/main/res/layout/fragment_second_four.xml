@@ -1,17 +1,104 @@
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jinwoo.android.fragmenttab.FourFragment">
+    android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/tv_secondfour_muni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Four"
-        android:textSize="24sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="문의"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="18sp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="강의제목"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_secondfour_muni"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_secondfour2" />
+
+    <TextView
+        android:id="@+id/tv_secondfour2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="수업과 관련해서 궁금한 점이 있으세요?"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintLeft_toLeftOf="@+id/editText2" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_custom"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="문의를 남겨주시면 튜터가 답변을 해드립니다. \n개인연락처는 입력이 불가합니다."
+        android:inputType="textPersonName"
+        android:maxLines="3"
+        android:padding="5dp"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_secondfour2" />
+
+    <CheckBox
+        android:id="@+id/cb_secondfour_anomy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="익명으로 쓰기"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+    <Button
+        android:id="@+id/btn_secondfour_qna"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_button4"
+        android:text="질문하기"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        app:layout_constraintRight_toRightOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        android:layout_marginRight="-1dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_secondfour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_secondfour_qna" />
+
+</android.support.constraint.ConstraintLayout>

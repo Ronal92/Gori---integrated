@@ -147,5 +147,8 @@ public class ApplyActivity extends AppCompatActivity {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -3,6 +3,8 @@ package goriproject.ykjw.com.myapplication;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import java.util.Random;
 
 import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain.Tutor;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
@@ -42,8 +47,11 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     View view;
     private Talent talent;
     Main_list_item t1,t2,t3,t4;
-
+    Main_list_item item;
+    TalentDetail td = new TalentDetail();
     SecondActivity activity;
+
+    TextView txt_secondone_allprice,txt_secondone_alltime,txt_one_tutorinfo,txt_one_whotuty,txt_one_introduce;
 
     public void setActivity(SecondActivity activity){
         this.activity = activity;
@@ -52,99 +60,186 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     public Second_OneFragment() {
         // Required empty public constructor
     }
-    public void setTalent(Talent talenta) {
+    public void setTalent(Talent talenta, Main_list_item item, TalentDetail td) {
         // Required empty public constructor
         talent = talenta;
+        this.item = item;
+        this.td = td;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(view != null) {
+            ImageView iv_second_profile = (ImageView)view.findViewById(R.id.iv_second_profile);
+            ImageView iv_second_cover = (ImageView)view.findViewById(R.id.iv_second_cover);
+            Glide.with(this).load(item.getCover_image()).thumbnail(0.1f).into(iv_second_cover);
+            Glide.with(this).load(item.getTutor().getProfile_image()).into(iv_second_profile);
+            return view;
+        }
+
         view = inflater.inflate(R.layout.fragment_second_one, container, false);
 
-        ll_one_curiculum = (LinearLayout)view.findViewById(R.id.ll_one_curiculum);
-        for(int i = 0 ; i < 5 ; i ++) {
-            LinearLayout li_son = new LinearLayout(getContext());
-            li_son.setOrientation(LinearLayout.HORIZONTAL);
-            LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            li_son.setLayoutParams(p2);
-
-            LinearLayout li_son2 = new LinearLayout(getContext());
-            li_son2.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams p4 = new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.MATCH_PARENT);
-            li_son2.setLayoutParams(p4);
-
-            ImageView iv = new ImageView(getContext());
-            Glide.with(getContext()).load(R.drawable.dong2).into(iv);
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(40, 40);
-            iv.setLayoutParams(p);
-            ImageView iv2 = new ImageView(getContext());
-            Glide.with(getContext()).load(R.drawable.aaa).into(iv2);
-            LinearLayout.LayoutParams p5 = new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.MATCH_PARENT);
-            iv2.setLayoutParams(p5);
-
-            li_son2.addView(iv);
-            li_son2.addView(iv2);
-
-            LinearLayout li_son3 = new LinearLayout(getContext());
-            li_son3.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            li_son3.setLayoutParams(p6);
-
-            TextView tv_curi_hoicha = new TextView(getContext());
-            LinearLayout.LayoutParams p9 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            tv_curi_hoicha.setLayoutParams(p9);
-            tv_curi_hoicha.setTextSize(20);
-            //tv_curi_hoicha.setPadding(30,0,0,15); // 나중에는 이걸로 설정할듯
-            tv_curi_hoicha.setPadding(00,0,0,15);
-            tv_curi_hoicha.setTextColor(getResources().getColor(R.color.colorAccent));
-            tv_curi_hoicha.setText(i+1 + "회차");
-
-            TextView tv_curi = new TextView(getContext());
-            //tv_curi.setPadding(30,0,30,0);
-            LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            tv_curi.setTextSize(15);
-            tv_curi.setLayoutParams(p3);
-            tv_curi.setText("결과물 발표\n" +
-                    "\n" +
-                    "커리큘럼은 언제든지 변경될 수 있습니다.\n" +
-                    "수강생의 상황에 맞게 낭비되는 시간 없이 최적화 될 수 있도록 유연성 있게 구성하려고 합니다.\n");
-
-            ImageView iv3 = new ImageView(getContext());
-            Glide.with(getContext()).load(R.drawable.list_dummy).into(iv3);
-            LinearLayout.LayoutParams p7 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            iv3.setLayoutParams(p7);
-
-            li_son3.addView(tv_curi_hoicha);
-            li_son3.addView(tv_curi);
-            li_son3.addView(iv3);
-
-            //li_son.addView(li_son2);
-            li_son.addView(li_son3);
-
-            ll_one_curiculum.addView(li_son);
+        // 맨위 요약
+        RatingBar rating_second;
+        rating_second = (RatingBar)view.findViewById(R.id.rating_second);
+        TextView tv_second_new = (TextView)view.findViewById(R.id.tv_second_new);
+        if(Integer.parseInt(item.getReview_count().trim()) != 0) {
+            long ratinglong = Math.round(Double.parseDouble(item.getAverage_rate()));
+            int rating = (int)ratinglong;
+            rating_second.setRating(rating);
+            //레이팅바의 색깔을 바꿔야 할 경우에 사용
+            LayerDrawable stars = (LayerDrawable) rating_second.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            tv_second_new.setVisibility(View.GONE);
+        } else {
+            rating_second.setVisibility(View.GONE);
         }
+
+        ImageView iv_second_profile = (ImageView)view.findViewById(R.id.iv_second_profile);
+        ImageView iv_second_cover = (ImageView)view.findViewById(R.id.iv_second_cover);
+        Button btn_second_numoftuty = (Button)view.findViewById(R.id.btn_second_numoftuty);
+        TextView txt_name = (TextView)view.findViewById(R.id.txt_second_name);
+        TextView txt_title = (TextView)view.findViewById(R.id.txt_second_Title);
+        TextView tv_location = (TextView)view.findViewById(R.id.tv_second_location);
+        TextView tv_price = (TextView)view.findViewById(R.id.tv_second_timeper);
+        TextView tv_maxman = (TextView)view.findViewById(R.id.tv_second_maxman);
+        TextView tv_schedule = (TextView)view.findViewById(R.id.tv_second_schedule);
+        txt_name.setText(item.getTutor().getName()+"/"+item.getTutor().getNickname());
+        txt_title.setText(item.getTitle());
+        if(item.getRegions() != null) {
+            String location = "";
+            for(String i : item.getRegions()) {
+                location = location + ", " + i;
+            }
+            if(location.length() > 2) {
+                location = location.substring(2,location.length());
+                tv_location.setText(location);
+            } else {
+                tv_location.setText("없음");
+            }
+        } else {
+
+        }
+
+        Glide.with(this).load(item.getCover_image()).thumbnail(0.1f).into(iv_second_cover);
+        Glide.with(this).load(item.getTutor().getProfile_image()).into(iv_second_profile);
+
+        tv_price.setText(item.getPrice_per_hour()+"원/시간");
+        tv_maxman.setText("최대"+item.getNumber_of_class()+"명");
+        tv_schedule.setText(item.getHours_per_class()+"시간/회");
+        btn_second_numoftuty.setText("누적참여자"+item.getReview_count()+"명");
+
+        int time = Integer.parseInt(td.getHours_per_class().trim())*Integer.parseInt(td.getNumber_of_class().trim());
+        int priceall = time * Integer.parseInt(td.getPrice_per_hour().trim());
+
+        //수업 기본 정보 뿌리기
+
+        txt_one_tutorinfo = (TextView)view.findViewById(R.id.txt_one_tutorinfo);
+        txt_one_introduce = (TextView)view.findViewById(R.id.txt_one_introduce);
+        txt_one_whotuty = (TextView)view.findViewById(R.id.txt_one_whotuty);
+        txt_secondone_alltime = (TextView)view.findViewById(R.id.txt_secondone_alltime);
+        txt_secondone_allprice = (TextView)view.findViewById(R.id.txt_secondone_allprice);
+
+        txt_one_tutorinfo.setText(td.getTutor_info());
+        txt_one_introduce.setText(td.getClass_info());
+        txt_secondone_allprice.setText("총 "+priceall+"원");
+        txt_secondone_alltime.setText(td.getNumber_of_class()+"회 총 "+time+"시간");
+
+        //커리큘럼 추가 부분
+        ll_one_curiculum = (LinearLayout)view.findViewById(R.id.ll_one_curiculum);
+
+        Log.e("dfaasdfasdfasdf",String.valueOf(td.getTitle()));
+        if(td.getCurriculums() != null) {
+            for(int i = 0 ; i < td.getCurriculums().size(); i ++) {
+                LinearLayout li_son = new LinearLayout(getContext());
+                li_son.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                li_son.setLayoutParams(p2);
+
+                LinearLayout li_son2 = new LinearLayout(getContext());
+                li_son2.setOrientation(LinearLayout.VERTICAL);
+                LinearLayout.LayoutParams p4 = new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.MATCH_PARENT);
+                li_son2.setLayoutParams(p4);
+
+                ImageView iv = new ImageView(getContext());
+                Glide.with(getContext()).load(R.drawable.dong2).into(iv);
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(40, 40);
+                iv.setLayoutParams(p);
+                ImageView iv2 = new ImageView(getContext());
+                Glide.with(getContext()).load(R.drawable.aaa).into(iv2);
+                LinearLayout.LayoutParams p5 = new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.MATCH_PARENT);
+                iv2.setLayoutParams(p5);
+
+                li_son2.addView(iv);
+                li_son2.addView(iv2);
+
+                LinearLayout li_son3 = new LinearLayout(getContext());
+                li_son3.setOrientation(LinearLayout.VERTICAL);
+                LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                li_son3.setLayoutParams(p6);
+
+                TextView tv_curi_hoicha = new TextView(getContext());
+                LinearLayout.LayoutParams p9 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tv_curi_hoicha.setLayoutParams(p9);
+                tv_curi_hoicha.setTextSize(20);
+                //tv_curi_hoicha.setPadding(30,0,0,15); // 나중에는 이걸로 설정할듯
+                tv_curi_hoicha.setPadding(00,0,0,15);
+                tv_curi_hoicha.setTextColor(getResources().getColor(R.color.colorAccent));
+                tv_curi_hoicha.setText(i+1 + "회차");
+
+                TextView tv_curi = new TextView(getContext());
+                //tv_curi.setPadding(30,0,30,0);
+                LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tv_curi.setTextSize(15);
+                tv_curi.setLayoutParams(p3);
+                tv_curi.setText(td.getCurriculums().get(i).getInformation());
+                li_son3.addView(tv_curi_hoicha);
+                li_son3.addView(tv_curi);
+
+                if(td.getCurriculums().get(i).getImage() != null) {
+                    ImageView iv3 = new ImageView(getContext());
+                    Glide.with(getContext()).load(td.getCurriculums().get(i).getImage()).into(iv3);
+                    LinearLayout.LayoutParams p7 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    iv3.setLayoutParams(p7);
+                    li_son3.addView(iv3);
+                }
+
+
+                //li_son.addView(li_son2);
+                li_son.addView(li_son3);
+
+                ll_one_curiculum.addView(li_son);
+            }
+        }
+
 
         //유튜브
-        YouTubePlayerSupportFragment mYoutubePlayerFragment = new YouTubePlayerSupportFragment();
-        mYoutubePlayerFragment.initialize("AIzaSyBQVAdj7fCNWvgha7ue8EXg2hCn-1lUBBo", this);
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_youtube_player, mYoutubePlayerFragment);
-        fragmentTransaction.commit();
-
-
-        //관련 이미지
-        for(int i = 0 ; i < 5 ; i ++) {
-            LinearLayout li_one_img = (LinearLayout)view.findViewById(R.id.li_one_img);
-            ImageView iv3 = new ImageView(getContext());
-            Glide.with(getContext()).load(R.drawable.list_dummy).into(iv3);
-            LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            p6.setMargins(0,20,0,20);
-            iv3.setLayoutParams(p6);
-            li_one_img.addView(iv3);
+        if(td.getVideo1() != "") {
+            YouTubePlayerSupportFragment mYoutubePlayerFragment = new YouTubePlayerSupportFragment();
+            mYoutubePlayerFragment.initialize("AIzaSyBQVAdj7fCNWvgha7ue8EXg2hCn-1lUBBo", this);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_youtube_player, mYoutubePlayerFragment);
+            fragmentTransaction.commit();
+        } else {
+            FrameLayout yt = (FrameLayout)view.findViewById(R.id.fragment_youtube_player);
+            yt.setVisibility(View.GONE);
         }
+        //관련 이미지
+        if(td.getClass_images() != null) {
+            for(int i = 0 ; i < td.getClass_images().size() ; i ++) {
+                LinearLayout li_one_img = (LinearLayout)view.findViewById(R.id.li_one_img);
+                ImageView iv3 = new ImageView(getContext());
+                Glide.with(getContext()).load(td.getClass_images().get(i).getImage()).into(iv3);
+                LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                p6.setMargins(0,20,0,20);
+                iv3.setLayoutParams(p6);
+                li_one_img.addView(iv3);
+            }
+        }
+
 
         //다른 클래스 추가
         ImageView iv_one_otherimg1 = (ImageView)view.findViewById(R.id.iv_one_otherimg1);
@@ -280,7 +375,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if(!wasRestored){
-            youTubePlayer.cueVideo("xpw-RsB57Js");
+            youTubePlayer.cueVideo(td.getVideo1());
         }
     }
 

@@ -43,12 +43,13 @@
             android:name=".ApplyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SecondActivity"
-            android:launchMode="singleInstance" />
+            android:name=".SecondActivity"/>
         <activity android:name=".IntroduceGoriActivity" />
+
         <activity
             android:name=".MyPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

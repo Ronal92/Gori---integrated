@@ -2,6 +2,7 @@ package goriproject.ykjw.com.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,9 +46,8 @@ import java.util.List;
 import goriproject.ykjw.com.myapplication.domain.Main_list_item;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
-import static goriproject.ykjw.com.myapplication.Statics.useremail;
-import static goriproject.ykjw.com.myapplication.Statics.userid;
-import static goriproject.ykjw.com.myapplication.Statics.username;
+import static goriproject.ykjw.com.myapplication.Statics.is_signin;
+import static goriproject.ykjw.com.myapplication.Statics.key;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,6 +75,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        key = pref.getString("autologin", "");
+        Log.e("kkkkknjjjjjjjjjjjk",key);
+        if(key != null && key.length() > 0) {
+            is_signin = true;
+        }
+
+
+
         if(datas2.size() == 0) {
             TutorLoader.loadData();
             //Toast.makeText(this, TutorLoader.datasRealy.size(), Toast.LENGTH_SHORT).show();
@@ -86,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         rca.notifyDataSetChanged();
 
-        if(userid != null) {
+        if(is_signin) {
             navigationView = (NavigationView) findViewById(R.id.nav_view);
             // get menu from navigationView
             Menu menu = navigationView.getMenu();
@@ -604,11 +613,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             //TODO 고리소개 페이지로드
         } else if (id == R.id.menu_signinout) {
-            if(userid != null) {
-                userid = null;
-                username = null;
-                useremail = null;
+            if(is_signin) {
+                key = null;
+                is_signin = false;
                 item.setTitle("로그인");
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("autologin", null);
+                editor.commit();
                 Toast.makeText(MainActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
                 intent = new Intent(MainActivity.this, SignInActivity.class);

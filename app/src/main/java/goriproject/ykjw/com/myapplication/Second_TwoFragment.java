@@ -2,16 +2,22 @@ package goriproject.ykjw.com.myapplication;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 
 
 /**
@@ -19,8 +25,11 @@ import android.widget.RadioGroup;
  */
 public class Second_TwoFragment extends Fragment {
 
+    private static final String TAG = "RAPSTAR";
+    private static final String KEY_FOR_TALENTDETAIL = "twoFragmentTL";
+
     Context context = null;
-    private Talent talent;
+    private TalentDetail talentDetail = null;
 
     private View view;
 
@@ -28,11 +37,24 @@ public class Second_TwoFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setTalent(Talent talenta) {
-        // Required empty public constructor
-        talent = talenta;
+    //
+    public static Second_TwoFragment newInstance(TalentDetail talentDetail){
+        Second_TwoFragment secondTwoFragment = new Second_TwoFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(KEY_FOR_TALENTDETAIL, talentDetail);
+        secondTwoFragment.setArguments(args);
+        return secondTwoFragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) { // Heap 영역에 올라감.(객체생성하면)
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null){
+            this.talentDetail = (TalentDetail)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,11 +64,14 @@ public class Second_TwoFragment extends Fragment {
         }
         view = inflater.inflate(R.layout.fragment_second_two, container, false);
 
+
+
         showLocationConfirm();
 
         return view;
     }
 
+    // 위치 버튼
     public void showLocationConfirm() {
         // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
         RadioGroup dynamic_radioarea_loc = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_loc);
@@ -58,38 +83,45 @@ public class Second_TwoFragment extends Fragment {
         params_loc.setMargins(10, 20, 0, 0);
 
         // 라디오 버튼 동적 생성.
-        String[] location_title = {"이화여대", "강남", "신촌"};
-        makeRadioButtonLocation(params_loc, dynamic_radioarea_loc, location_title);
+        List<String> location = new ArrayList<>();
+        for(int i = 0; i < talentDetail.getLocations().size(); i++){
+            location.add(talentDetail.getLocations().get(i).getRegion());
+        }
+        //String[] location_title = {"이화여대", "강남", "신촌"};
+        makeRadioButtonLocation(params_loc, dynamic_radioarea_loc, location);
     }
 
-    public void makeRadioButtonLocation(RadioGroup.LayoutParams params, final RadioGroup dynamic_radioarea, String[] content) {
-        // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < content.length; j++) {
-            final RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setId(j);
-            radioButton.setText(content[j]);
-            radioButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            radioButton.setLayoutParams(params);
-            radioButton.setBackgroundResource(R.drawable.custom_button_selector);
-            radioButton.setButtonDrawable(new StateListDrawable());
-            radioButton.setPaddingRelative(60, 0, 60, 0);
-            radioButton.setHeight(130);
-            radioButton.setTag(j);
-            radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
 
-            radioButton.setOnClickListener(new View.OnClickListener() {
+    public void makeRadioButtonLocation(RadioGroup.LayoutParams params, final RadioGroup dynamic_radioarea, final List<String> location) {
+        // 동적으로 라디오 버튼 생성
+        for (int j = 0; j < location.size(); j++) {
+            final RadioButton radioButton_loc = new RadioButton(getContext());
+            radioButton_loc.setId(j);
+            radioButton_loc.setText(location.get(j));
+            radioButton_loc.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            radioButton_loc.setLayoutParams(params);
+            radioButton_loc.setBackgroundResource(R.drawable.custom_button_selector);
+            radioButton_loc.setButtonDrawable(new StateListDrawable());
+            radioButton_loc.setPaddingRelative(60, 0, 60, 0);
+            radioButton_loc.setHeight(130);
+            radioButton_loc.setTag(j);
+            radioButton_loc.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
+
+            final int loc_index = j;
+            radioButton_loc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showPossibleDay(radioButton.getText().toString());
+                    showPossibleDay(radioButton_loc.getText().toString(), loc_index);
                 }
             });
 
-            dynamic_radioarea.addView(radioButton);
+            dynamic_radioarea.addView(radioButton_loc);
         }
     }
 
-    public void showPossibleDay(String radioButtonLoc_txt) {
 
+    // 가능 요일
+    public void showPossibleDay(String radioButtonLoc_txt, int loc_index) {
 
         // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
         RadioGroup dynamic_radioarea_day = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_day);
@@ -101,47 +133,51 @@ public class Second_TwoFragment extends Fragment {
         params_day.setMargins(10, 20, 0, 0);
 
         dynamic_radioarea_day.removeAllViews();
-        if (radioButtonLoc_txt.equals("이화여대")) {
-            String[] day_title = {"월", "화", "수"};
-            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-        } else if (radioButtonLoc_txt.equals("강남")) {
-            String[] day_title = {"월", "화", "수", "목", "금", "토", "일"};
-            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-        } else if (radioButtonLoc_txt.equals("신촌")) {
-            String[] day_title = {"토", "일"};
-            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-        }
+
+        makeRadioButtonDay(params_day, dynamic_radioarea_day, loc_index);
+
+//        if (radioButtonLoc_txt.equals(location.get(0))) {
+//            String[] day_title = {"월", "화", "수"};
+//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
+//        } else if (radioButtonLoc_txt.equals("강남")) {
+//            String[] day_title = {"월", "화", "수", "목", "금", "토", "일"};
+//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
+//        } else if (radioButtonLoc_txt.equals("신촌")) {
+//            String[] day_title = {"토", "일"};
+//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
+//        }
 
     }
 
 
-    public void makeRadioButtonDay(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, String[] content) {
+    public void makeRadioButtonDay(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, final int loc_index) {
         // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < content.length; j++) {
+        //for (int j = 0; j < talentDetail.getLocations(); j++) {
             final RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setId(j);
-            radioButton.setText(content[j]);
+        //    radioButton.setId(j);
+            radioButton.setText(talentDetail.getLocations().get(loc_index).getDay());
             radioButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             radioButton.setLayoutParams(params);
             radioButton.setBackgroundResource(R.drawable.custom_button_selector);
             radioButton.setButtonDrawable(new StateListDrawable());
             radioButton.setPaddingRelative(60, 0, 60, 0);
             radioButton.setHeight(130);
-            radioButton.setTag(j);
+        //    radioButton.setTag(j);
             radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
+
 
             radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showPossibleTime(radioButton.getText().toString());
+                    showPossibleTime(radioButton.getText().toString(), loc_index);
                 }
             });
 
             dynamic_radioarea.addView(radioButton);
-        }
+        //}
     }
 
-    public void showPossibleTime(String radioButtonLoc_txt) {
+    public void showPossibleTime(String radioButtonLoc_txt, int loc_index) {
 
         // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
         RadioGroup dynamic_radioarea_time = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_time);
@@ -154,16 +190,21 @@ public class Second_TwoFragment extends Fragment {
 
         dynamic_radioarea_time.removeAllViews();
 
-        if (radioButtonLoc_txt.equals("월")) {
-            String[] time_title = {"06~08시", "12~14시"};
-            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-        } else if (radioButtonLoc_txt.equals("화")) {
-            String[] time_title = {"10~12시", "15~17시", "19~21시"};
-            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-        } else if (radioButtonLoc_txt.equals("수")) {
-            String[] time_title = {"15~17시"};
-            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-        }
+        // 각 시간별로 버튼을 만들어줘야 한다.
+            makeRadioButtonTime(params_day, dynamic_radioarea_time, talentDetail.getLocations().get(loc_index).getTime());
+
+
+
+//        if (radioButtonLoc_txt.equals("월")) {
+//            String[] time_title = {"06~08시", "12~14시"};
+//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
+//        } else if (radioButtonLoc_txt.equals("화")) {
+//            String[] time_title = {"10~12시", "15~17시", "19~21시"};
+//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
+//        } else if (radioButtonLoc_txt.equals("수")) {
+//            String[] time_title = {"15~17시"};
+//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
+//        }
 
     }
 

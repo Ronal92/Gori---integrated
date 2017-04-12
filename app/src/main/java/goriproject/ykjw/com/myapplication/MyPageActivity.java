@@ -1,6 +1,7 @@
 package goriproject.ykjw.com.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -24,9 +25,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static goriproject.ykjw.com.myapplication.Statics.useremail;
-import static goriproject.ykjw.com.myapplication.Statics.userid;
-import static goriproject.ykjw.com.myapplication.Statics.username;
+import static goriproject.ykjw.com.myapplication.Statics.is_signin;
+import static goriproject.ykjw.com.myapplication.Statics.key;
 
 /**
  * MyPage에서 수강생 탭과 튜터 탭을 보여준다.
@@ -107,7 +107,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
     }
 
     /**
-       네비게이션 드로어 설정
+     네비게이션 드로어 설정
      */
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -120,11 +120,14 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
         if (id == R.id.menu_introduce_gori) {
             //TODO 고리소개 페이지로드
         } else if (id == R.id.menu_signinout) {
-            if(userid != null) {
-                userid = null;
-                username = null;
-                useremail = null;
+            if(is_signin) {
+                key = null;
+                is_signin = false;
                 item.setTitle("로그인");
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("autologin", null);
+                editor.commit();
                 Toast.makeText(MyPageActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
                 Intent intent = new Intent(MyPageActivity.this, SignInActivity.class);
@@ -334,6 +337,3 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
     }
 
 }
-
-
-

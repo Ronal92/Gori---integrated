@@ -35,7 +35,6 @@
         android:background="@color/colorAccent"
         android:gravity="center_vertical"
         android:text="  회원가입"
-        android:textAlignment="viewStart"
         android:textColor="@android:color/background_light"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -146,7 +145,7 @@
         app:layout_constraintTop_toBottomOf="@+id/facebooksignup" />
 
     <EditText
-        android:id="@+id/signup_id"
+        android:id="@+id/signup_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -156,7 +155,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/edittext_custom"
         android:ems="10"
-        android:hint="id"
+        android:hint="name"
         android:inputType="textPersonName"
         android:padding="5dp"
         app:layout_constraintHorizontal_bias="0.52"
@@ -173,11 +172,11 @@
         android:hint="password"
         android:inputType="textPassword"
         android:padding="5dp"
-        app:layout_constraintLeft_toLeftOf="@+id/signup_id"
+        app:layout_constraintLeft_toLeftOf="@+id/signup_name"
         app:layout_constraintTop_toBottomOf="@+id/signup_email"
         android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/signup_id"
+        app:layout_constraintRight_toRightOf="@+id/signup_name"
         app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
@@ -204,9 +203,9 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="5dp"
-        app:layout_constraintLeft_toLeftOf="@+id/signup_id"
-        app:layout_constraintRight_toRightOf="@+id/signup_id"
-        app:layout_constraintTop_toBottomOf="@+id/signup_id"
+        app:layout_constraintLeft_toLeftOf="@+id/signup_name"
+        app:layout_constraintRight_toRightOf="@+id/signup_name"
+        app:layout_constraintTop_toBottomOf="@+id/signup_name"
         android:layout_marginTop="-1dp"
         app:layout_constraintHorizontal_bias="0.0" />
 
@@ -216,6 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_signup_button"
+        android:onClick="emailsignup"
         android:text="이메일아이디로 가입하기"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"

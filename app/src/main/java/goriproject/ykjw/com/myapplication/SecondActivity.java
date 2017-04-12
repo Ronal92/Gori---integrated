@@ -3,10 +3,12 @@ package goriproject.ykjw.com.myapplication;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -45,15 +47,25 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import goriproject.ykjw.com.myapplication.Custom.CustomPager;
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
 import goriproject.ykjw.com.myapplication.Custom.RectangleView;
+import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static goriproject.ykjw.com.myapplication.Statics.useremail;
-import static goriproject.ykjw.com.myapplication.Statics.userid;
-import static goriproject.ykjw.com.myapplication.Statics.username;
+import static goriproject.ykjw.com.myapplication.Statics.is_signin;
+import static goriproject.ykjw.com.myapplication.Statics.key;
 
 public class SecondActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -83,31 +95,18 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     NavigationView navigationView;
 
     Talent talent;
+    TalentDetail td = new TalentDetail();
 
-    float txtTitle_y_position = 0;
-    float tab_y_position = 0;
 
     private TabLayout mTabLayout;
 
-
-/*
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        txtTitle_y_position = txtTitle.getTop();
-        tab_y_position = tab.getTop();
-        Log.i(TAG,"=========================txtTitle_y_position : " + txtTitle_y_position + ", tab_y_position : " + tab_y_position);
-        scrollView.setTxtTitleForY(txtTitle_y_position + 180);
-        scrollView.setTabForY(tab_y_position + 120);
-        super.onWindowFocusChanged(hasFocus);
-    }
-*/
-
+    int id = -1; // 메인 액티비티에서 받은 primary key 값. 백 스레드에서 사용할 거기 때문에 전역으로 선언한다.
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(userid != null) {
+        if(is_signin) {
             navigationView = (NavigationView) findViewById(R.id.nav_view);
             // get menu from navigationView
             Menu menu = navigationView.getMenu();
@@ -127,8 +126,61 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         AppEventsLogger.activateApp(this);
 
         Intent intent = getIntent();
-        final int id = intent.getExtras().getInt("id");
+        id = intent.getExtras().getInt("id");
         Main_list_item item = (Main_list_item)intent.getSerializableExtra("item");
+
+
+
+        /*
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
+
+        final Call<TalentDetail> tds = tdService.getTalentDetail(String.valueOf(id));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    td = tds.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+*/
+
+
+        // 서버 연동하기!
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
+
+        BackDataLoader longOperation = new BackDataLoader();
+        longOperation.execute(tdService);
+        TalentDetail talentDetail = null;
+        try {
+            talentDetail = longOperation.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
 
         // 탭 레이아웃 & 뷰페이저 초기화
         ViewPager viewPager_second_activity = (ViewPager)findViewById(R.id.viewPager_second_activity);
@@ -139,10 +191,8 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mTabLayout.addTab(mTabLayout.newTab().setText("장소/시간"));
         mTabLayout.addTab(mTabLayout.newTab().setText("리뷰"));
         mTabLayout.addTab(mTabLayout.newTab().setText("문의"));
-        mTabLayout.bringToFront();
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager_second_activity));
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-
 
 
         //드로어레이아웃
@@ -153,13 +203,14 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         // 프래그먼트 초기화
         one = new Second_OneFragment();
-        two = new Second_TwoFragment();
+        two = Second_TwoFragment.newInstance(talentDetail);
         three = new Second_ThreeFragment();
         four = new Second_FourFragment();
-        one.setTalent(talent);
-        two.setTalent(talent);
-        three.setTalent(talent);
-        four.setTalent(talent);
+
+        one.setTalent(talent,item, talentDetail);
+        //two.setTalent(talentDetail,item);
+        //three.setTalent(talentDetail,item);
+        four.setTalent(talent,item);
         one.setActivity(this);
 
 
@@ -170,34 +221,13 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
-
                 intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
 
-        /*
-        for(Talent data : TalentLoader.talent_datas) {
-            if(data.getTalent_id() == id) {
-                talent = data;
-                Log.e("dddddddddddddddddd", talent.getTalent_name());
-                break;
-            }
-        }
 
-        btn_second_apply = (Button)findViewById(R.id.btn_second_apply);
-        btn_second_apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
-            }
-        });
-
-
-
-
+    /*
         // 체크 박스
         checkbox_wishList = (CheckBox)findViewById(R.id.checkbox_wishList);
         checkbox_wishList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -206,115 +236,36 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                 showMessage(isChecked);
             }
         });
+     */
+    }
 
-        // 텍스트뷰
-        subTitle = (TextView)findViewById(R.id.subTitle);
-        txtTitle = (TextView)findViewById(R.id.txt_second_Title);
-
-
+    private class BackDataLoader extends AsyncTask<Talent_Detail_Interface, Void, TalentDetail> {
 
 
-
-        // 탭 레이아웃 & 뷰페이저 초기화
-        final CustomPager viewPager = (CustomPager)findViewById(R.id.viewPager);
-        tab = (TabLayout)findViewById(R.id.tab);
-        tab.addTab(tab.newTab().setText("수업 소개"));
-        tab.addTab(tab.newTab().setText("장소/시간"));
-        tab.addTab(tab.newTab().setText("리뷰"));
-        tab.addTab(tab.newTab().setText("문의"));
-        subTab = (TabLayout)findViewById(R.id.subTab);
-        subTab.addTab(subTab.newTab().setText("수업 소개"));
-        subTab.addTab(subTab.newTab().setText("장소/시간"));
-        subTab.addTab(subTab.newTab().setText("리뷰"));
-        subTab.addTab(subTab.newTab().setText("문의"));
-
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        tab.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        subTab.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tab));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(subTab));
-
-
-
-
-        //스크롤 뷰
-        scrollView = (CustomScrollView)findViewById(R.id.scrollView);
-
-        scrollView.setOnAppearListener(new CustomScrollView.OnAppearListener() {
-            @Override
-            public void onAppearReached() {
-                subTitle.setVisibility(View.VISIBLE);
+        @Override
+        protected TalentDetail doInBackground(Talent_Detail_Interface... params) {
+            TalentDetail td = null;
+            try {
+                Call<TalentDetail> tds = params[0].getTalentDetail(String.valueOf(id));
+                td = tds.execute().body();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-        scrollView.setOnDestroyListener(new CustomScrollView.OnDestroyListener(){
-            @Override
-            public void onDestroyReached() {
-                subTitle.setVisibility(View.GONE);
-            }
-        });
-        scrollView.setTabAppearListener(new CustomScrollView.OnTabAppearListener(){
-            @Override
-            public void onTabAppearReached() {
-                subTab.setVisibility(View.VISIBLE);
-            }
-        });
-        scrollView.setTabDestroyListener(new CustomScrollView.OnTabDestroyListener(){
-            @Override
-            public void onTabDestroyReached(){
-                subTab.setVisibility(View.GONE);
-            }
-        });
-
-        rating_second = (RatingBar)findViewById(R.id.rating_second);
-        TextView tv_second_new = (TextView)findViewById(R.id.tv_second_new);
-        if(Integer.parseInt(item.getReview_count().trim()) != 0) {
-            long ratinglong = Math.round(Double.parseDouble(item.getAverage_rate()));
-            int rating = (int)ratinglong;
-            rating_second.setRating(rating);
-            //레이팅바의 색깔을 바꿔야 할 경우에 사용
-            LayerDrawable stars = (LayerDrawable) rating_second.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-            tv_second_new.setVisibility(View.GONE);
-        } else {
-            rating_second.setVisibility(View.GONE);
+            return td;
         }
 
-        ImageView iv_second_profile = (ImageView)findViewById(R.id.iv_second_profile);
-        ImageView iv_second_cover = (ImageView)findViewById(R.id.iv_second_cover);
-        Button btn_second_numoftuty = (Button)findViewById(R.id.btn_second_numoftuty);
-        TextView txt_name = (TextView)findViewById(R.id.txt_second_name);
-        TextView txt_title = (TextView)findViewById(R.id.txt_second_Title);
-        TextView tv_location = (TextView)findViewById(R.id.tv_second_location);
-        TextView tv_price = (TextView)findViewById(R.id.tv_second_timeper);
-        TextView tv_maxman = (TextView)findViewById(R.id.tv_second_maxman);
-        TextView tv_schedule = (TextView)findViewById(R.id.tv_second_schedule);
-        txt_name.setText(item.getTutor().getName()+"/"+item.getTutor().getNickname());
-        txt_title.setText(item.getTitle());
-        if(item.getRegions() != null) {
-            String location = "";
-            for(String i : item.getRegions()) {
-                location = location + ", " + i;
-            }
-            if(location.length() > 2) {
-                location = location.substring(2,location.length());
-                tv_location.setText(location);
-            } else {
-                tv_location.setText("없음");
-            }
-        } else {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(TalentDetail talentDetailResponse) {
+            super.onPostExecute(talentDetailResponse);
 
         }
 
-        Glide.with(this).load(item.getCover_image()).thumbnail(0.1f).into(iv_second_cover);
-        Glide.with(this).load(item.getTutor().getProfile_image()).into(iv_second_profile);
 
-        tv_price.setText(item.getPrice_per_hour()+"원");
-        tv_maxman.setText("최대"+item.getNumber_of_class()+"명");
-        tv_schedule.setText(item.getHours_per_class()+"시간/회");
-        btn_second_numoftuty.setText("누적참여자"+item.getReview_count()+"명");
-        */
     }
 
     // 위시리스트 결과를 보여주는 대화상자
@@ -347,11 +298,14 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         if (id == R.id.menu_introduce_gori) {
             //TODO 고리소개 페이지로드
         } else if (id == R.id.menu_signinout) {
-            if(userid != null) {
-                userid = null;
-                username = null;
-                useremail = null;
+            if(is_signin) {
+                key = null;
+                is_signin = false;
                 item.setTitle("로그인");
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("autologin", null);
+                editor.commit();
                 Toast.makeText(SecondActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
                 Intent intent = new Intent(SecondActivity.this, SignInActivity.class);

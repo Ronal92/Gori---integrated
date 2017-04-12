@@ -21,6 +21,7 @@ public class CustomPager extends ViewPager {
         super(context, attrs);
     }
 
+
         @Override
         public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             if (mCurrentView == null) {

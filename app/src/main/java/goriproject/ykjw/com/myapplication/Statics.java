@@ -10,12 +10,8 @@ import goriproject.ykjw.com.myapplication.domain.Main_list_item;
  */
 
 public class Statics {
-    public static String userid = null;
-    public static String username = null;
-    public static String useremail = null;
-    public static String phonenumber = null;
     public static boolean is_signin = false;
-
+    public static String key = null;
     public static List<Main_list_item> datas = new ArrayList<>();
     public static int maxsize;
 

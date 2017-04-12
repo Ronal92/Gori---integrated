@@ -7,27 +7,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Second_FourFragment extends Fragment {
-
+    View view;
     private Talent talent;
+    Main_list_item item;
     public Second_FourFragment() {
         // Required empty public constructor
     }
-    public void setTalent(Talent talenta) {
+
+    public void setTalent(Talent talenta, Main_list_item item) {
         // Required empty public constructor
         talent = talenta;
+        this.item = item;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second_four, container, false);
+        if(view != null) {
+            return view;
+        }
+
+        view = inflater.inflate(R.layout.fragment_second_four, container, false);
+
+        return view;
     }
 
 }
