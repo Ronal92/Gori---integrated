@@ -1,10 +1,12 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Younkyu on 2017-04-11.
  */
 
-public class Class_images
+public class Class_images implements Serializable
 {
     private String image;
 

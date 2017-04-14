@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 public class ApplyActivity extends AppCompatActivity {
 
     Apply_1Fragment ap1;
@@ -23,6 +25,7 @@ public class ApplyActivity extends AppCompatActivity {
     PhoneCheckFragment pc;
     FragmentManager manager;
     Talent talent;
+    TalentDetail td;
 
     ImageView img;
     @Override
@@ -47,11 +50,15 @@ public class ApplyActivity extends AppCompatActivity {
         // 프래그먼트 매니저 가져오기
         manager = getSupportFragmentManager();
 
-        img = (ImageView)findViewById(R.id.apply_profile1);
-        Glide.with(this).load(R.drawable.profile_dummy).into(img);
+
 
         Intent intent = getIntent();
         int id = intent.getExtras().getInt("id");
+        td = (TalentDetail)intent.getSerializableExtra("td");
+
+        img = (ImageView)findViewById(R.id.apply_profile1);
+        Glide.with(this).load(td.getTutor().getProfile_image()).into(img);
+
 
         for(Talent data : TalentLoader.talent_datas) {
             if(data.getTalent_id() == id) {

@@ -4,12 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,47 +17,30 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import goriproject.ykjw.com.myapplication.Custom.CustomPager;
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
-import goriproject.ykjw.com.myapplication.Custom.RectangleView;
-import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
-import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
@@ -94,13 +72,15 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     DrawerLayout drawer;
     NavigationView navigationView;
 
-    Talent talent;
-    TalentDetail td = new TalentDetail();
 
+    TalentDetail td = new TalentDetail();
+    ReviewRetrieve reviewRetrieve = new ReviewRetrieve();
+    float txtTitle_y_position = 0;
+    float tab_y_position = 0;
 
     private TabLayout mTabLayout;
 
-    int id = -1; // 메인 액티비티에서 받은 primary key 값. 백 스레드에서 사용할 거기 때문에 전역으로 선언한다.
+
 
     @Override
     protected void onResume() {
@@ -115,71 +95,28 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             logoutitem.setTitle(R.string.logoutitem);
         }
 
+
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_view);
-
+Log.i("RAPSTAR", "===================onCreate()");
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
+
+
         Intent intent = getIntent();
-        id = intent.getExtras().getInt("id");
-        Main_list_item item = (Main_list_item)intent.getSerializableExtra("item");
+        final int id = intent.getExtras().getInt("id");
+        Results item = (Results)intent.getSerializableExtra("item");
+        td = (TalentDetail)intent.getSerializableExtra("td");
+        reviewRetrieve = (ReviewRetrieve)intent.getSerializableExtra("review");
 
 
-
-        /*
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
-
-        final Call<TalentDetail> tds = tdService.getTalentDetail(String.valueOf(id));
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    td = tds.execute().body();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-*/
-
-
-        // 서버 연동하기!
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
-
-        BackDataLoader longOperation = new BackDataLoader();
-        longOperation.execute(tdService);
-        TalentDetail talentDetail = null;
-        try {
-            talentDetail = longOperation.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        Log.e("sdfdfdfadfasd", String.valueOf(td.getTitle()));
 
 
         // 탭 레이아웃 & 뷰페이저 초기화
@@ -191,8 +128,12 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mTabLayout.addTab(mTabLayout.newTab().setText("장소/시간"));
         mTabLayout.addTab(mTabLayout.newTab().setText("리뷰"));
         mTabLayout.addTab(mTabLayout.newTab().setText("문의"));
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager_second_activity));
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+
+
 
 
         //드로어레이아웃
@@ -203,14 +144,12 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         // 프래그먼트 초기화
         one = new Second_OneFragment();
-        two = Second_TwoFragment.newInstance(talentDetail);
-        three = new Second_ThreeFragment();
+        two = Second_TwoFragment.newInstance(td);
+        three = Second_ThreeFragment.newInstance(reviewRetrieve, id);
         four = new Second_FourFragment();
-
-        one.setTalent(talent,item, talentDetail);
-        //two.setTalent(talentDetail,item);
-        //three.setTalent(talentDetail,item);
-        four.setTalent(talent,item);
+        Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
+        one.setTalent(item, td);
+        four.setTalent(item);
         one.setActivity(this);
 
 
@@ -222,49 +161,10 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             public void onClick(View v) {
                 Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("td", td);
                 startActivity(intent);
             }
         });
-
-
-    /*
-        // 체크 박스
-        checkbox_wishList = (CheckBox)findViewById(R.id.checkbox_wishList);
-        checkbox_wishList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                showMessage(isChecked);
-            }
-        });
-     */
-    }
-
-    private class BackDataLoader extends AsyncTask<Talent_Detail_Interface, Void, TalentDetail> {
-
-
-        @Override
-        protected TalentDetail doInBackground(Talent_Detail_Interface... params) {
-            TalentDetail td = null;
-            try {
-                Call<TalentDetail> tds = params[0].getTalentDetail(String.valueOf(id));
-                td = tds.execute().body();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return td;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(TalentDetail talentDetailResponse) {
-            super.onPostExecute(talentDetailResponse);
-
-        }
-
 
     }
 

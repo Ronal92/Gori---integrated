@@ -14,6 +14,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 
 public class Apply_2Fragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +30,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
     int starter = 0;
     int center = 0;
     int sang = 0;
+    TalentDetail td;
 
     ApplyActivity activity;
     Button btn_next3;
@@ -35,6 +38,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
     public void setActivity(ApplyActivity activity){
         this.activity = activity;
     }
+
 
 
     public Apply_2Fragment() {
@@ -70,7 +74,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
         btn_apply_starter.setOnClickListener(this);
         btn_apply_center.setOnClickListener(this);
         btn_apply_sang.setOnClickListener(this);
-
+        td = activity.td;
         btn_next3 = (Button)view.findViewById(R.id.btn_next3);
         btn_next3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +84,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
         });
 
         img_apply2_profile = (ImageView)view.findViewById(R.id.img_apply2_profile);
-        Glide.with(activity).load(R.drawable.profile_dummy).into(img_apply2_profile);
+        Glide.with(activity).load(td.getTutor().getProfile_image()).into(img_apply2_profile);
 
         return view;
     }

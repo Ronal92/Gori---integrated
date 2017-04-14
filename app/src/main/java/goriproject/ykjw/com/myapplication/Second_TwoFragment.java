@@ -2,12 +2,11 @@ package goriproject.ykjw.com.myapplication;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 
 
@@ -98,7 +98,6 @@ public class Second_TwoFragment extends Fragment {
             final RadioButton radioButton_loc = new RadioButton(getContext());
             radioButton_loc.setId(j);
             radioButton_loc.setText(location.get(j));
-            radioButton_loc.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             radioButton_loc.setLayoutParams(params);
             radioButton_loc.setBackgroundResource(R.drawable.custom_button_selector);
             radioButton_loc.setButtonDrawable(new StateListDrawable());
@@ -153,27 +152,26 @@ public class Second_TwoFragment extends Fragment {
     public void makeRadioButtonDay(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, final int loc_index) {
         // 동적으로 라디오 버튼 생성
         //for (int j = 0; j < talentDetail.getLocations(); j++) {
-            final RadioButton radioButton = new RadioButton(getContext());
+        final RadioButton radioButton = new RadioButton(getContext());
         //    radioButton.setId(j);
-            radioButton.setText(talentDetail.getLocations().get(loc_index).getDay());
-            radioButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            radioButton.setLayoutParams(params);
-            radioButton.setBackgroundResource(R.drawable.custom_button_selector);
-            radioButton.setButtonDrawable(new StateListDrawable());
-            radioButton.setPaddingRelative(60, 0, 60, 0);
-            radioButton.setHeight(130);
+        radioButton.setText(talentDetail.getLocations().get(loc_index).getDay());
+        radioButton.setLayoutParams(params);
+        radioButton.setBackgroundResource(R.drawable.custom_button_selector);
+        radioButton.setButtonDrawable(new StateListDrawable());
+        radioButton.setPaddingRelative(60, 0, 60, 0);
+        radioButton.setHeight(130);
         //    radioButton.setTag(j);
-            radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
+        radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
 
 
-            radioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showPossibleTime(radioButton.getText().toString(), loc_index);
-                }
-            });
+        radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPossibleTime(radioButton.getText().toString(), loc_index);
+            }
+        });
 
-            dynamic_radioarea.addView(radioButton);
+        dynamic_radioarea.addView(radioButton);
         //}
     }
 
@@ -191,7 +189,7 @@ public class Second_TwoFragment extends Fragment {
         dynamic_radioarea_time.removeAllViews();
 
         // 각 시간별로 버튼을 만들어줘야 한다.
-            makeRadioButtonTime(params_day, dynamic_radioarea_time, talentDetail.getLocations().get(loc_index).getTime());
+        makeRadioButtonTime(params_day, dynamic_radioarea_time, talentDetail.getLocations().get(loc_index).getTime());
 
 
 
@@ -208,13 +206,12 @@ public class Second_TwoFragment extends Fragment {
 
     }
 
-    public void makeRadioButtonTime(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, String[] content) {
+    public void makeRadioButtonTime(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, List<String> content) {
         // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < content.length; j++) {
+        for (int j = 0; j < content.size(); j++) {
             final RadioButton radioButton = new RadioButton(getContext());
             radioButton.setId(j);
-            radioButton.setText(content[j]);
-            radioButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            radioButton.setText(content.get(j));
             radioButton.setLayoutParams(params);
             radioButton.setBackgroundResource(R.drawable.custom_button_selector);
             radioButton.setButtonDrawable(new StateListDrawable());
@@ -235,7 +232,6 @@ public class Second_TwoFragment extends Fragment {
 
     }
 }
-
 
 
 

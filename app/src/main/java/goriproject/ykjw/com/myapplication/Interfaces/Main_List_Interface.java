@@ -2,7 +2,8 @@ package goriproject.ykjw.com.myapplication.Interfaces;
 
 import java.util.List;
 
-import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.List_All;
+import goriproject.ykjw.com.myapplication.domain.Results;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,5 +14,5 @@ import retrofit2.http.GET;
 public interface Main_List_Interface {
 
     @GET("talent/list")
-    Call<List<Main_list_item>> getList();
+    Call<List_All> getList();
 }

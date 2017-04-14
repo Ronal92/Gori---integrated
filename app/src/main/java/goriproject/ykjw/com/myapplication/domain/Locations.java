@@ -1,16 +1,19 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by Younkyu on 2017-04-11.
  */
 
-public class Locations
+public class Locations implements Serializable
 {
     private String region;
 
     private String extra_fee_amount;
 
-    private String[] time;
+    private List<String> time;
 
     private String talent;
 
@@ -40,13 +43,11 @@ public class Locations
         this.extra_fee_amount = extra_fee_amount;
     }
 
-    public String[] getTime ()
-    {
+    public List<String> getTime() {
         return time;
     }
 
-    public void setTime (String[] time)
-    {
+    public void setTime(List<String> time) {
         this.time = time;
     }
 

@@ -262,9 +262,9 @@
             android:id="@+id/cl_second_campuscon"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_alignLeft="@+id/txtOne2"
+            android:layout_alignLeft="@+id/tv_one_title_tutorinfo"
             android:layout_below="@+id/li_second_main"
-            android:layout_alignStart="@+id/txtOne2"
+            android:layout_alignStart="@+id/tv_one_title_tutorinfo"
             android:layout_marginRight="20dp"
             android:layout_marginTop="21dp"
             android:background="#dcdbdb">
@@ -295,13 +295,13 @@
         <View
             android:id="@+id/viewOne1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_below="@+id/cl_second_campuscon"
             android:layout_marginTop="20dp"
             android:background="#dcdbdb" />
 
         <TextView
-            android:id="@+id/txtOne2"
+            android:id="@+id/tv_one_title_tutorinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewOne1"
@@ -321,7 +321,7 @@
             android:id="@+id/txt_one_tutorinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOne2"
+            android:layout_below="@+id/tv_one_title_tutorinfo"
             android:layout_marginTop="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -338,54 +338,10 @@
             android:background="#dcdbdb" />
 
         <TextView
-            android:id="@+id/txtOne4"
+            android:id="@+id/tv_one_title_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewOne2"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:text="수업 대상"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:id="@+id/txt_one_whotuty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOne4"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="크게 두 부류로 나눌 수 있습니다.
-
-1) 처음부터 체계적으로 배워나가야 하는 왕초보
-(ex. 인턴/입사를 앞두고 엑셀이 걱정되시는 분,
-팀 이동 등을 통해 엑셀에 대한 막연한 두려움이 있으신 분)
-
-2) 노하우 습득을 통해 좀 더 빨리 퇴근하고 싶으신 분
-(ex. 엑셀은 대충 알지만 좀 더 능률있게 일하고 싶으신 분)
-
-1:1 강의의 경우 시간당 2만원 / 2명 이상 그룹 클래스의 경우 시간당 1.5만원 입니다." />
-
-        <View
-            android:id="@+id/viewOne3"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/txt_one_whotuty"
-            android:layout_marginTop="20dp"
-            android:background="#dcdbdb" />
-
-        <TextView
-            android:id="@+id/txtOne6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/viewOne3"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
@@ -402,7 +358,7 @@
             android:id="@+id/txt_one_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOne6"
+            android:layout_below="@+id/tv_one_title_intro"
             android:layout_marginTop="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -421,7 +377,7 @@
             android:background="#dcdbdb" />
 
         <TextView
-            android:id="@+id/txtOne8"
+            android:id="@+id/tv_one_title_curri"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewOne4"
@@ -443,7 +399,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/txtOne8"
+            android:layout_below="@+id/tv_one_title_curri"
             android:orientation="vertical"
             android:paddingBottom="0dp"
             android:paddingLeft="30dp"
@@ -462,7 +418,7 @@
 
 
         <TextView
-            android:id="@+id/txtOne9"
+            android:id="@+id/tv_one_title_youtube"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewOne5"
@@ -483,7 +439,7 @@
             android:name="com.google.android.youtube.player.YouTubePlayerFragment"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/txtOne9"
+            android:layout_below="@id/tv_one_title_youtube"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
             android:paddingLeft="50dp"
@@ -498,7 +454,7 @@
             android:background="#dcdbdb" />
 
         <TextView
-            android:id="@+id/txtOne10"
+            android:id="@+id/tv_one_title_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewOne6"
@@ -518,7 +474,7 @@
             android:id="@+id/li_one_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOne10"
+            android:layout_below="@+id/tv_one_title_img"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"

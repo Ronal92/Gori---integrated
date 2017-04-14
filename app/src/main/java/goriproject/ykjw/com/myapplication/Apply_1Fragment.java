@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 
 public class Apply_1Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -27,6 +29,7 @@ public class Apply_1Fragment extends Fragment {
     private String mParam2;
     Button btn_next2;
     ImageView img_apply1_profile;
+    TalentDetail td;
 
     LinearLayout btn1layout, btn2layout, btn3layout;
 
@@ -63,6 +66,7 @@ public class Apply_1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_apply_1, container, false);
+        td = activity.td;
 
         btn_next2 = (Button)view.findViewById(R.id.btn_next2);
         btn_next2.setOnClickListener(new View.OnClickListener() {

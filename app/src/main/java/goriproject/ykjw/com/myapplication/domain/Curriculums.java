@@ -1,10 +1,12 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Younkyu on 2017-04-11.
  */
 
-public class Curriculums
+public class Curriculums implements Serializable
 {
     private String information;
 

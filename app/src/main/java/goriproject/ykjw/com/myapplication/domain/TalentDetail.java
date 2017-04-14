@@ -7,7 +7,6 @@ import java.util.List;
  * Created by Younkyu on 2017-04-11.
  */
 
-
 public class TalentDetail implements Serializable
 {
     private String cover_image;
@@ -47,9 +46,6 @@ public class TalentDetail implements Serializable
     private Tutor tutor;
 
     private String pk;
-
-
-
 
     public String getCover_image ()
     {

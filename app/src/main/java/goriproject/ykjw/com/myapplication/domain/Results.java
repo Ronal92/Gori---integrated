@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Younkyu on 2017-04-06.
  */
 
-public class Main_list_item implements Serializable
+public class Results implements Serializable
 {
     private String created_date;
 

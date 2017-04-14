@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +25,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.Random;
 
-import goriproject.ykjw.com.myapplication.domain.Main_list_item;
+import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-import goriproject.ykjw.com.myapplication.domain.Tutor;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.maxsize;
@@ -46,8 +43,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     LinearLayout ll_one_curiculum;
     View view;
     private Talent talent;
-    Main_list_item t1,t2,t3,t4;
-    Main_list_item item;
+    Results t1,t2,t3,t4;
+    Results item;
     TalentDetail td = new TalentDetail();
     SecondActivity activity;
 
@@ -60,9 +57,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     public Second_OneFragment() {
         // Required empty public constructor
     }
-    public void setTalent(Talent talenta, Main_list_item item, TalentDetail td) {
-        // Required empty public constructor
-        talent = talenta;
+    public void setTalent(Results item, TalentDetail td) {
+
         this.item = item;
         this.td = td;
     }
@@ -127,7 +123,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
         Glide.with(this).load(item.getTutor().getProfile_image()).into(iv_second_profile);
 
         tv_price.setText(item.getPrice_per_hour()+"원/시간");
-        tv_maxman.setText("최대"+item.getNumber_of_class()+"명");
+        tv_maxman.setText(item.getType());
         tv_schedule.setText(item.getHours_per_class()+"시간/회");
         btn_second_numoftuty.setText("누적참여자"+item.getReview_count()+"명");
 
@@ -138,7 +134,6 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
 
         txt_one_tutorinfo = (TextView)view.findViewById(R.id.txt_one_tutorinfo);
         txt_one_introduce = (TextView)view.findViewById(R.id.txt_one_introduce);
-        txt_one_whotuty = (TextView)view.findViewById(R.id.txt_one_whotuty);
         txt_secondone_alltime = (TextView)view.findViewById(R.id.txt_secondone_alltime);
         txt_secondone_allprice = (TextView)view.findViewById(R.id.txt_secondone_allprice);
 
@@ -204,6 +199,11 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                     LinearLayout.LayoutParams p7 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     iv3.setLayoutParams(p7);
                     li_son3.addView(iv3);
+                } else {
+                    View v = new View(getContext());
+                    LinearLayout.LayoutParams p20 = new LinearLayout.LayoutParams(30, 30);
+                    v.setLayoutParams(p20);
+                    li_son3.addView(v);
                 }
 
 
@@ -216,7 +216,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
 
 
         //유튜브
-        if(td.getVideo1() != "") {
+        if(td.getVideo1() != "" && td.getVideo1() != null) {
             YouTubePlayerSupportFragment mYoutubePlayerFragment = new YouTubePlayerSupportFragment();
             mYoutubePlayerFragment.initialize("AIzaSyBQVAdj7fCNWvgha7ue8EXg2hCn-1lUBBo", this);
             FragmentManager fragmentManager = getFragmentManager();
@@ -224,6 +224,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             fragmentTransaction.replace(R.id.fragment_youtube_player, mYoutubePlayerFragment);
             fragmentTransaction.commit();
         } else {
+            TextView tv_title_youtube = (TextView)view.findViewById(R.id.tv_one_title_youtube);
+            tv_title_youtube.setVisibility(View.GONE);
             FrameLayout yt = (FrameLayout)view.findViewById(R.id.fragment_youtube_player);
             yt.setVisibility(View.GONE);
         }
@@ -238,6 +240,9 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                 iv3.setLayoutParams(p6);
                 li_one_img.addView(iv3);
             }
+        } else {
+            TextView tv_title_img = (TextView)view.findViewById(R.id.tv_one_title_img);
+            tv_title_img.setVisibility(View.GONE);
         }
 
 
@@ -280,8 +285,6 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             if(cheak)    // 위의 if문의 조건을 만족하지 않았으면 자동으로 cheak는 true므로 실행이 됩니다.
                 arr[i] = ran;    // ran에 받은 값을 arr[i]방에 넣습니다.
         }
-
-        TutorLoader.loadData();
 
         // 데이터 넣기
         t1 = datas.get(arr[0]);

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 
 public class Apply_3Fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -25,6 +27,7 @@ public class Apply_3Fragment extends Fragment {
 
     ApplyActivity activity;
     Button btn_next_4;
+    TalentDetail td;
     ImageView img;
 
     public Apply_3Fragment() {
@@ -59,6 +62,7 @@ public class Apply_3Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_apply_3, container, false);
+        td = activity.td;
         btn_next_4 = (Button)view.findViewById(R.id.btn_next4);
         btn_next_4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +71,7 @@ public class Apply_3Fragment extends Fragment {
             }
         });
         img = (ImageView)view.findViewById(R.id.img_apply_profile4);
-        Glide.with(getContext()).load(R.drawable.profile_dummy).into(img);
+        Glide.with(getContext()).load(td.getTutor().getProfile_image()).into(img);
         return view;
     }
 

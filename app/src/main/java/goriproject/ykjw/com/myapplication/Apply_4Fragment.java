@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 public class Apply_4Fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,7 +21,7 @@ public class Apply_4Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    TalentDetail td;
     ApplyActivity activity;
     Button btn_next_5;
     TextView tv_apply4_class,tv_apply4_payment,tv_apply4_tutorname;
@@ -55,6 +57,7 @@ public class Apply_4Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_apply_4, container, false);
+        td = activity.td;
         btn_next_5 = (Button)view.findViewById(R.id.btn_next5);
         btn_next_5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +70,9 @@ public class Apply_4Fragment extends Fragment {
         tv_apply4_payment = (TextView)view.findViewById(R.id.tv_apply4_payment);
         tv_apply4_tutorname = (TextView)view.findViewById(R.id.tv_apply4_tutorname);
 
-        tv_apply4_class.setText(activity.talent.getTalent_name());
-        tv_apply4_payment.setText(activity.talent.getTalent_price());
-        tv_apply4_tutorname.setText(activity.talent.getTutor_name());
+        tv_apply4_class.setText(td.getTitle());
+        tv_apply4_payment.setText(td.getPrice_per_hour()+"원");
+        tv_apply4_tutorname.setText(td.getTutor().getName());
 
         return view;
     }

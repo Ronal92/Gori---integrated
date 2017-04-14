@@ -6,24 +6,24 @@
 
 
     <!--<TextView-->
-        <!--android:id="@+id/txtTwo1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="구글맵이 들어갈 곳!!"-->
-        <!--android:textSize="24sp"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:layout_marginRight="30dp"-->
-        <!--android:layout_marginTop="15dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
+    <!--android:id="@+id/txtTwo1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="구글맵이 들어갈 곳!!"-->
+    <!--android:textSize="24sp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_centerHorizontal="true" />-->
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="2dp"-->
-        <!--android:layout_margeinTop="20dp"-->
-        <!--android:background="#dcdbdb"-->
-        <!--android:layout_below="@+id/txtTwo1"-->
-        <!--android:id="@+id/viewTwo1" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="2dp"-->
+    <!--android:layout_margeinTop="20dp"-->
+    <!--android:background="#dcdbdb"-->
+    <!--android:layout_below="@+id/txtTwo1"-->
+    <!--android:id="@+id/viewTwo1" />-->
 
     <LinearLayout
         android:id="@+id/linearLayoutTwo1"
@@ -41,10 +41,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp" />
 
-            <RadioGroup
-                android:id="@+id/dynamic_radiogroup_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <RadioGroup
+            android:id="@+id/dynamic_radiogroup_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

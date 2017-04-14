@@ -56,7 +56,11 @@
         android:layout_marginEnd="8dp" />
 
     <RatingBar
-        android:id="@+id/ratingsBar"
+        android:progressTint="@color/duskYellow"
+        android:progressTintMode="src_atop"
+        android:secondaryProgressTint="@color/lightGrey"
+        android:secondaryProgressTintMode="src_atop"
+        android:id="@+id/raiting_curriculum_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -67,7 +71,6 @@
         android:numStars="5"
         android:rating="5"
         style="?android:attr/ratingBarStyleSmall"
-
         android:stepSize="0.5"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +78,11 @@
         app:layout_constraintTop_toBottomOf="@+id/loginbar" />
 
     <RatingBar
-        android:id="@+id/ratingBar2"
+        android:progressTint="@color/duskYellow"
+        android:progressTintMode="src_atop"
+        android:secondaryProgressTint="@color/lightGrey"
+        android:secondaryProgressTintMode="src_atop"
+        android:id="@+id/raiting_friendliness_review"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,7 +101,11 @@
         app:layout_constraintTop_toBottomOf="@+id/loginbar" />
 
     <RatingBar
-        android:id="@+id/ratingBar11"
+        android:progressTint="@color/duskYellow"
+        android:progressTintMode="src_atop"
+        android:secondaryProgressTint="@color/lightGrey"
+        android:secondaryProgressTintMode="src_atop"
+        android:id="@+id/raiting_delivery_review"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,7 +124,11 @@
         app:layout_constraintTop_toBottomOf="@+id/loginbar" />
 
     <RatingBar
-        android:id="@+id/ratingBar10"
+        android:progressTint="@color/duskYellow"
+        android:progressTintMode="src_atop"
+        android:secondaryProgressTint="@color/lightGrey"
+        android:secondaryProgressTintMode="src_atop"
+        android:id="@+id/raiting_timeliness_review"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -132,23 +147,24 @@
         app:layout_constraintTop_toBottomOf="@+id/loginbar" />
 
     <RatingBar
-        android:id="@+id/ratingBar9"
+        android:progressTint="@color/duskYellow"
+        android:progressTintMode="src_atop"
+        android:secondaryProgressTint="@color/lightGrey"
+        android:secondaryProgressTintMode="src_atop"
+        android:id="@+id/raiting_readiness_review"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="63dp"
         android:clickable="false"
         android:isIndicator="false"
         android:numStars="5"
         android:rating="5"
 
         android:stepSize="0.5"
-        app:layout_constraintHorizontal_bias="0.73"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginbar" />
+        tools:layout_editor_absoluteY="122dp"
+        tools:layout_editor_absoluteX="222dp" />
 
     <TextView
         android:id="@+id/textView13"
@@ -244,7 +260,7 @@
         android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/email_login"
+        android:id="@+id/btnReviewCancel_second_review"
         android:layout_width="94dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
@@ -264,7 +280,7 @@
         android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnUpload_second_review"
         android:layout_width="94dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
