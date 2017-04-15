@@ -161,6 +161,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
                             // talent list와 review를 모두 가지고 오면 다음 화면으로 넘긴다.
                             if(checkReview ==1 && checkTalent==1) {
+                                checkReview = 0;
                                 intent.putExtra("td", td);
                                 intent.putExtra("review", reviewRetrieve);
                                 context.startActivity(intent);
@@ -185,6 +186,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
                      // talent list와 review를 모두 가지고 오면 다음 화면으로 넘긴다.
                      if(checkReview ==1 && checkTalent==1) {
+                         checkTalent=0;
                          intent.putExtra("td", td);
                          intent.putExtra("review", reviewRetrieve);
                          context.startActivity(intent);
@@ -198,8 +200,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
         private class CheckTypesTask extends AsyncTask<Void, Void, TalentDetail> {
 
-        ProgressDialog asyncDialog = new ProgressDialog(
-                context);
+        ProgressDialog asyncDialog = new ProgressDialog(context);
 
         int id = 0;
 
@@ -242,7 +243,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
         @Override
         protected void onPostExecute(TalentDetail result) {
             asyncDialog.dismiss();
-
             super.onPostExecute(result);
         }
     }

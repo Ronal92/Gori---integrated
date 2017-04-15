@@ -121,7 +121,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this,"회원가입에 성공했습니다!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                     Log.e(String.valueOf(response.code()), String.valueOf(response.body()));
+//                     Log.e(String.valueOf(response.code()), String.valueOf(response.body()));
+                     Log.e(String.valueOf(response.code()), response.body().string());
                     }
                 } catch(Exception e) {
                     Log.e("SignUp Error", "SignUp Error Occured!!!!");

@@ -78,17 +78,37 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(SignInActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                     key = response.body().getKey();
 
-                    if(cb_login.isChecked()) {
-                        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putString("autologin", key);
-                        editor.commit();
-                    } else {
-                        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putString("autologin", null);
-                        editor.commit();
-                    }
+                    SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+
+//                    if(cb_login.isChecked()) {
+//                        editor.putBoolean("isAutologin", true)
+//                                .commit();
+//                    } else {
+//                        editor.putBoolean("isAutologin", false)
+//                                .commit();
+//                    }
+
+                    /*
+                     자동로그인과 토큰에 대한 SharedPreferences 저장을 구별해줘야 한다.
+                    */
+                    editor.putBoolean("isAutologin", cb_login.isChecked()).commit();
+                    editor.putString("token", key)
+                            .commit();
+
+
+
+//                    if(cb_login.isChecked()) {
+//                        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = pref.edit();
+//                        editor.putString("autologin", key);
+//                        editor.commit();
+//                    } else {
+//                        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = pref.edit();
+//                        editor.putString("autologin", null);
+//                        editor.commit();
+//                    }
 
                     is_signin = true;
                     // goriproject.ykjw.com.myapplication.domain.Result@42ca77a0
