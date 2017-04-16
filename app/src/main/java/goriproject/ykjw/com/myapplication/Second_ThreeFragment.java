@@ -30,12 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
 import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.SignUpInterface;
 import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Result2;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
+import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,11 +59,11 @@ public class Second_ThreeFragment extends Fragment {
     private static final String KEY_FOR_TALENTDETAIL_INT = "threeFragmentTL_INT";
 
     Context context = null;
-    private TalentDetail talentDetail = null; // SecondActivity에서 넘어온 TalentDetail
     private int id = -1;
 
     Dialog dialog = null; // 다이얼로그
-    ReviewRetrieve reviewRetrieve = null;
+    //ReviewRetrieve reviewRetrieve = null;
+    TalentAll td = null;
 
     List<String> rates = new ArrayList<>();
 
@@ -70,10 +72,10 @@ public class Second_ThreeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static Second_ThreeFragment newInstance(ReviewRetrieve reviewRetrieve, int id){
+    public static Second_ThreeFragment newInstance(TalentAll td, int id){
         Second_ThreeFragment secondThreeFragment = new Second_ThreeFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY_FOR_TALENTDETAIL, reviewRetrieve);
+        args.putSerializable(KEY_FOR_TALENTDETAIL, td);
         args.putInt(KEY_FOR_TALENTDETAIL_INT, id);
         secondThreeFragment.setArguments(args);
         return secondThreeFragment;
@@ -84,7 +86,7 @@ public class Second_ThreeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null){
-            this.reviewRetrieve = (ReviewRetrieve)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
+            this.td = (TalentAll)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
             this.id = getArguments().getInt(KEY_FOR_TALENTDETAIL_INT);
         }
     }
@@ -102,12 +104,12 @@ public class Second_ThreeFragment extends Fragment {
 
         TextView txtReview_count = (TextView)view.findViewById(R.id.txtReview_count);
         TextView txtAverageRate = (TextView)view.findViewById(R.id.txtAverageRate);
-        txtReview_count.setText(reviewRetrieve.getReview_count());
-        txtAverageRate.setText(reviewRetrieve.getAverage_rates().getTotal());
+        txtReview_count.setText(td.getReview_count());
+        txtAverageRate.setText(td.getAverage_rates().getTotal());
 
         // RatingBar (Total)
         RatingBar ratingBar_average = (RatingBar)view.findViewById(R.id.rb_Avrage);
-        long ratinglong = Math.round(Double.parseDouble(reviewRetrieve.getAverage_rates().getTotal()));
+        long ratinglong = Math.round(Double.parseDouble(td.getAverage_rates().getTotal()));
         ratingBar_average.setRating((int)ratinglong);
 
 
@@ -185,7 +187,7 @@ public class Second_ThreeFragment extends Fragment {
                 String token = pref.getString("token", null);
                 Log.e("HERE", token);
 
-                Call<String> reviewData = service.setReviewRetrieve("Token " + token, reviewRetrieve.getPk(), rates.get(0), rates.get(1), rates.get(2), rates.get(3), rates.get(4), null );
+                Call<String> reviewData = service.setReviewRetrieve("Token " + token, td.getPk(), rates.get(0), rates.get(1), rates.get(2), rates.get(3), rates.get(4), null );
 
                 reviewData.enqueue(new Callback<String>() {
                     @Override
@@ -250,29 +252,29 @@ public class Second_ThreeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return reviewRetrieve.getReviews().length;
+            return td.getReviews().length;
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Glide.with(context).load(reviewRetrieve.getReviews()[position].getUser().getProfile_image()).placeholder(R.mipmap.ic_launcher).into(holder.img);
-            holder.txtName.setText(reviewRetrieve.getReviews()[position].getUser().getName());
+            Glide.with(context).load(td.getReviews()[position].getUser().getProfile_image()).placeholder(R.mipmap.ic_launcher).into(holder.img);
+            holder.txtName.setText(td.getReviews()[position].getUser().getName());
 
             // Comment 텍스트뷰 사이즈 조절하기기
-           holder.txtComment.setText(reviewRetrieve.getReviews()[position].getComment());
-            Log.i("RAPSTAR","=============================== Comment" + reviewRetrieve.getReviews()[position].getComment());
+           holder.txtComment.setText(td.getReviews()[position].getComment());
+            Log.i("RAPSTAR","=============================== Comment" + td.getReviews()[position].getComment());
 
             // Date에서 시간을 제외한 일자만 표시한다.
-            String date = reviewRetrieve.getReviews()[position].getCreated_date();
+            String date = td.getReviews()[position].getCreated_date();
             date = date.substring(0,date.indexOf("T"));
             holder.txtDate.setText(date);
 
             // Rating 평균값 구해서 출력
-            curriculum = Double.valueOf(Integer.parseInt(reviewRetrieve.getReviews()[position].getCurriculum()));
-            readiness = Double.valueOf(Integer.parseInt(reviewRetrieve.getReviews()[position].getReadiness()));
-            timeliness = Double.valueOf(Integer.parseInt(reviewRetrieve.getReviews()[position].getTimeliness()));
-            delivery = Double.valueOf(Integer.parseInt(reviewRetrieve.getReviews()[position].getDelivery()));
-            friendliness = Double.valueOf(Integer.parseInt(reviewRetrieve.getReviews()[position].getFriendliness()));
+            curriculum = Double.valueOf(Integer.parseInt(td.getReviews()[position].getCurriculum()));
+            readiness = Double.valueOf(Integer.parseInt(td.getReviews()[position].getReadiness()));
+            timeliness = Double.valueOf(Integer.parseInt(td.getReviews()[position].getTimeliness()));
+            delivery = Double.valueOf(Integer.parseInt(td.getReviews()[position].getDelivery()));
+            friendliness = Double.valueOf(Integer.parseInt(td.getReviews()[position].getFriendliness()));
             Double ave_total = (double)(curriculum + readiness + timeliness + delivery + friendliness)/5;
             long ratinglong = Math.round(Double.parseDouble(ave_total + ""));
             holder.ratingBar.setRating(ratinglong);
@@ -283,7 +285,7 @@ public class Second_ThreeFragment extends Fragment {
             TextView txtName;
             TextView txtDate;
             TextView txtComment;
-            ImageView img;
+            CircleImageView img;
             RatingBar ratingBar;
             boolean clicked = false;
 
@@ -294,7 +296,7 @@ public class Second_ThreeFragment extends Fragment {
                 txtName = (TextView)itemView.findViewById(R.id.txName_tutee_fragment_review);
                 txtDate = (TextView) itemView.findViewById(R.id.txtDate_tutee_fragment_review);
                 txtComment = (TextView) itemView.findViewById(R.id.txtComment_tutee_fragment_review);
-                img = (ImageView)itemView.findViewById(R.id.img_tutee_fragment_review);
+                img = (CircleImageView)itemView.findViewById(R.id.img_tutee_fragment_review);
                 ratingBar = (RatingBar)itemView.findViewById(R.id.rb_tutee_fragment_review);
 
                 csLayout.setOnClickListener(new View.OnClickListener() {

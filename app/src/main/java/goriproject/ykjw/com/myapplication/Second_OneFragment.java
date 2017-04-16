@@ -30,6 +30,7 @@ import java.util.Random;
 
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.maxsize;
@@ -45,7 +46,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     private Talent talent;
     Results t1,t2,t3,t4;
     Results item;
-    TalentDetail td = new TalentDetail();
+    //TalentDetail td = new TalentDetail();
+    TalentAll td = new TalentAll();
     SecondActivity activity;
 
     TextView txt_secondone_allprice,txt_secondone_alltime,txt_one_tutorinfo,txt_one_whotuty,txt_one_introduce;
@@ -57,7 +59,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     public Second_OneFragment() {
         // Required empty public constructor
     }
-    public void setTalent(Results item, TalentDetail td) {
+    public void setTalent(Results item, TalentAll td) {
 
         this.item = item;
         this.td = td;
@@ -147,7 +149,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
 
         Log.e("dfaasdfasdfasdf",String.valueOf(td.getTitle()));
         if(td.getCurriculums() != null) {
-            for(int i = 0 ; i < td.getCurriculums().size(); i ++) {
+            for(int i = 0 ; i < td.getCurriculums().length; i ++) {
                 LinearLayout li_son = new LinearLayout(getContext());
                 li_son.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -189,13 +191,14 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                 LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 tv_curi.setTextSize(15);
                 tv_curi.setLayoutParams(p3);
-                tv_curi.setText(td.getCurriculums().get(i).getInformation());
+                tv_curi.setText(td.getCurriculums()[i].getInformation());
                 li_son3.addView(tv_curi_hoicha);
                 li_son3.addView(tv_curi);
 
-                if(td.getCurriculums().get(i).getImage() != null) {
+                 // TODO : api 바뀌면서 이미지 처리 필요
+                if(td.getCurriculums()[i].getImage() != null) {
                     ImageView iv3 = new ImageView(getContext());
-                    Glide.with(getContext()).load(td.getCurriculums().get(i).getImage()).into(iv3);
+                    Glide.with(getContext()).load(td.getCurriculums()[i].getImage()).into(iv3);
                     LinearLayout.LayoutParams p7 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     iv3.setLayoutParams(p7);
                     li_son3.addView(iv3);
@@ -205,7 +208,6 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                     v.setLayoutParams(p20);
                     li_son3.addView(v);
                 }
-
 
                 //li_son.addView(li_son2);
                 li_son.addView(li_son3);
@@ -229,12 +231,12 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             FrameLayout yt = (FrameLayout)view.findViewById(R.id.fragment_youtube_player);
             yt.setVisibility(View.GONE);
         }
-        //관련 이미지
+       // 관련 이미지
         if(td.getClass_images() != null) {
-            for(int i = 0 ; i < td.getClass_images().size() ; i ++) {
+            for(int i = 0 ; i < td.getClass_images().length ; i ++) {
                 LinearLayout li_one_img = (LinearLayout)view.findViewById(R.id.li_one_img);
                 ImageView iv3 = new ImageView(getContext());
-                Glide.with(getContext()).load(td.getClass_images().get(i).getImage()).into(iv3);
+                Glide.with(getContext()).load(td.getClass_images()[i].getImage()).into(iv3);
                 LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 p6.setMargins(0,20,0,20);
                 iv3.setLayoutParams(p6);

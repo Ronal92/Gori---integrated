@@ -27,13 +27,17 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
+import goriproject.ykjw.com.myapplication.Interfaces.StopProgressDialog;
 import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
+import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by Younkyu on 2017-03-23.
@@ -41,24 +45,32 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.CustomViewHolder> {
 
+
     List<Results> datas;
     // 리스트 각 행에서 사용되는 레이아웃 xml의 아이디
     int itemLayout;
-    TalentDetail td;
+    //TalentDetail td;
+    TalentAll td;
     Intent intent;
     int checkReview = 0;
     int checkTalent =0;
 
     Context context; // 클릭처리, 애니메이션 등을 위해 시스템자원 사용이 필요
+    StopProgressDialog ctx_stopProgress = null;
     // 리스트 각 행에서 사용되는 레이아웃 xml의 아이디디
 
 
     ReviewRetrieve reviewRetrieve;  // 리뷰 정보를 받아오기 위한 변수
 
+    ProgressDialog  asyncDialog = null;
+    long startTime;
+    long stopTime;
+
     public MainListAdapter(List<Results> datas, int itemLayout, Context context) {
         this.datas = datas;
         this.itemLayout = itemLayout;
         this.context = context;
+        ctx_stopProgress = (StopProgressDialog)context;
     }
 
     @Override
@@ -115,8 +127,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
         int id;
         Results item;
 
-
-
          CustomViewHolder(View itemView) {
             super(itemView);
              imageView2 = (ImageView)itemView.findViewById(R.id.iv_second_profile);
@@ -129,68 +139,16 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
              itemback.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
+
+
                      intent = new Intent(context, SecondActivity.class);
                      intent.putExtra("id",id);
                      intent.putExtra("item", item);
 
-                     // 서버에서 talent list 가져오기
                      CheckTypesTask task = new CheckTypesTask();
                      task.setid(id);
                      task.execute();
 
-                     // 서버에서 review 가져오기
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            super.run();
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("https://mozzi.co.kr/api/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-
-                            Review_Detail_Interface rdService = retrofit.create(Review_Detail_Interface.class);
-
-                            final Call<ReviewRetrieve> reView = rdService.getReviewRetrieve(id+"");
-
-                            try {
-                                reviewRetrieve = reView.execute().body();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            checkReview=1;
-
-                            // talent list와 review를 모두 가지고 오면 다음 화면으로 넘긴다.
-                            if(checkReview ==1 && checkTalent==1) {
-                                checkReview = 0;
-                                intent.putExtra("td", td);
-                                intent.putExtra("review", reviewRetrieve);
-                                context.startActivity(intent);
-
-                            }
-                        }
-                    }.start();
-
-
-                    // AsyncTask에서 종료된 작업 불러오기
-                     try {
-                         td = task.get();
-                         Log.i("RAPSTAR","================================TalentList END!");
-
-                     } catch (InterruptedException e) {
-                         e.printStackTrace();
-                     } catch (ExecutionException e) {
-                         e.printStackTrace();
-                     }
-
-                     checkTalent=1;
-
-                     // talent list와 review를 모두 가지고 오면 다음 화면으로 넘긴다.
-                     if(checkReview ==1 && checkTalent==1) {
-                         checkTalent=0;
-                         intent.putExtra("td", td);
-                         intent.putExtra("review", reviewRetrieve);
-                         context.startActivity(intent);
-                      }
 
                  }
              });
@@ -198,12 +156,11 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
         }
     }
 
-        private class CheckTypesTask extends AsyncTask<Void, Void, TalentDetail> {
 
-        ProgressDialog asyncDialog = new ProgressDialog(context);
+
+        private class CheckTypesTask extends AsyncTask<Void, Void, TalentAll> {
 
         int id = 0;
-
 
         public void setid(int id) {
             this.id = id;
@@ -211,41 +168,51 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
         @Override
         protected void onPreExecute() {
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("데이터 로딩중..");
 
-            // show dialog
-            asyncDialog.show();
-            super.onPreExecute();
+//            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            asyncDialog.setMessage("데이터 로딩중..");
+//            asyncDialog.show();  // show dialog
+            asyncDialog = ProgressDialog.show(context, "데이터로딩중", "Downloading data",true);
+            ctx_stopProgress.stopProgress(asyncDialog); // asyncDialog를 MainAtivity로 넘긴다.
+
+           super.onPreExecute();
         }
 
         @Override
-        protected TalentDetail doInBackground(Void... arg0) {
+        protected TalentAll doInBackground(Void... arg0) {
             // 1. 레트로핏을 생성하고
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://mozzi.co.kr/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
+            Talent_All_Interface tdService = retrofit.create(Talent_All_Interface.class);
 
-            final Call<TalentDetail> tds = tdService.getTalentDetail(String.valueOf(id));
-            TalentDetail td = null;
+            final Call<TalentAll> tds = tdService.getTalentAll(String.valueOf(id));
+            TalentAll td = null;
             try {
                 td = tds.execute().body();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            intent.putExtra("td",td);
+
             return td;
         }
 
         @Override
-        protected void onPostExecute(TalentDetail result) {
-            asyncDialog.dismiss();
+        protected void onPostExecute(TalentAll result) {
+            context.startActivity(intent);
             super.onPostExecute(result);
         }
     }
+
+    public interface Talent_All_Interface {
+        @GET("talent/detail-all/{talent_pk}/")
+        Call<TalentAll> getTalentAll(@Path("talent_pk") String talent_pk);
+    }
+
 
 
 

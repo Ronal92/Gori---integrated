@@ -36,13 +36,14 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.Interfaces.StopProgressDialog;
 import goriproject.ykjw.com.myapplication.domain.Results;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener, StopProgressDialog {
 
     int location_menu_count = 0;
     int category_menu_count = 0;
@@ -63,6 +64,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     DrawerLayout drawer;
     NavigationView navigationView;
+
+    ProgressDialog asyncDialog = null;
+
+
+    @Override
+    protected void onStop() {
+
+        if(asyncDialog != null && asyncDialog.isShowing()) {
+            asyncDialog.dismiss();
+        }
+        super.onStop();
+
+    }
+
+    public void stopProgress(ProgressDialog asyncDialog){
+        this.asyncDialog = asyncDialog;
+    }
 
     @Override
     protected void onResume() {

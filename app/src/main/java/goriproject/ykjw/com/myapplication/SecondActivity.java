@@ -41,6 +41,7 @@ import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
+import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
@@ -73,7 +74,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     NavigationView navigationView;
 
 
-    TalentDetail td = new TalentDetail();
+    //TalentDetail td = new TalentDetail();
+    TalentAll td = new TalentAll();
+
     ReviewRetrieve reviewRetrieve = new ReviewRetrieve();
     float txtTitle_y_position = 0;
     float tab_y_position = 0;
@@ -111,11 +114,12 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         Intent intent = getIntent();
         final int id = intent.getExtras().getInt("id");
         Results item = (Results)intent.getSerializableExtra("item");
-        td = (TalentDetail)intent.getSerializableExtra("td");
-        reviewRetrieve = (ReviewRetrieve)intent.getSerializableExtra("review");
+        //td = (TalentDetail)intent.getSerializableExtra("td");
+        //reviewRetrieve = (ReviewRetrieve)intent.getSerializableExtra("review");
 
+        td = (TalentAll)intent.getSerializableExtra("td");
 
-        Log.e("sdfdfdfadfasd", String.valueOf(td.getTitle()));
+        Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
 
 
         // 탭 레이아웃 & 뷰페이저 초기화
@@ -162,11 +166,10 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         // 프래그먼트 초기화
         one = new Second_OneFragment();
         two = Second_TwoFragment.newInstance(td);
-        three = Second_ThreeFragment.newInstance(reviewRetrieve, id);
-        four = new Second_FourFragment();
-        Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
+        three = Second_ThreeFragment.newInstance(td, id);
+        four = Second_FourFragment.newInstance(td, id);
+
         one.setTalent(item, td);
-        four.setTalent(item);
         one.setActivity(this);
 
 

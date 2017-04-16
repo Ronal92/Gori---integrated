@@ -18,6 +18,7 @@ import java.util.List;
 
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
 
 
 /**
@@ -29,7 +30,7 @@ public class Second_TwoFragment extends Fragment {
     private static final String KEY_FOR_TALENTDETAIL = "twoFragmentTL";
 
     Context context = null;
-    private TalentDetail talentDetail = null;
+    private TalentAll talentAll = null;
 
     private View view;
 
@@ -38,10 +39,10 @@ public class Second_TwoFragment extends Fragment {
     }
 
     //
-    public static Second_TwoFragment newInstance(TalentDetail talentDetail){
+    public static Second_TwoFragment newInstance(TalentAll talentAll){
         Second_TwoFragment secondTwoFragment = new Second_TwoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY_FOR_TALENTDETAIL, talentDetail);
+        args.putSerializable(KEY_FOR_TALENTDETAIL, talentAll);
         secondTwoFragment.setArguments(args);
         return secondTwoFragment;
     }
@@ -51,7 +52,7 @@ public class Second_TwoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null){
-            this.talentDetail = (TalentDetail)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
+            this.talentAll = (TalentAll)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
         }
 
     }
@@ -84,8 +85,8 @@ public class Second_TwoFragment extends Fragment {
 
         // 라디오 버튼 동적 생성.
         List<String> location = new ArrayList<>();
-        for(int i = 0; i < talentDetail.getLocations().size(); i++){
-            location.add(talentDetail.getLocations().get(i).getRegion());
+        for(int i = 0; i < talentAll.getLocations().length; i++){
+            location.add(talentAll.getLocations()[i].getRegion());
         }
         //String[] location_title = {"이화여대", "강남", "신촌"};
         makeRadioButtonLocation(params_loc, dynamic_radioarea_loc, location);
@@ -154,7 +155,7 @@ public class Second_TwoFragment extends Fragment {
         //for (int j = 0; j < talentDetail.getLocations(); j++) {
         final RadioButton radioButton = new RadioButton(getContext());
         //    radioButton.setId(j);
-        radioButton.setText(talentDetail.getLocations().get(loc_index).getDay());
+        radioButton.setText(talentAll.getLocations()[loc_index].getDay());
         radioButton.setLayoutParams(params);
         radioButton.setBackgroundResource(R.drawable.custom_button_selector);
         radioButton.setButtonDrawable(new StateListDrawable());
@@ -189,7 +190,7 @@ public class Second_TwoFragment extends Fragment {
         dynamic_radioarea_time.removeAllViews();
 
         // 각 시간별로 버튼을 만들어줘야 한다.
-        makeRadioButtonTime(params_day, dynamic_radioarea_time, talentDetail.getLocations().get(loc_index).getTime());
+        makeRadioButtonTime(params_day, dynamic_radioarea_time, talentAll.getLocations()[loc_index].getTime());
 
 
 
@@ -206,12 +207,12 @@ public class Second_TwoFragment extends Fragment {
 
     }
 
-    public void makeRadioButtonTime(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, List<String> content) {
+    public void makeRadioButtonTime(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, String[] content) {
         // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < content.size(); j++) {
+        for (int j = 0; j < content.length; j++) {
             final RadioButton radioButton = new RadioButton(getContext());
             radioButton.setId(j);
-            radioButton.setText(content.get(j));
+            radioButton.setText(content[j]);
             radioButton.setLayoutParams(params);
             radioButton.setBackgroundResource(R.drawable.custom_button_selector);
             radioButton.setButtonDrawable(new StateListDrawable());
