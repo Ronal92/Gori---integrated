@@ -1,4 +1,4 @@
-package goriproject.ykjw.com.myapplication.domain_test;
+package goriproject.ykjw.com.myapplication.domain_talent_detail_all;
 
 import java.io.Serializable;
 
@@ -190,6 +190,7 @@ public class TalentAll implements Serializable
     {
         this.reviews = reviews;
     }
+
 
     public String getClass_info ()
     {

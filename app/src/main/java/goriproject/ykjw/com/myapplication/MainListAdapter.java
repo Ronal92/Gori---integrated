@@ -9,7 +9,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +23,15 @@ import com.bumptech.glide.request.target.ViewTarget;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
+
+
 import goriproject.ykjw.com.myapplication.Interfaces.StopProgressDialog;
-import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
+
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+
 import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
-import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -40,7 +39,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
- * Created by Younkyu on 2017-03-23.
+ * API를 하나만 사용하도록 수정함.
  */
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.CustomViewHolder> {

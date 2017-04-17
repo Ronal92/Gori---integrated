@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +38,9 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
-import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
+
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
@@ -114,12 +113,10 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         Intent intent = getIntent();
         final int id = intent.getExtras().getInt("id");
         Results item = (Results)intent.getSerializableExtra("item");
-        //td = (TalentDetail)intent.getSerializableExtra("td");
-        //reviewRetrieve = (ReviewRetrieve)intent.getSerializableExtra("review");
 
         td = (TalentAll)intent.getSerializableExtra("td");
 
-        Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
+
 
 
         // 탭 레이아웃 & 뷰페이저 초기화
@@ -135,29 +132,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager_second_activity));
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        viewPager_second_activity.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
-
-
-        //드로어레이아웃
+         //드로어레이아웃
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView  = (NavigationView) findViewById(R.id.nav_view);
@@ -187,6 +162,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         });
 
     }
+
 
     // 위시리스트 결과를 보여주는 대화상자
     public void showMessage(boolean isChecked){

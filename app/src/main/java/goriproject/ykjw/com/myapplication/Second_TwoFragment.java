@@ -2,7 +2,6 @@ package goriproject.ykjw.com.myapplication;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +15,7 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
 
 
 /**

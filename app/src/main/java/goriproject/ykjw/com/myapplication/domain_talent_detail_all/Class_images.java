@@ -1,4 +1,4 @@
-package goriproject.ykjw.com.myapplication.domain_test;
+package goriproject.ykjw.com.myapplication.domain_talent_detail_all;
 
 import java.io.Serializable;
 
@@ -6,23 +6,14 @@ import java.io.Serializable;
  * Created by JINWOO on 2017-04-16.
  */
 
-public class Curriculums implements Serializable
-{
-    private String information;
 
+public class Class_images implements Serializable
+{
     private String talent_pk;
 
     private String image;
 
-    public String getInformation ()
-    {
-        return information;
-    }
-
-    public void setInformation (String information)
-    {
-        this.information = information;
-    }
+    private String pk;
 
     public String getTalent_pk ()
     {
@@ -44,10 +35,19 @@ public class Curriculums implements Serializable
         this.image = image;
     }
 
+    public String getPk ()
+    {
+        return pk;
+    }
+
+    public void setPk (String pk)
+    {
+        this.pk = pk;
+    }
+
     @Override
     public String toString()
     {
-        return "ClassPojo [information = "+information+", talent_pk = "+talent_pk+", image = "+image+"]";
+        return "ClassPojo [talent_pk = "+talent_pk+", image = "+image+", pk = "+pk+"]";
     }
 }
-

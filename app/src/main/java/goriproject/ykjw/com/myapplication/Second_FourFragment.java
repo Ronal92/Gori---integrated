@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
-import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
 
 
 /**

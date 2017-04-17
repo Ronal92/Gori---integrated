@@ -29,8 +29,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import java.util.Random;
 
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-import goriproject.ykjw.com.myapplication.domain_test.TalentAll;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.maxsize;

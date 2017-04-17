@@ -66,16 +66,16 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="24dp"
-        android:clickable="false"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="5"
+        android:rating="2"
         style="?android:attr/ratingBarStyleSmall"
-        android:stepSize="0.5"
-        app:layout_constraintHorizontal_bias="0.73"
+        android:stepSize="1.0"
+        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginbar" />
+        app:layout_constraintTop_toBottomOf="@+id/loginbar"
+        android:layout_marginLeft="8dp" />
 
     <RatingBar
         android:progressTint="@color/duskYellow"
@@ -88,13 +88,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="23dp"
-        android:clickable="false"
+        android:layout_marginTop="22dp"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="5"
-
-        android:stepSize="0.5"
+        android:rating="2"
+        android:stepSize="1.0"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -111,17 +109,19 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="23dp"
-        android:clickable="false"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="5"
+        android:rating="2"
 
-        android:stepSize="0.5"
+        android:stepSize="1.0"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/raiting_timeliness_review" />
+        app:layout_constraintTop_toTopOf="@+id/raiting_timeliness_review"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/raiting_friendliness_review"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.39" />
 
     <RatingBar
         android:progressTint="@color/duskYellow"
@@ -134,17 +134,19 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="23dp"
-        android:clickable="false"
+        android:layout_marginTop="22dp"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="5"
+        android:rating="2"
 
-        android:stepSize="0.5"
+        android:stepSize="1.0"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/raiting_readiness_review" />
+        app:layout_constraintTop_toBottomOf="@+id/raiting_readiness_review"
+        app:layout_constraintBottom_toBottomOf="@+id/raiting_delivery_review"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <RatingBar
         android:progressTint="@color/duskYellow"
@@ -157,19 +159,21 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:clickable="false"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="5"
+        android:rating="2"
 
-        android:stepSize="0.5"
+        android:stepSize="1.0"
         app:layout_constraintLeft_toRightOf="@+id/textView22"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/raiting_curriculum_review"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.556" />
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintBottom_toBottomOf="@+id/raiting_timeliness_review"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView13"
@@ -247,7 +251,7 @@
         android:layout_marginEnd="8dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edit_commen_review"
         android:layout_width="219dp"
         android:layout_height="147dp"
         android:ems="10"

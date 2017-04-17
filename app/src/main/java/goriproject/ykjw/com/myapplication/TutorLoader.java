@@ -57,8 +57,6 @@ public class TutorLoader {
             MainActivity.datas2.addAll(datas);
         }
 
-        Log.e("Retrofit---------------", "adapternoti");
-
 
 //        // 4. 데이터를 가져오는 부분은 네트웍을 통해서 오기 때문에 비동기 처리된다.
 //        result.enqueue(new Callback<List<Results>>() {
