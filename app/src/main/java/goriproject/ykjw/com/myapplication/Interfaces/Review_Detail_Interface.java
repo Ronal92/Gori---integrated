@@ -1,14 +1,12 @@
 package goriproject.ykjw.com.myapplication.Interfaces;
 
-import goriproject.ykjw.com.myapplication.domain.Result2;
-import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
+import java.util.List;
+
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -20,7 +18,7 @@ import retrofit2.http.Path;
 
 public interface Review_Detail_Interface {
     @GET("talent/detail/{talent_pk}/review/")
-    Call<ReviewRetrieve> getReviewRetrieve(@Path("talent_pk") String talent_pk);
+    Call<ReviewsSecThreeFrag> getReviewRetrieve(@Path("talent_pk") String talent_pk);
 
 
 //    @FormUrlEncoded
@@ -28,8 +26,7 @@ public interface Review_Detail_Interface {
     @Multipart
     @POST("talent/add/review/")
     Call<String> setReviewRetrieve(
-            @Header("Authorization") String token,
-//            @Body String data
+                        @Header("Authorization") String token,
                         @Part("talent_pk") int talent_pk,
                         @Part("curriculum") int curriculum,
                         @Part("readiness") int readiness,
@@ -38,5 +35,8 @@ public interface Review_Detail_Interface {
                         @Part("friendliness") int friendliness,
                         @Part("comment") String comment
     );
+
+    @DELETE("talent/delete/review/{review_pk}/")
+    Call<Void> deleteReview(@Header("Authorization") String token, @Path("review_pk") String review_pk);
 
 }

@@ -2,9 +2,11 @@ package goriproject.ykjw.com.myapplication;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -29,15 +31,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
 import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 
 
-import goriproject.ykjw.com.myapplication.domain_talent_detail_all.Reviews;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
-import goriproject.ykjw.com.myapplication.domain_talent_detail_all.User;
+import goriproject.ykjw.com.myapplication.domain_talent_detail_all.Reviews;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -58,6 +62,7 @@ public class Second_ThreeFragment extends Fragment {
     private static final String TAG = "RAPSTAR";
     private static final String KEY_FOR_TALENTDETAIL = "threeFragmentTL";
     private static final String KEY_FOR_TALENTDETAIL_INT = "threeFragmentTL_INT";
+    private static final String KEY_FOR_TOKEN = "threeFragmentToken";
 
     Context context = null;
     PagerAdapter adapter = null;
@@ -65,7 +70,11 @@ public class Second_ThreeFragment extends Fragment {
 
     Dialog dialog = null; // 다이얼로그
     List<Reviews> reviews = null;
+    ReviewsSecThreeFrag reviewsSecThreeFrag = null; // POST 후 get으로 받을 내용들
     TalentAll td = null;
+
+    RecyclerView recyclerReview = null;
+
 
 
 
@@ -86,11 +95,12 @@ public class Second_ThreeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) { // Heap 영역에 올라감.(객체생성하면)
         super.onCreate(savedInstanceState);
-
         if(getArguments() != null){
             this.td = (TalentAll)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
             this.id = getArguments().getInt(KEY_FOR_TALENTDETAIL_INT);
+
         }
+
     }
 
     @Override
@@ -102,8 +112,9 @@ public class Second_ThreeFragment extends Fragment {
             return view;
         }
         view = inflater.inflate(R.layout.fragment_second_three, container, false);
-        Context context = view.getContext();
+        context = view.getContext();
 
+        dialog = new Dialog(context);
         TextView txtReview_count = (TextView)view.findViewById(R.id.txtReview_count);
         TextView txtAverageRate = (TextView)view.findViewById(R.id.txtAverageRate);
         txtReview_count.setText(td.getReview_count());
@@ -114,29 +125,14 @@ public class Second_ThreeFragment extends Fragment {
         long ratinglong = Math.round(Double.parseDouble(td.getAverage_rates().getTotal()));
         ratingBar_average.setRating((int)ratinglong);
 
+
         // Reviews[] --> List<Reviews> : 데이터 동기화를 위해 사용한다.
         reviews = new ArrayList<>();
         for(int i = 0; i < Integer.valueOf(td.getReview_count()) ; i ++) {
             reviews.add(td.getReviews()[i]);
         }
 
-//        // 버튼 리뷰
-//        Button btnDelete_fragment_review = (Button)view.findViewById(R.id.btnDelete_fragment_review);
-//        String check_userId = "a.gori";
-//        if("a.gori".equals(check_userId)){
-//            btnDelete_fragment_review.setVisibility(View.VISIBLE);
-//            btnDelete_fragment_review.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.i(TAG, "======================================delete!!");
-//                }
-//            });
-//        } else {
-//            btnDelete_fragment_review.setVisibility(View.GONE);
-//
-//        }
-
-
+        // 버튼 : 리뷰 작성
         Button btnReview_second_activity = (Button)view.findViewById(R.id.btnReview_second_activity);
         btnReview_second_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,12 +147,11 @@ public class Second_ThreeFragment extends Fragment {
             }
         });
 
-
         // 리사이클러뷰
-        RecyclerView recyclerReview= (RecyclerView) view.findViewById(R.id.recycView_fragmentsecond_three);
-        adapter = new PagerAdapter(getContext(), reviews);
-        recyclerReview.setAdapter(adapter);
-        recyclerReview.setLayoutManager(new LinearLayoutManager(context));
+        recyclerReview = (RecyclerView) view.findViewById(R.id.recycView_fragmentsecond_three);
+        createRetrofitGET();
+
+
 
         return view;
     }
@@ -164,7 +159,6 @@ public class Second_ThreeFragment extends Fragment {
     public void showDialog(){
 
         // Dialog
-        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_second__review_);
 
@@ -173,6 +167,7 @@ public class Second_ThreeFragment extends Fragment {
         params.width = 950;      //params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.height = 1500;    //params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
 
         // Dialog 위젯
         ImageButton btnFinish = (ImageButton)dialog.findViewById(R.id.btnReviewFinish_second_review);
@@ -185,110 +180,127 @@ public class Second_ThreeFragment extends Fragment {
         final RatingBar raiting_delivery_review = (RatingBar)dialog.findViewById(R.id.raiting_delivery_review);
         final RatingBar raiting_friendliness_review = (RatingBar)dialog.findViewById(R.id.raiting_friendliness_review);
 
+        dialog.show();
+
 
         btnFinish.setOnClickListener(dialogListener);
         btnCancel.setOnClickListener(dialogListener);
-        // 사용자가 리뷰 확인을 눌렀을 때,
+
+        // 사용자가 리뷰 업로드 눌렀을 때,
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // 1. data를 로컬에서 새로 동기화시킨다.
-                Reviews added_reviews = new Reviews();
-                User temp_user = new User();
-                temp_user.setName("바꿔쭤");
-                temp_user.setProfile_image(null);
-                added_reviews.setUser(temp_user);
+                // 위젯에서 필요한 내용 받아오기
+                String editReview = edit_commen_review.getText().toString();
+                String rtCurriculum = (int)raiting_curriculum_review.getRating() + "";
+                String rtReadiness = (int)raiting_readiness_review.getRating() + "";
+                String rtTimeliness = (int)raiting_timeliness_review.getRating() + "";
+                String rtDelivery = (int)raiting_delivery_review.getRating() + "";
+                String rtFriendness = (int)raiting_friendliness_review.getRating() + "";
 
-                added_reviews.setCreated_date((new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()))) + "T"); // 현재 날짜 구하기
-                added_reviews.setCurriculum(raiting_curriculum_review.getRating() + "");
-                added_reviews.setReadiness(raiting_readiness_review.getRating() + "");
-                added_reviews.setTimeliness(raiting_timeliness_review.getRating() + "");
-                added_reviews.setDelivery(raiting_delivery_review.getRating() + "");
-                added_reviews.setFriendliness(raiting_friendliness_review.getRating() + "");
-                String textData = "";
-                try {
-                    //textData = URLEncoder.encode(edit_commen_review.getText().toString(),"utf-8");
-                    textData = edit_commen_review.getText().toString();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                added_reviews.setComment(textData);
+                createRetrofitPOST(editReview, rtCurriculum, rtReadiness, rtTimeliness, rtDelivery, rtFriendness );
+            }
+        });
 
-                    //1.2 added_reviews를 reviews에 넣고 어뎁터를 재세팅한다.
-                reviews.add(added_reviews);
-                adapter.notifyDataSetChanged();
+        // 다이얼로그 처리
+        if(dialog != null && dialog.isShowing()){
+            Log.i(TAG, "============================================dialog 1");
+            dialog.dismiss();
+        }
+        Log.i(TAG, "============================================dialog 2");
 
+    }
 
-                // 2. POST 통신
-                    // 2.1 통신 로그 확인
-                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    public void createRetrofitPOST(String editReview, String rtCurriculum, String rtReadiness, String rtTimeliness, String rtDelivery, String rtFriendness ){
 
-                OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-                httpClient.addInterceptor(logging);
+        // 2. POST 통신
+        // 2.1 통신 로그 확인
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-                    // 2.2 레트로핏을 생성
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://mozzi.co.kr/api/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(httpClient.build())
-                        .build();
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
 
-                Review_Detail_Interface service = retrofit.create(Review_Detail_Interface.class);
+        // 2.2 레트로핏을 생성
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
+                .build();
 
-                    // 2.3 토큰 받아오기
-                SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
-                String token = pref.getString("token", null);
-                    // 2.4 데이터 받아오기
+        Review_Detail_Interface service = retrofit.create(Review_Detail_Interface.class);
 
-                String textData2 = "";
-                try {
-                    //textData2 = URLEncoder.encode(edit_commen_review.getText().toString(),"utf-8");
-                    textData2 = edit_commen_review.getText().toString();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        // 토큰 받아오기
+        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
+        String token = pref.getString("token", null);
 
+        // 2.3 데이터 받아오기
+        Call<String> reviewData = service.setReviewRetrieve("Token " + token ,
+                Integer.valueOf(td.getPk()),
+                Integer.valueOf(rtCurriculum) ,
+                Integer.valueOf(rtReadiness) ,
+                Integer.valueOf(rtTimeliness) ,
+                Integer.valueOf(rtDelivery) ,
+                Integer.valueOf(rtFriendness) ,
+                editReview
+        );
 
-                Call<String> reviewData = service.setReviewRetrieve("Token " + token ,
-                                                                        Integer.valueOf(td.getPk()),
-                                                                        (int)raiting_curriculum_review.getRating() ,
-                                                                        (int)raiting_readiness_review.getRating() ,
-                                                                        (int)raiting_timeliness_review.getRating() ,
-                                                                        (int)raiting_delivery_review.getRating() ,
-                                                                        (int)raiting_friendliness_review.getRating() ,
-                                                                        textData2
-                        );
-
-                reviewData.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response.code() == 201) {
-                                Toast.makeText(getContext(), "성공", Toast.LENGTH_SHORT).show();
-                        } else  {
-                            Toast.makeText(getContext(), response.code() + "", Toast.LENGTH_SHORT).show();
-                            try {
-                                Log.e(TAG, "========================response.body" + response.errorBody().string() );
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                        dialog.dismiss();
-                    }
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        dialog.dismiss();
+        reviewData.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 201) {
+                    Toast.makeText(getContext(), "성공", Toast.LENGTH_SHORT).show();
+                    createRetrofitGET();
+                } else  {
+                    Toast.makeText(getContext(), response.code() + "", Toast.LENGTH_SHORT).show();
+                    try {
+                        Log.e(TAG, "========================response.body" + response.errorBody().string() );
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
-                });
-
+                }
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
             }
 
         });
 
-        dialog.show();
+    }
+
+    public void createRetrofitGET() {
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Review_Detail_Interface tdService = retrofit.create(Review_Detail_Interface.class);
+
+        Call<ReviewsSecThreeFrag> tds = tdService.getReviewRetrieve(td.getPk());
+        tds.enqueue(new Callback<ReviewsSecThreeFrag>() {
+            @Override
+            public void onResponse(Call<ReviewsSecThreeFrag> call, Response<ReviewsSecThreeFrag> response) {
+                reviewsSecThreeFrag = response.body();
+                // 리사이클러뷰
+                if(adapter == null) {
+                    adapter = new PagerAdapter(getContext(), reviews);
+                    recyclerReview.setAdapter(adapter);
+                    recyclerReview.setLayoutManager(new LinearLayoutManager(context));
+                } else {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewsSecThreeFrag> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     // Dialog 화면 버튼 리스너
@@ -306,7 +318,9 @@ public class Second_ThreeFragment extends Fragment {
         }
     };
 
-    // 리뷰를 리스트로 보여줄 어뎁터
+
+
+    // Adapter : 리뷰를 리스트로 보여줄 어뎁터
     public class PagerAdapter extends RecyclerView.Adapter<PagerAdapter.ViewHolder> {
 
         private static final String TAG = "RAPSTAR";
@@ -316,11 +330,9 @@ public class Second_ThreeFragment extends Fragment {
         private Double timeliness = null;
         private Double delivery = null;
         private Double friendliness = null;
-        List<Reviews> reviews = null;
 
-        public PagerAdapter(Context context,  List<Reviews> reviews){
+        public PagerAdapter(Context context, List<Reviews> reviews){
             this.context = context;
-            this.reviews = reviews;
         }
 
         @Override
@@ -332,34 +344,102 @@ public class Second_ThreeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return reviews.size();
+            //return reviews_Pager.size();
+            return reviewsSecThreeFrag.getResults().length;
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             // 이미지 표시
-            Glide.with(context).load(reviews.get(position).getUser().getProfile_image()).placeholder(R.mipmap.ic_launcher).into(holder.img);
+            Glide.with(context).load(reviewsSecThreeFrag.getResults()[position].getUser().getProfile_image()).placeholder(R.mipmap.ic_launcher).into(holder.img);
             // 이름 표시
-            holder.txtName.setText(reviews.get(position).getUser().getName());
+            holder.txtName.setText(reviewsSecThreeFrag.getResults()[position].getUser().getName());
             // Comment  표시
-           holder.txtComment.setText(reviews.get(position).getComment());
+           holder.txtComment.setText(reviewsSecThreeFrag.getResults()[position].getComment());
 
             // 날짜 표시 (시간을 제외한 일자만 표시한다.)
-            String date = reviews.get(position).getCreated_date();
+            String date = reviewsSecThreeFrag.getResults()[position].getCreated_date();
             date = date.substring(0,date.indexOf("T"));
             holder.txtDate.setText(date);
 
             // 별점 표시 (평균값 구해서 출력)
-            curriculum = Double.valueOf(reviews.get(position).getCurriculum());
-            readiness = Double.valueOf(reviews.get(position).getReadiness());
-            timeliness = Double.valueOf(reviews.get(position).getTimeliness());
-            delivery = Double.valueOf(reviews.get(position).getDelivery());
-            friendliness = Double.valueOf(reviews.get(position).getFriendliness());
+            curriculum = Double.valueOf(reviewsSecThreeFrag.getResults()[position].getCurriculum());
+            readiness = Double.valueOf(reviewsSecThreeFrag.getResults()[position].getReadiness());
+            timeliness = Double.valueOf(reviewsSecThreeFrag.getResults()[position].getTimeliness());
+            delivery = Double.valueOf(reviewsSecThreeFrag.getResults()[position].getDelivery());
+            friendliness = Double.valueOf(reviewsSecThreeFrag.getResults()[position].getFriendliness());
 
             Double ave_total = (double)(curriculum + readiness + timeliness + delivery + friendliness)/5;
             long ratinglong = Math.round(Double.parseDouble(ave_total + ""));
             holder.ratingBar.setRating(ratinglong);
+
+            // 버튼 : 리뷰 삭제
+            final int review_position = position;
+            String check_userId = "a.gori";
+            if("a.gori".equals(check_userId)){
+                holder.btnDelete_fragment_review.setVisibility(View.VISIBLE);
+                holder.btnDelete_fragment_review.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "======================================delete!!");
+
+                        // 1 .delete 통신
+
+                        // 2.1 통신 로그 확인
+                        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+                        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+                        httpClient.addInterceptor(logging);
+
+                        // 2.2 레트로핏을 생성
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://mozzi.co.kr/api/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .client(httpClient.build())
+                                .build();
+
+                        Review_Detail_Interface service = retrofit.create(Review_Detail_Interface.class);
+
+                        // 토큰 받아오기
+                        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
+                        String token = pref.getString("token", null);
+
+                        // 2.4 데이터 받아오기
+                        Call<Void> reviewDelete = service.deleteReview("Token " + token, reviewsSecThreeFrag.getResults()[review_position].getPk());
+                       // Log.i(TAG, "==========================token : " + token + ", pk : " + reviews_Pager.get(review_position).getPk());
+
+                        reviewDelete.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.code() == 204) {
+                                    Toast.makeText(getContext(), "성공", Toast.LENGTH_SHORT).show();
+                                    adapter.notifyDataSetChanged();
+                                } else  {
+                                    Toast.makeText(getContext(), response.code() + "", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        Log.e(TAG, "========================response.body" + response.errorBody().string() );
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.e(TAG, "========================delete 통신 실패!!");
+                            }
+                        });
+
+
+
+                    }
+                });
+            } else {
+                holder.btnDelete_fragment_review.setVisibility(View.GONE);
+            }
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
@@ -369,6 +449,7 @@ public class Second_ThreeFragment extends Fragment {
             TextView txtComment;
             CircleImageView img;
             RatingBar ratingBar;
+            Button btnDelete_fragment_review;
             boolean clicked = false;
 
             public ViewHolder(View itemView) {
@@ -380,6 +461,7 @@ public class Second_ThreeFragment extends Fragment {
                 txtComment = (TextView) itemView.findViewById(R.id.txtComment_tutee_fragment_review);
                 img = (CircleImageView)itemView.findViewById(R.id.img_tutee_fragment_review);
                 ratingBar = (RatingBar)itemView.findViewById(R.id.rb_tutee_fragment_review);
+                btnDelete_fragment_review = (Button)itemView.findViewById(R.id.btnDelete_fragment_review);
 
                 csLayout.setOnClickListener(new View.OnClickListener() {
                     @Override

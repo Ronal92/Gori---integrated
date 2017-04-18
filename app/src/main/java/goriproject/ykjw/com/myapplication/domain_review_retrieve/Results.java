@@ -1,4 +1,5 @@
-package goriproject.ykjw.com.myapplication.domain.review;
+package goriproject.ykjw.com.myapplication.domain_review_retrieve;
+
 
 import java.io.Serializable;
 
@@ -6,7 +7,9 @@ import java.io.Serializable;
  * Created by JINWOO on 2017-04-13.
  */
 
-public class Reviews implements Serializable {
+
+public class Results implements Serializable
+{
     private String created_date;
 
     private String friendliness;

@@ -37,14 +37,24 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
+import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.review.ReviewRetrieve;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
+
+/**
+ * drawer layout id 변경함 with activity_second_view
+ */
 public class SecondActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "RAPSTAR";
@@ -76,12 +86,10 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     //TalentDetail td = new TalentDetail();
     TalentAll td = new TalentAll();
 
-    ReviewRetrieve reviewRetrieve = new ReviewRetrieve();
     float txtTitle_y_position = 0;
     float tab_y_position = 0;
 
     private TabLayout mTabLayout;
-
 
 
     @Override
@@ -133,7 +141,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
          //드로어레이아웃
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_secondActivity);
 
         navigationView  = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -141,6 +149,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         // 프래그먼트 초기화
         one = new Second_OneFragment();
         two = Second_TwoFragment.newInstance(td);
+
         three = Second_ThreeFragment.newInstance(td, id);
         four = Second_FourFragment.newInstance(td, id);
 
@@ -223,7 +232,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_secondActivity);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

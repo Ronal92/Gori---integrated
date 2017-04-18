@@ -1,24 +1,25 @@
-package goriproject.ykjw.com.myapplication.domain.review;
+package goriproject.ykjw.com.myapplication.domain_review_retrieve;
+
 
 import java.io.Serializable;
 
 /**
  * Created by JINWOO on 2017-04-13.
  */
-
-public class User implements Serializable {
-    private String  profile_image;
+public class User implements Serializable
+{
+    private String profile_image;
 
     private String name;
 
     private String pk;
 
-    public String  getProfile_image ()
+    public String getProfile_image ()
     {
         return profile_image;
     }
 
-    public void setProfile_image (String  profile_image)
+    public void setProfile_image (String profile_image)
     {
         this.profile_image = profile_image;
     }
@@ -49,3 +50,4 @@ public class User implements Serializable {
         return "ClassPojo [profile_image = "+profile_image+", name = "+name+", pk = "+pk+"]";
     }
 }
+
