@@ -24,6 +24,6 @@ public interface SignUpInterface {
     Call<Result2> login(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("member/token-auth/")
+    @POST("member/fb_login/")
     Call<Result> facebooklogin(@Field("access_token") String token);
 }

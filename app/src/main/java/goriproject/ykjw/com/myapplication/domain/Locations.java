@@ -11,17 +11,9 @@ public class Locations implements Serializable
 {
     private String region;
 
-    private String extra_fee_amount;
+    private List<Results> results;
 
-    private List<String> time;
-
-    private String talent;
-
-    private String specific_location;
-
-    private String day;
-
-    private String extra_fee;
+    private String count;
 
     public String getRegion ()
     {
@@ -33,67 +25,27 @@ public class Locations implements Serializable
         this.region = region;
     }
 
-    public String getExtra_fee_amount ()
+    public List<Results> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Results> results) {
+        this.results = results;
+    }
+
+    public String getCount ()
     {
-        return extra_fee_amount;
+        return count;
     }
 
-    public void setExtra_fee_amount (String extra_fee_amount)
+    public void setCount (String count)
     {
-        this.extra_fee_amount = extra_fee_amount;
-    }
-
-    public List<String> getTime() {
-        return time;
-    }
-
-    public void setTime(List<String> time) {
-        this.time = time;
-    }
-
-    public String getTalent ()
-    {
-        return talent;
-    }
-
-    public void setTalent (String talent)
-    {
-        this.talent = talent;
-    }
-
-    public String getSpecific_location ()
-    {
-        return specific_location;
-    }
-
-    public void setSpecific_location (String specific_location)
-    {
-        this.specific_location = specific_location;
-    }
-
-    public String getDay ()
-    {
-        return day;
-    }
-
-    public void setDay (String day)
-    {
-        this.day = day;
-    }
-
-    public String getExtra_fee ()
-    {
-        return extra_fee;
-    }
-
-    public void setExtra_fee (String extra_fee)
-    {
-        this.extra_fee = extra_fee;
+        this.count = count;
     }
 
     @Override
     public String toString()
     {
-        return "ClassPojo [region = "+region+", extra_fee_amount = "+extra_fee_amount+", time = "+time+", talent = "+talent+", specific_location = "+specific_location+", day = "+day+", extra_fee = "+extra_fee+"]";
+        return "ClassPojo [region = "+region+", results = "+results+", count = "+count+"]";
     }
 }

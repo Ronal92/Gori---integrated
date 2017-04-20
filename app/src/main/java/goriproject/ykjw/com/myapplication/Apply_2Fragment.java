@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -30,7 +32,9 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
     int starter = 0;
     int center = 0;
     int sang = 0;
+    EditText et_msg, explength;
     TalentDetail td;
+
 
     ApplyActivity activity;
     Button btn_next3;
@@ -79,12 +83,23 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
         btn_next3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.goAp3();
+                if(et_msg.getText().toString().length() == 0) {
+                    Toast.makeText(getContext(), "튜터에게 남길 말을 입력해주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    activity.experience_length = Integer.parseInt(explength.getText().toString().trim());
+                    activity.tutor_msg = et_msg.getText().toString();
+                    activity.goAp3();
+                }
             }
         });
 
+        explength = (EditText)view.findViewById(R.id.et_almana);
+        et_msg = (EditText)view.findViewById(R.id.et_apply_sendmessage);
         img_apply2_profile = (ImageView)view.findViewById(R.id.img_apply2_profile);
         Glide.with(activity).load(td.getTutor().getProfile_image()).into(img_apply2_profile);
+        btn_apply_starter.setBackgroundResource(R.drawable.custom_button7);
+        btn_apply_starter.setTextColor(Color.WHITE);
+        activity.student_level = 1;
 
         return view;
     }
@@ -116,6 +131,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
                     btn_apply_center.setTextColor(getResources().getColor(R.color.customgrey));
                     btn_apply_sang.setBackgroundResource(R.drawable.custom_button8);
                     btn_apply_sang.setTextColor(getResources().getColor(R.color.customgrey));
+                    activity.student_level = 1;
                 }
                 break;
             case R.id.btn_apply_center :
@@ -129,6 +145,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
                     btn_apply_center.setTextColor(Color.WHITE);
                     btn_apply_sang.setBackgroundResource(R.drawable.custom_button8);
                     btn_apply_sang.setTextColor(getResources().getColor(R.color.customgrey));
+                    activity.student_level = 2;
                 }
                 break;
             case R.id.btn_apply_sang :
@@ -142,7 +159,7 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
                     btn_apply_center.setTextColor(getResources().getColor(R.color.customgrey));
                     btn_apply_sang.setBackgroundResource(R.drawable.custom_button7);
                     btn_apply_sang.setTextColor(Color.WHITE);
-
+                    activity.student_level = 3;
                 }
                 break;
         }

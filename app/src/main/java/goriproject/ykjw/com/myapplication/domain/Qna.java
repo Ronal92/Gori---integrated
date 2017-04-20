@@ -1,9 +1,10 @@
-package goriproject.ykjw.com.myapplication.domain_talent_detail_all;
+package goriproject.ykjw.com.myapplication.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * Created by JINWOO on 2017-04-15.
+ * Created by Younkyu on 2017-04-19.
  */
 
 public class Qna implements Serializable
@@ -12,7 +13,7 @@ public class Qna implements Serializable
 
     private String created_date;
 
-    private Replies[] replies;
+    private List<String> replies;
 
     private String user;
 
@@ -40,13 +41,11 @@ public class Qna implements Serializable
         this.created_date = created_date;
     }
 
-    public Replies[] getReplies ()
-    {
+    public List<String> getReplies() {
         return replies;
     }
 
-    public void setReplies (Replies[] replies)
-    {
+    public void setReplies(List<String> replies) {
         this.replies = replies;
     }
 

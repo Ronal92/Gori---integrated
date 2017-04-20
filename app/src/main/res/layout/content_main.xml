@@ -35,7 +35,7 @@
             app:srcCompat="@drawable/logo2" />
     </android.support.constraint.ConstraintLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -516,7 +516,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/custom_button"
-                    android:text="헬스뷰티"
+                    android:text="헬스/뷰티"
                     android:textColor="@drawable/text_color_selector"
                     app:layout_constraintLeft_toRightOf="@+id/btn_category_all"
                     app:layout_constraintTop_toTopOf="@+id/btn_category_all" />
@@ -614,9 +614,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <Space
         android:layout_width="wrap_content"

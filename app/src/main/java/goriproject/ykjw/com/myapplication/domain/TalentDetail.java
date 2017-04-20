@@ -11,6 +11,16 @@ public class TalentDetail implements Serializable
 {
     private String cover_image;
 
+    public Average_rates getAverage_rates() {
+        return average_rates;
+    }
+
+    public void setAverage_rates(Average_rates average_rates) {
+        this.average_rates = average_rates;
+    }
+
+    private Average_rates average_rates;
+
     private String class_info;
 
     private String hours_per_class;
@@ -42,6 +52,16 @@ public class TalentDetail implements Serializable
     private List<Locations> locations;
 
     private List<Curriculums> curriculums;
+
+    public String getRegistration_count() {
+        return registration_count;
+    }
+
+    public void setRegistration_count(String registration_count) {
+        this.registration_count = registration_count;
+    }
+
+    private String registration_count;
 
     private Tutor tutor;
 

@@ -1,175 +1,180 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="#FFFFFF"
+    tools:context="goriproject.ykjw.com.myapplication.Apply_1Fragment">
 
+    <!-- TODO: Update blank fragment layout -->
 
-    <!--<TextView-->
-    <!--android:id="@+id/txtTwo1"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="구글맵이 들어갈 곳!!"-->
-    <!--android:textSize="24sp"-->
-    <!--android:layout_marginLeft="30dp"-->
-    <!--android:layout_marginRight="30dp"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_centerHorizontal="true" />-->
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:layout_margeinTop="20dp"-->
-    <!--android:background="#dcdbdb"-->
-    <!--android:layout_below="@+id/txtTwo1"-->
-    <!--android:id="@+id/viewTwo1" />-->
-
-    <LinearLayout
-        android:id="@+id/linearLayoutTwo1"
-        android:orientation="horizontal"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:layout_height="match_parent">
+
+        <goriproject.ykjw.com.myapplication.Custom.CircleImageView
+            android:id="@+id/img_apply1_profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp" />
 
         <TextView
-            android:text="위치  확인"
-            android:layout_width="41dp"
-            android:layout_height="55dp"
-            android:id="@+id/txtTwo2"
-            android:textSize="18sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp" />
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bubble"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="수업장소와 가능한 시간을\n한번 더 확인해주세요."
+            app:layout_constraintBottom_toBottomOf="@+id/img_apply1_profile"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/img_apply1_profile"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_apply1_profile"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <RadioGroup
-            android:id="@+id/dynamic_radiogroup_loc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/apply1_sepa_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#b6b6b6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"></View>
 
-    </LinearLayout>
+        <View
+            android:id="@+id/apply1_sepa_bottom2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#b6b6b6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_second_new"></View>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#dcdbdb"
-        android:layout_below="@+id/linearLayoutTwo1"
-        android:id="@+id/viewTwo2"
-        android:layout_marginTop="0dp" />
+        <View
+            android:id="@+id/apply1_sepa_bottom3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="#b6b6b6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply1_canday"></View>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTwo2"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/viewTwo2"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:text="가능 요일"
-            android:layout_width="41dp"
-            android:layout_height="55dp"
-            android:id="@+id/txtTwo3"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp" />
-
-
-        <RadioGroup
-            android:id="@+id/dynamic_radiogroup_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#dcdbdb"
-        android:layout_below="@+id/linearLayoutTwo2"
-        android:id="@+id/viewTwo3"
-        android:layout_marginTop="0dp" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutTwo3"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/viewTwo3"
-        android:layout_marginTop="15dp">
+        <View
+            android:id="@+id/apply1_sepa_bottom4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#b6b6b6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_aply_cantime"></View>
 
         <TextView
-            android:text="가능 시간"
-            android:layout_width="41dp"
-            android:layout_height="55dp"
-            android:id="@+id/txtTwo4"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp" />
-
-        <RadioGroup
-            android:id="@+id/dynamic_radiogroup_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#dcdbdb"
-        android:layout_below="@+id/linearLayoutTwo3"
-        android:id="@+id/viewTwo4"
-        android:layout_marginTop="0dp" />
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/viewTwo4"
-        android:id="@+id/linearLayoutTwo4"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-
-            android:layout_marginLeft="10dp"
-            android:text="장소 :"
+            android:id="@+id/tv_second_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView9"
-            />
+            android:layout_marginTop="27dp"
+            android:text="위치\n확인"
+            app:layout_constraintLeft_toLeftOf="@+id/img_apply1_profile"
+            app:layout_constraintRight_toRightOf="@+id/img_apply1_profile"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom" />
 
         <TextView
-            android:text=" 서울 은평구 연신내"
+            android:id="@+id/tv_apply1_canday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutTwo5"
-        android:layout_below="@+id/linearLayoutTwo4"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+            android:layout_marginTop="24dp"
+            android:text="가능\n요일"
+            app:layout_constraintLeft_toLeftOf="@+id/img_apply1_profile"
+            app:layout_constraintRight_toRightOf="@+id/img_apply1_profile"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom2" />
 
         <TextView
-            android:layout_marginLeft="10dp"
-            android:text="추가비용 :"
+            android:id="@+id/tv_aply_cantime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView11"
-            />
+            android:layout_marginTop="24dp"
+            android:text="가능\n시간"
+            app:layout_constraintLeft_toLeftOf="@+id/img_apply1_profile"
+            app:layout_constraintRight_toRightOf="@+id/img_apply1_profile"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom3" />
 
         <TextView
-            android:text=" 없음"
+            android:id="@+id/tv_apply1_plusinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
-            />
+            android:layout_marginTop="16dp"
+            android:text="장소 : 스터디룸"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_apply1_canday"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom4" />
 
-    </LinearLayout>
+        <GridLayout
+            android:id="@+id/li_apply1_btnlayout1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:columnCount="3"
+            android:minHeight="30dp"
+            android:orientation="horizontal"
+            android:useDefaultMargins="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/textView6"
+            app:layout_constraintRight_toRightOf="@+id/textView6"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/apply1_sepa_bottom2">
 
 
+        </GridLayout>
 
+        <LinearLayout
+            android:id="@+id/li_apply1_btnlayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_apply1_canday"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/li_apply1_btnlayout1"
+            app:layout_constraintRight_toRightOf="@+id/li_apply1_btnlayout1"
+            app:layout_constraintTop_toTopOf="@+id/tv_apply1_canday"
+            app:layout_constraintVertical_bias="0.5">
 
-</RelativeLayout>
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/li_apply1_btnlayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_aply_cantime"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/li_apply1_btnlayout2"
+            app:layout_constraintRight_toRightOf="@+id/li_apply1_btnlayout2"
+            app:layout_constraintTop_toTopOf="@+id/tv_aply_cantime"></GridLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

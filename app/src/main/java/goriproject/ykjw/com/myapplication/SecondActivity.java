@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,24 +38,12 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
-import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
-import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
-
-/**
- * drawer layout id 변경함 with activity_second_view
- */
 public class SecondActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "RAPSTAR";
@@ -82,14 +71,25 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     DrawerLayout drawer;
     NavigationView navigationView;
 
-
-    //TalentDetail td = new TalentDetail();
-    TalentAll td = new TalentAll();
-
+    Talent talent;
+    TalentDetail td = new TalentDetail();
     float txtTitle_y_position = 0;
     float tab_y_position = 0;
 
     private TabLayout mTabLayout;
+
+
+/*
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        txtTitle_y_position = txtTitle.getTop();
+        tab_y_position = tab.getTop();
+        Log.i(TAG,"=========================txtTitle_y_position : " + txtTitle_y_position + ", tab_y_position : " + tab_y_position);
+        scrollView.setTxtTitleForY(txtTitle_y_position + 180);
+        scrollView.setTabForY(tab_y_position + 120);
+        super.onWindowFocusChanged(hasFocus);
+    }
+*/
 
 
     @Override
@@ -113,18 +113,18 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_view);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-
-
 
         Intent intent = getIntent();
         final int id = intent.getExtras().getInt("id");
         Results item = (Results)intent.getSerializableExtra("item");
+        td = (TalentDetail)intent.getSerializableExtra("td");
 
-        td = (TalentAll)intent.getSerializableExtra("td");
 
 
+        Log.e("sdfdfdfadfasd", String.valueOf(td.getTitle()));
 
 
         // 탭 레이아웃 & 뷰페이저 초기화
@@ -140,8 +140,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager_second_activity));
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-         //드로어레이아웃
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_secondActivity);
+
+        //드로어레이아웃
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView  = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -149,13 +150,12 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         // 프래그먼트 초기화
         one = new Second_OneFragment();
         two = Second_TwoFragment.newInstance(td);
-
-        three = Second_ThreeFragment.newInstance(td, id);
-        four = Second_FourFragment.newInstance(td, id);
-
-        one.setTalent(item, td);
+        three = Second_ThreeFragment.newInstance(td);
+        four = new Second_FourFragment();
+        Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
+        one.setTalent(talent,item, td);
+        four.setTalent(talent,item);
         one.setActivity(this);
-
 
         // 버튼 초기화
         Button btnApplySecondTemp = (Button)findViewById(R.id.btnApplySecondTemp);
@@ -163,15 +163,20 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         btnApplySecondTemp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+             if(is_signin) {
                 Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("td", td);
                 startActivity(intent);
+            } else {
+                Intent intent = new Intent(SecondActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
             }
         });
 
-    }
 
+    }
 
     // 위시리스트 결과를 보여주는 대화상자
     public void showMessage(boolean isChecked){
@@ -232,7 +237,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_secondActivity);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

@@ -1,12 +1,10 @@
-package goriproject.ykjw.com.myapplication.domain_talent_detail_all;
+package goriproject.ykjw.com.myapplication.domain;
 
 import java.io.Serializable;
 
 /**
- * Created by JINWOO on 2017-04-15.
+ * Created by Younkyu on 2017-04-19.
  */
-
-
 
 public class Average_rates implements Serializable
 {

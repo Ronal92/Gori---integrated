@@ -35,20 +35,14 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import goriproject.ykjw.com.myapplication.Interfaces.StopProgressDialog;
 import goriproject.ykjw.com.myapplication.domain.Results;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
-/**
- *   windowleak 문제 발생 : AsyncTask 수정
- */
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener, StopProgressDialog {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener {
 
     int location_menu_count = 0;
     int category_menu_count = 0;
@@ -70,50 +64,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout drawer;
     NavigationView navigationView;
 
-    ProgressDialog asyncDialog_MainListAdapter = null;
-
-
-    @Override
-    protected void onStop() {
-
-        if(asyncDialog_MainListAdapter != null && asyncDialog_MainListAdapter.isShowing()) {
-            asyncDialog_MainListAdapter.dismiss();
-        }
-
-        super.onStop();
-
-    }
-
-    public void stopProgress(ProgressDialog asyncDialog_MainListAdapter){
-        this.asyncDialog_MainListAdapter = asyncDialog_MainListAdapter;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        key = pref.getString("autologin", "");
+        key = pref.getString("token", "");
         Log.e("kkkkknjjjjjjjjjjjk",key);
         if(key != null && key.length() > 0) {
             is_signin = true;
         }
 
+
+
         if(datas2.size() == 0) {
-            CheckTypesTask task = new CheckTypesTask(this);
+            CheckTypesTask task = new CheckTypesTask();
             task.execute();
-//            try {
-//                task.get();
-//                asyncDialog.dismiss();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
+            //Toast.makeText(this, TutorLoader.datasRealy.size(), Toast.LENGTH_SHORT).show();
         }
-
-
-
+        if(TalentLoader.talent_datas.size() ==0) {
+            TalentLoader.loadData();
+        }
 
         rca.notifyDataSetChanged();
 
@@ -155,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //3. 리사이클러 뷰에 아답터 세팅하기
         rv.setAdapter(rca);
 
+        rv.setNestedScrollingEnabled(false);
+
         //4. 리사이클러 뷰 매니저 등록하기(뷰의 모양을 결정 : 그리드, 일반리스트, 비대칭그리드)
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -165,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Glide.with(this).load(R.drawable.main_img).thumbnail(0.1f).into(mainimg);
 
         button_connect();
+
     }
 
     public void button_connect() {
@@ -486,7 +460,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             for (Results it : temp) {
-                if (it.getCategory().contains(category)) {
+                String t = it.getCategory().replaceAll("\\p{Z}", "");
+                if (t.contains(category)) {
                     datas2.add(it);
                 }
             }
@@ -682,18 +657,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog asyncDialog;
 
-        public CheckTypesTask(Context context) {
-            asyncDialog = new ProgressDialog(context);
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중입니다..");
-        }
+        ProgressDialog asyncDialog = new ProgressDialog(
+                MainActivity.this);
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("로딩중입니다..");
+            asyncDialog.setCanceledOnTouchOutside(false);
+
+            // show dialog
             asyncDialog.show();
+            super.onPreExecute();
         }
 
         @Override
@@ -704,11 +680,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
             asyncDialog.dismiss();
             rcanoti();
+            super.onPostExecute(result);
         }
     }
+
 
 
 }

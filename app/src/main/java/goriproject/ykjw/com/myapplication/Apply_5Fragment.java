@@ -1,6 +1,7 @@
 package goriproject.ykjw.com.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,11 +57,14 @@ public class Apply_5Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_apply_5, container, false);
 
+        td = activity.td;
         btn_applycomplete = (Button)view.findViewById(R.id.btn_matchcomplete);
         btn_applycomplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.goPc();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                activity.finish();
+                startActivity(intent);
             }
         });
 
@@ -68,9 +72,9 @@ public class Apply_5Fragment extends Fragment {
         tv_apply5_tutorname = (TextView)view.findViewById(R.id.tv_apply5_tutorname);
         tv_apply5_tv1 = (TextView)view.findViewById(R.id.tv_apply5_tv1);
 
-        tv_apply5_tutorname.setText(activity.talent.getTutor_name());
-        tv_apply5_tutorinfo.setText(activity.talent.getTalent_name());
-        tv_apply5_tv1.setText("위의 계좌로 \n"+ activity.talent.getTalent_price()+"을 입금해주세요 \n \n 입금 확인 후, 튜터분과 즉시 연결됩니다.");
+        tv_apply5_tutorname.setText(td.getTutor().getName());
+        tv_apply5_tutorinfo.setText(td.getTitle());
+        tv_apply5_tv1.setText("위의 계좌로 \n"+ td.getPrice_per_hour()+"을 입금해주세요 \n \n 입금 확인 후, 튜터분과 즉시 연결됩니다.");
 
         return view;
     }

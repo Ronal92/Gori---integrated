@@ -194,6 +194,7 @@
             android:background="@drawable/edittext_custom"
             android:ems="10"
             android:hint=" 개월"
+            android:inputType="number"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@+id/apply2_batang2"
             app:layout_constraintTop_toBottomOf="@+id/tv_almana" />

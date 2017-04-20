@@ -109,7 +109,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_second_new"></View>
 
         <View
@@ -174,22 +174,24 @@
             app:layout_constraintLeft_toLeftOf="@+id/tv_apply1_canday"
             app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom4" />
 
-        <LinearLayout
+        <GridLayout
             android:id="@+id/li_apply1_btnlayout1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginBottom="16dp"
+            android:columnCount="3"
             android:minHeight="30dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_second_new"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:useDefaultMargins="true"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="@+id/textView6"
             app:layout_constraintRight_toRightOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/tv_second_new">
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/apply1_sepa_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/apply1_sepa_bottom2">
 
 
-        </LinearLayout>
+        </GridLayout>
 
         <Button
             android:id="@+id/btn_next2"
@@ -217,20 +219,21 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <GridLayout
             android:id="@+id/li_apply1_btnlayout3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/tv_aply_cantime"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/li_apply1_btnlayout2"
             app:layout_constraintRight_toRightOf="@+id/li_apply1_btnlayout2"
-            app:layout_constraintTop_toTopOf="@+id/tv_aply_cantime"></LinearLayout>
+            app:layout_constraintTop_toTopOf="@+id/tv_aply_cantime"></GridLayout>
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

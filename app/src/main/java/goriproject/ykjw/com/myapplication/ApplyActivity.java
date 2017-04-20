@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,7 +14,18 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import goriproject.ykjw.com.myapplication.Interfaces.Apply_Doc_Interface;
+import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static goriproject.ykjw.com.myapplication.Statics.is_signin;
+import static goriproject.ykjw.com.myapplication.Statics.key;
 
 public class ApplyActivity extends AppCompatActivity {
 
@@ -26,6 +38,10 @@ public class ApplyActivity extends AppCompatActivity {
     FragmentManager manager;
     Talent talent;
     TalentDetail td;
+    String tutor_msg = "";
+    int student_level = 0;
+    int Location_pk = 0;
+    int experience_length = 0;
 
     ImageView img;
     @Override
@@ -70,14 +86,16 @@ public class ApplyActivity extends AppCompatActivity {
     }
 
     public void click_next(View view) {
+
 // 1. 프래그먼트를 실행하기위한 트랜잭션 시작
-        FragmentTransaction transaction = manager.beginTransaction();
-        // 2. 프래그먼트를 레이아웃에 add 한다
-        transaction.replace(R.id.fragmentbatang, ap1);
-        // 최초 호출되는 프래그먼트는 addToBackStack 을 사용하지 않는다
-        transaction.addToBackStack(null);
-        // 3. git 의 commit 과 같은 기능
-        transaction.commit();
+            FragmentTransaction transaction = manager.beginTransaction();
+            // 2. 프래그먼트를 레이아웃에 add 한다
+            transaction.replace(R.id.fragmentbatang, ap1);
+            // 최초 호출되는 프래그먼트는 addToBackStack 을 사용하지 않는다
+            transaction.addToBackStack(null);
+            // 3. git 의 commit 과 같은 기능
+            transaction.commit();
+
     }
 
 

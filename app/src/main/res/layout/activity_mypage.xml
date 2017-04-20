@@ -12,9 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="goriproject.ykjw.com.myapplication.MainActivity">
+
         <include
             android:id="@+id/include"
             layout="@layout/activity_mypage_main_view" />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

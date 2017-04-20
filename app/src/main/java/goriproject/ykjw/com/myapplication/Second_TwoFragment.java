@@ -2,32 +2,53 @@ package goriproject.ykjw.com.myapplication;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
+import goriproject.ykjw.com.myapplication.Util.DipCal;
+import goriproject.ykjw.com.myapplication.domain.Locations;
+import goriproject.ykjw.com.myapplication.domain.Results;
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Second_TwoFragment extends Fragment {
+public class Second_TwoFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "RAPSTAR";
     private static final String KEY_FOR_TALENTDETAIL = "twoFragmentTL";
 
     Context context = null;
-    private TalentAll talentAll = null;
+
+    ImageView img_apply1_profile;
+    TalentDetail td;
+
+    LinearLayout btn2layout;
+
+    GridLayout btn3layout, btn1layout;
+    TextView tv_apply1_plusinfo;
+    List<Button> locationbtnlist = new ArrayList<>();
+    List<Button> locationbtnlist2 = new ArrayList<>();
 
     private View view;
 
@@ -36,10 +57,10 @@ public class Second_TwoFragment extends Fragment {
     }
 
     //
-    public static Second_TwoFragment newInstance(TalentAll talentAll){
+    public static Second_TwoFragment newInstance(TalentDetail talentDetail){
         Second_TwoFragment secondTwoFragment = new Second_TwoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY_FOR_TALENTDETAIL, talentAll);
+        args.putSerializable(KEY_FOR_TALENTDETAIL, talentDetail);
         secondTwoFragment.setArguments(args);
         return secondTwoFragment;
     }
@@ -49,7 +70,7 @@ public class Second_TwoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null){
-            this.talentAll = (TalentAll)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
+            this.td = (TalentDetail)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
         }
 
     }
@@ -63,172 +84,150 @@ public class Second_TwoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_second_two, container, false);
 
 
+        tv_apply1_plusinfo = (TextView)view.findViewById(R.id.tv_apply1_plusinfo);
 
-        showLocationConfirm();
+        img_apply1_profile = (ImageView)view.findViewById(R.id.img_apply1_profile);
+        Glide.with(getContext()).load(td.getTutor().getProfile_image()).into(img_apply1_profile);
+
+        btn1layout = (GridLayout)view.findViewById(R.id.li_apply1_btnlayout1);
+        btn2layout = (LinearLayout)view.findViewById(R.id.li_apply1_btnlayout2);
+        btn3layout = (GridLayout) view.findViewById(R.id.li_apply1_btnlayout3);
+
+
+
+
+
+        int tag = 0;
+        for(Locations lc : td.getLocations()) {
+            final Button btn = new Button(getContext());
+            btn.setText(lc.getRegion());
+
+            final int width = DipCal.convertPixelsToDp(70,getContext());
+            final int height = DipCal.convertPixelsToDp(40,getContext());
+            btn.setWidth(width);
+            btn.setHeight(height);
+            GridLayout.LayoutParams p = new GridLayout.LayoutParams();
+            p.setMargins(10,0,0,10);
+            p.width= width;
+            p.height = height;
+            btn.setLayoutParams(p);
+            btn.setTextSize(14);
+            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            btn.setBackgroundResource(R.drawable.custom_button6);
+            btn.setTag(tag);
+            tag = tag +1;
+            locationbtnlist.add(btn);
+            btn.setOnClickListener(this);
+            btn.setClickable(true);
+            locationbtnlist.add(btn);
+            btn1layout.addView(btn);
+        }
+
+        locationbtnlist.get(0).setBackgroundResource(R.drawable.custom_button5);
+        locationbtnlist.get(0).setTextColor(Color.WHITE);
+
+        setLocation(0);
+        setTime(0, 0);
+
 
         return view;
     }
 
-    // 위치 버튼
-    public void showLocationConfirm() {
-        // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
-        RadioGroup dynamic_radioarea_loc = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_loc);
-        dynamic_radioarea_loc.setOrientation(RadioGroup.HORIZONTAL);
 
-        // 패럼 생성 : 라디오 버튼
-        RadioGroup.LayoutParams params_loc = new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-        params_loc.setMargins(10, 20, 0, 0);
-
-        // 라디오 버튼 동적 생성.
-        List<String> location = new ArrayList<>();
-        for(int i = 0; i < talentAll.getLocations().length; i++){
-            location.add(talentAll.getLocations()[i].getRegion());
-        }
-        //String[] location_title = {"이화여대", "강남", "신촌"};
-        makeRadioButtonLocation(params_loc, dynamic_radioarea_loc, location);
-    }
-
-
-    public void makeRadioButtonLocation(RadioGroup.LayoutParams params, final RadioGroup dynamic_radioarea, final List<String> location) {
-        // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < location.size(); j++) {
-            final RadioButton radioButton_loc = new RadioButton(getContext());
-            radioButton_loc.setId(j);
-            radioButton_loc.setText(location.get(j));
-            radioButton_loc.setLayoutParams(params);
-            radioButton_loc.setBackgroundResource(R.drawable.custom_button_selector);
-            radioButton_loc.setButtonDrawable(new StateListDrawable());
-            radioButton_loc.setPaddingRelative(60, 0, 60, 0);
-            radioButton_loc.setHeight(130);
-            radioButton_loc.setTag(j);
-            radioButton_loc.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
-
-            final int loc_index = j;
-            radioButton_loc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showPossibleDay(radioButton_loc.getText().toString(), loc_index);
+    View.OnClickListener btn2li = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for(Button btn : locationbtnlist2) {
+                btn.setBackgroundResource(R.drawable.custom_button6);
+                btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                if(v.getTag() == btn.getTag()) {
+                    btn.setBackgroundResource(R.drawable.custom_button5);
+                    btn.setTextColor(Color.WHITE);
                 }
-            });
-
-            dynamic_radioarea.addView(radioButton_loc);
-        }
-    }
-
-
-    // 가능 요일
-    public void showPossibleDay(String radioButtonLoc_txt, int loc_index) {
-
-        // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
-        RadioGroup dynamic_radioarea_day = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_day);
-        dynamic_radioarea_day.setOrientation(RadioGroup.HORIZONTAL);
-
-        // 패럼 생성 : 라디오 버튼
-        RadioGroup.LayoutParams params_day = new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT);
-        params_day.setMargins(10, 20, 0, 0);
-
-        dynamic_radioarea_day.removeAllViews();
-
-        makeRadioButtonDay(params_day, dynamic_radioarea_day, loc_index);
-
-//        if (radioButtonLoc_txt.equals(location.get(0))) {
-//            String[] day_title = {"월", "화", "수"};
-//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-//        } else if (radioButtonLoc_txt.equals("강남")) {
-//            String[] day_title = {"월", "화", "수", "목", "금", "토", "일"};
-//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-//        } else if (radioButtonLoc_txt.equals("신촌")) {
-//            String[] day_title = {"토", "일"};
-//            makeRadioButtonDay(params_day, dynamic_radioarea_day, day_title);
-//        }
-
-    }
-
-
-    public void makeRadioButtonDay(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, final int loc_index) {
-        // 동적으로 라디오 버튼 생성
-        //for (int j = 0; j < talentDetail.getLocations(); j++) {
-        final RadioButton radioButton = new RadioButton(getContext());
-        //    radioButton.setId(j);
-        radioButton.setText(talentAll.getLocations()[loc_index].getDay());
-        radioButton.setLayoutParams(params);
-        radioButton.setBackgroundResource(R.drawable.custom_button_selector);
-        radioButton.setButtonDrawable(new StateListDrawable());
-        radioButton.setPaddingRelative(60, 0, 60, 0);
-        radioButton.setHeight(130);
-        //    radioButton.setTag(j);
-        radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
-
-
-        radioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPossibleTime(radioButton.getText().toString(), loc_index);
             }
-        });
-
-        dynamic_radioarea.addView(radioButton);
-        //}
-    }
-
-    public void showPossibleTime(String radioButtonLoc_txt, int loc_index) {
-
-        // 라디오 그룹 생성 (라디오 버튼이 들어갈 공간)
-        RadioGroup dynamic_radioarea_time = (RadioGroup) view.findViewById(R.id.dynamic_radiogroup_time);
-        dynamic_radioarea_time.setOrientation(RadioGroup.HORIZONTAL);
-
-        // 패럼 생성 : 라디오 버튼
-        RadioGroup.LayoutParams params_day = new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT);
-        params_day.setMargins(10, 20, 0, 0);
-
-        dynamic_radioarea_time.removeAllViews();
-
-        // 각 시간별로 버튼을 만들어줘야 한다.
-        makeRadioButtonTime(params_day, dynamic_radioarea_time, talentAll.getLocations()[loc_index].getTime());
-
-
-
-//        if (radioButtonLoc_txt.equals("월")) {
-//            String[] time_title = {"06~08시", "12~14시"};
-//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-//        } else if (radioButtonLoc_txt.equals("화")) {
-//            String[] time_title = {"10~12시", "15~17시", "19~21시"};
-//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-//        } else if (radioButtonLoc_txt.equals("수")) {
-//            String[] time_title = {"15~17시"};
-//            makeRadioButtonTime(params_day, dynamic_radioarea_time, time_title);
-//        }
-
-    }
-
-    public void makeRadioButtonTime(RadioGroup.LayoutParams params, RadioGroup dynamic_radioarea, String[] content) {
-        // 동적으로 라디오 버튼 생성
-        for (int j = 0; j < content.length; j++) {
-            final RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setId(j);
-            radioButton.setText(content[j]);
-            radioButton.setLayoutParams(params);
-            radioButton.setBackgroundResource(R.drawable.custom_button_selector);
-            radioButton.setButtonDrawable(new StateListDrawable());
-            radioButton.setPaddingRelative(60, 0, 60, 0);
-            radioButton.setHeight(130);
-            radioButton.setTag(j);
-            radioButton.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.custom_button_text_selector));
-
-            radioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO ??
-                }
-            });
-
-            dynamic_radioarea.addView(radioButton);
+            setTime(((int)v.getTag()/10),((int)v.getTag()%10));
         }
 
+    };
+
+
+    @Override
+    public void onClick(View v) {
+
+        for(Button btn : locationbtnlist) {
+            btn.setBackgroundResource(R.drawable.custom_button6);
+            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            if(v.getTag() == btn.getTag()) {
+                btn.setBackgroundResource(R.drawable.custom_button5);
+                btn.setTextColor(Color.WHITE);
+            }
+        }
+        setLocation((int)v.getTag());
+        setTime((int)v.getTag(), 0);
     }
+
+    public void setLocation(int tag){
+        int tag2 = 0;
+        btn2layout.removeAllViews();
+        locationbtnlist2.clear();
+        for(Results rt : td.getLocations().get(tag).getResults()) {
+            final Button btn2 = new Button(getContext());
+            btn2.setText(rt.getDay());
+            final int width = DipCal.convertPixelsToDp(40,getContext());
+            final int height = DipCal.convertPixelsToDp(40,getContext());
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);
+            p.weight = 0;
+            p.leftMargin = 10;
+            btn2.setLayoutParams(p);
+            btn2.setTextSize(14);
+            btn2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            btn2.setBackgroundResource(R.drawable.custom_button6);
+            btn2.setTag(tag2 + tag*10);
+            tag2 = tag2 +1 ;
+            locationbtnlist2.add(btn2);
+            btn2.setOnClickListener(btn2li);
+            btn2layout.addView(btn2);
+        }
+
+        locationbtnlist2.get(0).setBackgroundResource(R.drawable.custom_button5);
+        locationbtnlist2.get(0).setTextColor(Color.WHITE);
+
+
+    }
+
+    public void setText(int tag) {
+        for(Button btn : locationbtnlist) {
+        }
+    }
+
+    public void setTime(int tag, int tag2) {
+        btn3layout.removeAllViews();
+        for(String btntime : td.getLocations().get(tag).getResults().get(tag2%10).getTime()) {
+            final Button btn = new Button(getContext());
+            btn.setText(btntime);
+            final int width2 = DipCal.convertPixelsToDp(90,getContext());
+            final int height2 = DipCal.convertPixelsToDp(40,getContext());
+            btn.setWidth(width2);
+            btn.setHeight(height2);
+            btn.setTextSize(14);
+            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            GridLayout.LayoutParams p1 = new GridLayout.LayoutParams();
+            p1.setMargins(10,0,0,10);
+            p1.width= width2;
+            p1.height = height2;
+            btn.setLayoutParams(p1);
+            btn.setBackgroundResource(R.drawable.custom_button6);
+            btn3layout.addView(btn);
+        }
+
+
+        if(td.getLocations().get(tag).getResults().get(tag2%10).getExtra_fee().equals("N")) {
+            tv_apply1_plusinfo.setText("추가비용 없음 ");
+        }else {
+            tv_apply1_plusinfo.setText("추가비용 : " + td.getLocations().get(tag).getResults().get(tag2%10).getExtra_fee_amount());
+        }
+    }
+
 }
 
 

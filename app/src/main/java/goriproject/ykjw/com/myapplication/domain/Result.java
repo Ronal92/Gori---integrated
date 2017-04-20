@@ -5,12 +5,14 @@ package goriproject.ykjw.com.myapplication.domain;
  */
 
 public class Result {
-    String token;
-    public String getToken(){
-        return token;
+    String access_token;
+
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
+
 }

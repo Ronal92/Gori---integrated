@@ -61,7 +61,9 @@
             <TextView
                 android:id="@+id/txt_second_Title"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
                 android:text="칼퇴를 위한 실무 엑셀"
                 android:textAlignment="center"
                 android:textColor="@android:color/black" />
@@ -132,11 +134,12 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
+                    android:tint="#dbdbdb"
                     android:background="#00ffffff"
                     app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
                     app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
                     app:layout_constraintTop_toTopOf="@+id/sepa_second_col"
-                    app:srcCompat="@drawable/location" />
+                    app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
                 <ImageView
                     android:id="@+id/img_second_maxman"
@@ -148,10 +151,11 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
                     android:background="#00ffffff"
+                    android:tint="#dbdbdb"
                     app:layout_constraintBottom_toBottomOf="@+id/sepa_second_col"
                     app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
                     app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"
-                    app:srcCompat="@drawable/numpple" />
+                    app:srcCompat="@drawable/ic_people_outline_black_24dp" />
 
                 <ImageView
                     android:id="@+id/img_second_timeper"
@@ -162,11 +166,12 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
+                    android:tint="#dbdbdb"
                     android:background="#00ffffff"
                     app:layout_constraintLeft_toRightOf="@+id/sepa_second_col"
                     app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
                     app:layout_constraintTop_toTopOf="@+id/sepa_second_col"
-                    app:srcCompat="@drawable/price" />
+                    app:srcCompat="@drawable/ic_monetization_on_black_24dp" />
 
                 <ImageView
                     android:id="@+id/img_second_schedule"
@@ -177,11 +182,12 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
+                    android:tint="#dbdbdb"
                     android:background="#00ffffff"
                     app:layout_constraintBottom_toBottomOf="@+id/sepa_second_col"
                     app:layout_constraintLeft_toRightOf="@+id/sepa_second_col"
                     app:layout_constraintRight_toRightOf="@+id/sepa_second_row"
-                    app:srcCompat="@drawable/schedule" />
+                    app:srcCompat="@drawable/ic_alarm_on_black_24dp" />
 
                 <TextView
                     android:id="@+id/tv_second_maxman"
@@ -206,6 +212,7 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
+                    android:maxLength="8"
                     android:text="TextView"
                     app:layout_constraintLeft_toLeftOf="@+id/sepa_second_row"
                     app:layout_constraintRight_toLeftOf="@+id/sepa_second_col"

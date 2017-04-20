@@ -21,19 +21,19 @@ public interface Review_Detail_Interface {
     Call<ReviewsSecThreeFrag> getReviewRetrieve(@Path("talent_pk") String talent_pk);
 
 
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
 //    @Headers("Content-Type:multipart/form-data")
     @Multipart
     @POST("talent/add/review/")
     Call<String> setReviewRetrieve(
-                        @Header("Authorization") String token,
-                        @Part("talent_pk") int talent_pk,
-                        @Part("curriculum") int curriculum,
-                        @Part("readiness") int readiness,
-                        @Part("timeliness") int timeliness,
-                        @Part("delivery") int delivery,
-                        @Part("friendliness") int friendliness,
-                        @Part("comment") String comment
+            @Header("Authorization") String token,
+            @Part("talent_pk") int talent_pk,
+            @Part("curriculum") int curriculum,
+            @Part("readiness") int readiness,
+            @Part("timeliness") int timeliness,
+            @Part("delivery") int delivery,
+            @Part("friendliness") int friendliness,
+            @Part("comment") String comment
     );
 
     @DELETE("talent/delete/review/{review_pk}/")

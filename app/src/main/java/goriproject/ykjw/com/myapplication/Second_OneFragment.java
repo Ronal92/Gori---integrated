@@ -1,10 +1,12 @@
 package goriproject.ykjw.com.myapplication;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,10 +28,15 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
+import java.io.IOException;
 import java.util.Random;
 
+import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain_talent_detail_all.TalentAll;
+import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.maxsize;
@@ -45,8 +52,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     private Talent talent;
     Results t1,t2,t3,t4;
     Results item;
-    //TalentDetail td = new TalentDetail();
-    TalentAll td = new TalentAll();
+    TalentDetail td = new TalentDetail();
     SecondActivity activity;
 
     TextView txt_secondone_allprice,txt_secondone_alltime,txt_one_tutorinfo,txt_one_whotuty,txt_one_introduce;
@@ -58,8 +64,9 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     public Second_OneFragment() {
         // Required empty public constructor
     }
-    public void setTalent(Results item, TalentAll td) {
-
+    public void setTalent(Talent talenta, Results item, TalentDetail td) {
+        // Required empty public constructor
+        talent = talenta;
         this.item = item;
         this.td = td;
     }
@@ -88,7 +95,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             rating_second.setRating(rating);
             //레이팅바의 색깔을 바꿔야 할 경우에 사용
             LayerDrawable stars = (LayerDrawable) rating_second.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(2).setColorFilter(Color.argb(255,238,83,78), PorterDuff.Mode.SRC_ATOP);
             tv_second_new.setVisibility(View.GONE);
         } else {
             rating_second.setVisibility(View.GONE);
@@ -103,8 +110,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
         TextView tv_price = (TextView)view.findViewById(R.id.tv_second_timeper);
         TextView tv_maxman = (TextView)view.findViewById(R.id.tv_second_maxman);
         TextView tv_schedule = (TextView)view.findViewById(R.id.tv_second_schedule);
-        txt_name.setText(item.getTutor().getName()+"/"+item.getTutor().getNickname());
-        txt_title.setText(item.getTitle());
+        txt_name.setText(td.getTutor().getName()+"/"+item.getTutor().getNickname());
+        txt_title.setText(td.getTitle());
         if(item.getRegions() != null) {
             String location = "";
             for(String i : item.getRegions()) {
@@ -120,13 +127,13 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
 
         }
 
-        Glide.with(this).load(item.getCover_image()).thumbnail(0.1f).into(iv_second_cover);
-        Glide.with(this).load(item.getTutor().getProfile_image()).into(iv_second_profile);
+        Glide.with(this).load(td.getCover_image()).thumbnail(0.1f).into(iv_second_cover);
+        Glide.with(this).load(td.getTutor().getProfile_image()).into(iv_second_profile);
 
-        tv_price.setText(item.getPrice_per_hour()+"원/시간");
-        tv_maxman.setText(item.getType());
-        tv_schedule.setText(item.getHours_per_class()+"시간/회");
-        btn_second_numoftuty.setText("누적참여자"+item.getReview_count()+"명");
+        tv_price.setText(td.getPrice_per_hour()+"원/시간");
+        tv_maxman.setText(td.getType());
+        tv_schedule.setText(td.getHours_per_class()+"시간/회");
+        btn_second_numoftuty.setText("누적참여자"+td.getRegistration_count()+"명");
 
         int time = Integer.parseInt(td.getHours_per_class().trim())*Integer.parseInt(td.getNumber_of_class().trim());
         int priceall = time * Integer.parseInt(td.getPrice_per_hour().trim());
@@ -148,7 +155,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
 
         Log.e("dfaasdfasdfasdf",String.valueOf(td.getTitle()));
         if(td.getCurriculums() != null) {
-            for(int i = 0 ; i < td.getCurriculums().length; i ++) {
+            for(int i = 0 ; i < td.getCurriculums().size(); i ++) {
                 LinearLayout li_son = new LinearLayout(getContext());
                 li_son.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -190,14 +197,13 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                 LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 tv_curi.setTextSize(15);
                 tv_curi.setLayoutParams(p3);
-                tv_curi.setText(td.getCurriculums()[i].getInformation());
+                tv_curi.setText(td.getCurriculums().get(i).getInformation());
                 li_son3.addView(tv_curi_hoicha);
                 li_son3.addView(tv_curi);
 
-                 // TODO : api 바뀌면서 이미지 처리 필요
-                if(td.getCurriculums()[i].getImage() != null) {
+                if(td.getCurriculums().get(i).getImage() != null) {
                     ImageView iv3 = new ImageView(getContext());
-                    Glide.with(getContext()).load(td.getCurriculums()[i].getImage()).into(iv3);
+                    Glide.with(getContext()).load(td.getCurriculums().get(i).getImage()).into(iv3);
                     LinearLayout.LayoutParams p7 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     iv3.setLayoutParams(p7);
                     li_son3.addView(iv3);
@@ -207,6 +213,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
                     v.setLayoutParams(p20);
                     li_son3.addView(v);
                 }
+
 
                 //li_son.addView(li_son2);
                 li_son.addView(li_son3);
@@ -230,12 +237,12 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             FrameLayout yt = (FrameLayout)view.findViewById(R.id.fragment_youtube_player);
             yt.setVisibility(View.GONE);
         }
-       // 관련 이미지
+        //관련 이미지
         if(td.getClass_images() != null) {
-            for(int i = 0 ; i < td.getClass_images().length ; i ++) {
+            for(int i = 0 ; i < td.getClass_images().size() ; i ++) {
                 LinearLayout li_one_img = (LinearLayout)view.findViewById(R.id.li_one_img);
                 ImageView iv3 = new ImageView(getContext());
-                Glide.with(getContext()).load(td.getClass_images()[i].getImage()).into(iv3);
+                Glide.with(getContext()).load(td.getClass_images().get(i).getImage()).into(iv3);
                 LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 p6.setMargins(0,20,0,20);
                 iv3.setLayoutParams(p6);
@@ -266,6 +273,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             TutorLoader.loadData();
         }
         Log.e("ddddddddddddxxxxxd", String.valueOf(maxsize));
+        Log.e("d1asdfs13232",td.getVideo1());
         int[] arr = new int[maxsize];  //1차원배열 방 10개를 만듭니다.
         int ran=0;    //랜덤값을 받을 변수를 만듭니다.
         boolean cheak;    // 비교하기 위해 boolean형 변수를 만듭니다.
@@ -337,38 +345,43 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
         @Override
         public void onClick(View v) {
             Intent intent;
+            CheckTypesTask task;
             switch (v.getId()) {
                 case R.id.iv_one_otherimg1 :
                     intent = new Intent(getContext(), SecondActivity.class);
                     onDetach();
-                    activity.finish();
                     intent.putExtra("id",Integer.parseInt(t1.getPk().trim()));
                     intent.putExtra("item",t1);
-                    getContext().startActivity(intent);
+                    task = new CheckTypesTask();
+                    task.setidintent(Integer.parseInt(t1.getPk().trim()),intent);
+                    task.execute();
                     break;
                 case R.id.iv_one_otherimg2 :
                     intent = new Intent(getContext(), SecondActivity.class);
                     onDetach();
-                    activity.finish();
                     intent.putExtra("id",Integer.parseInt(t2.getPk().trim()));
                     intent.putExtra("item",t2);
-                    getContext().startActivity(intent);
+                    task = new CheckTypesTask();
+                    task.setidintent(Integer.parseInt(t2.getPk().trim()),intent);
+                    task.execute();
                     break;
                 case R.id.iv_one_otherimg3 :
                     intent = new Intent(getContext(), SecondActivity.class);
                     onDetach();
-                    activity.finish();
                     intent.putExtra("id",Integer.parseInt(t3.getPk().trim()));
                     intent.putExtra("item",t3);
-                    getContext().startActivity(intent);
+                    task = new CheckTypesTask();
+                    task.setidintent(Integer.parseInt(t3.getPk().trim()),intent);
+                    task.execute();
                     break;
                 case R.id.iv_one_otherimg4 :
                     intent = new Intent(getContext(), SecondActivity.class);
                     onDetach();
-                    activity.finish();
                     intent.putExtra("id",Integer.parseInt(t4.getPk().trim()));
                     intent.putExtra("item",t4);
-                    getContext().startActivity(intent);
+                    task = new CheckTypesTask();
+                    task.setidintent(Integer.parseInt(t1.getPk().trim()),intent);
+                    task.execute();
                     break;
             }
         }
@@ -379,7 +392,12 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if(!wasRestored){
-            youTubePlayer.cueVideo(td.getVideo1());
+           // https://youtu.be/84SnMVQVYkY
+            if(!td.getVideo1().equals("")) {
+                int yt = td.getVideo1().indexOf("be/");
+                String ytt = td.getVideo1().substring(yt+3,td.getVideo1().length());
+                youTubePlayer.cueVideo(ytt);
+            }
         }
     }
 
@@ -391,6 +409,59 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             Toast.makeText(this.getActivity(),
                     "YouTubePlayer.onInitializationFailure(): " + result.toString(),
                     Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(
+                getContext());
+
+        Intent intent;
+        int id = 0;
+
+        public void setidintent(int id, Intent intent) {
+            this.id = id;
+            this.intent = intent;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("데이터 로딩중..");
+
+            // show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // 1. 레트로핏을 생성하고
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://mozzi.co.kr/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            Talent_Detail_Interface tdService = retrofit.create(Talent_Detail_Interface.class);
+
+            final Call<TalentDetail> tds = tdService.getTalentDetail(String.valueOf(id));
+
+            try {
+                td = tds.execute().body();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            intent.putExtra("td",td);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            asyncDialog.dismiss();
+            activity.finish();
+            getContext().startActivity(intent);
+            super.onPostExecute(result);
         }
     }
 }
