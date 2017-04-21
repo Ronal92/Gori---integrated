@@ -36,7 +36,16 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.Interfaces.Mypage_Detail_Interface;
+import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
+import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
@@ -69,8 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        key = pref.getString("token", "");
-        Log.e("kkkkknjjjjjjjjjjjk",key);
+        if(pref.getString("token", "") != null && pref.getString("token", "").length() > 0) {
+            key = pref.getString("token", "");
+            Log.e("kkkkknjjjjjjjjjjjk",key);
+        }
+
         if(key != null && key.length() > 0) {
             is_signin = true;
         }
@@ -615,7 +627,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 item.setTitle("로그인");
                 SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("autologin", null);
+                editor.putString("token", null);
                 editor.commit();
                 Toast.makeText(MainActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
@@ -624,9 +636,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         } else if (id == R.id.menu_mypage) {
-            //TODO 마이페이지 고
-            intent = new Intent(MainActivity.this, MyPageActivity.class);
-            startActivity(intent);
+            if(is_signin){
+                createRetrofitGET_MYPAGE();
+            } else {
+                intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
         } else if (id == R.id.menu_tutor_go) {
             // 아직 구현할 생각 없음
             Toast.makeText(MainActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_LONG).show();
@@ -635,6 +650,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public void createRetrofitGET_MYPAGE() {
+        Log.i("RAPSTAR","======================== This is createRetrofitGET_Mypage()");
+
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
+
+        // 토큰 받아오기
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String token = pref.getString("token", null);
+
+        Log.i("RAPSTAR","========================token : " + token);
+
+        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + token);
+        myPageCalla.enqueue(new Callback<MyPage>() {
+            @Override
+            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
+
+                MyPage myPageFromServer = response.body();
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                intent.putExtra("mypage",myPageFromServer);
+                startActivity(intent);
+            }
+            @Override
+            public void onFailure(Call<MyPage> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+    }
+
+
 
     @Override
     public void onBackPressed() {

@@ -9,83 +9,61 @@ import java.util.List;
 
 public class TalentDetail implements Serializable
 {
-    private String cover_image;
-
-    public Average_rates getAverage_rates() {
-        return average_rates;
-    }
-
-    public void setAverage_rates(Average_rates average_rates) {
-        this.average_rates = average_rates;
-    }
-
-    private Average_rates average_rates;
-
-    private String class_info;
-
     private String hours_per_class;
+
+    private String is_verified;
 
     private String review_count;
 
-    private String is_soldout;
-
     private String tutor_info;
 
+    private String is_soldout;
+
+    private List<Qna> qna;
+
     private String type;
+
+    private String price_per_hour;
+
+    private String location_message;
+
+    private String title;
+
+    private List<Locations> locations;
+
+    private String tutor_message;
+
+    private Tutor tutor;
+
+    private List<Reviews> reviews;
+
+    private String class_info;
+
+    private String cover_image;
 
     private String video2;
 
     private String video1;
 
-    private String price_per_hour;
+    private String min_number_student;
+
+    private String max_number_student;
 
     private List<Class_images> class_images;
 
-    private String number_of_class;
-
-    private String title;
-
     private String category;
 
-    private String average_rate;
-
-    private List<Locations> locations;
+    private String number_of_class;
 
     private List<Curriculums> curriculums;
 
-    public String getRegistration_count() {
-        return registration_count;
-    }
-
-    public void setRegistration_count(String registration_count) {
-        this.registration_count = registration_count;
-    }
-
     private String registration_count;
 
-    private Tutor tutor;
+    private Average_rates average_rates;
+
+    private String user;
 
     private String pk;
-
-    public String getCover_image ()
-    {
-        return cover_image;
-    }
-
-    public void setCover_image (String cover_image)
-    {
-        this.cover_image = cover_image;
-    }
-
-    public String getClass_info ()
-    {
-        return class_info;
-    }
-
-    public void setClass_info (String class_info)
-    {
-        this.class_info = class_info;
-    }
 
     public String getHours_per_class ()
     {
@@ -95,6 +73,16 @@ public class TalentDetail implements Serializable
     public void setHours_per_class (String hours_per_class)
     {
         this.hours_per_class = hours_per_class;
+    }
+
+    public String getIs_verified ()
+    {
+        return is_verified;
+    }
+
+    public void setIs_verified (String is_verified)
+    {
+        this.is_verified = is_verified;
     }
 
     public String getReview_count ()
@@ -107,16 +95,6 @@ public class TalentDetail implements Serializable
         this.review_count = review_count;
     }
 
-    public String getIs_soldout ()
-    {
-        return is_soldout;
-    }
-
-    public void setIs_soldout (String is_soldout)
-    {
-        this.is_soldout = is_soldout;
-    }
-
     public String getTutor_info ()
     {
         return tutor_info;
@@ -127,6 +105,26 @@ public class TalentDetail implements Serializable
         this.tutor_info = tutor_info;
     }
 
+    public String getIs_soldout ()
+    {
+        return is_soldout;
+    }
+
+    public void setIs_soldout (String is_soldout)
+    {
+        this.is_soldout = is_soldout;
+    }
+
+    public List<Qna> getQna ()
+    {
+        return qna;
+    }
+
+    public void setQna (List<Qna> qna)
+    {
+        this.qna = qna;
+    }
+
     public String getType ()
     {
         return type;
@@ -135,6 +133,96 @@ public class TalentDetail implements Serializable
     public void setType (String type)
     {
         this.type = type;
+    }
+
+    public String getPrice_per_hour ()
+    {
+        return price_per_hour;
+    }
+
+    public void setPrice_per_hour (String price_per_hour)
+    {
+        this.price_per_hour = price_per_hour;
+    }
+
+    public String getLocation_message ()
+    {
+        return location_message;
+    }
+
+    public void setLocation_message (String location_message)
+    {
+        this.location_message = location_message;
+    }
+
+    public String getTitle ()
+    {
+        return title;
+    }
+
+    public void setTitle (String title)
+    {
+        this.title = title;
+    }
+
+    public List<Locations> getLocations ()
+    {
+        return locations;
+    }
+
+    public void setLocations (List<Locations> locations)
+    {
+        this.locations = locations;
+    }
+
+    public String getTutor_message ()
+    {
+        return tutor_message;
+    }
+
+    public void setTutor_message (String tutor_message)
+    {
+        this.tutor_message = tutor_message;
+    }
+
+    public Tutor getTutor ()
+    {
+        return tutor;
+    }
+
+    public void setTutor (Tutor tutor)
+    {
+        this.tutor = tutor;
+    }
+
+    public List<Reviews> getReviews ()
+    {
+        return reviews;
+    }
+
+    public void setReviews (List<Reviews> reviews)
+    {
+        this.reviews = reviews;
+    }
+
+    public String getClass_info ()
+    {
+        return class_info;
+    }
+
+    public void setClass_info (String class_info)
+    {
+        this.class_info = class_info;
+    }
+
+    public String getCover_image ()
+    {
+        return cover_image;
+    }
+
+    public void setCover_image (String cover_image)
+    {
+        this.cover_image = cover_image;
     }
 
     public String getVideo2 ()
@@ -157,35 +245,34 @@ public class TalentDetail implements Serializable
         this.video1 = video1;
     }
 
-    public String getPrice_per_hour ()
+    public String getMin_number_student ()
     {
-        return price_per_hour;
+        return min_number_student;
     }
 
-    public void setPrice_per_hour (String price_per_hour)
+    public void setMin_number_student (String min_number_student)
     {
-        this.price_per_hour = price_per_hour;
+        this.min_number_student = min_number_student;
     }
 
-
-    public String getNumber_of_class ()
+    public String getMax_number_student ()
     {
-        return number_of_class;
+        return max_number_student;
     }
 
-    public void setNumber_of_class (String number_of_class)
+    public void setMax_number_student (String max_number_student)
     {
-        this.number_of_class = number_of_class;
+        this.max_number_student = max_number_student;
     }
 
-    public String getTitle ()
+    public List<Class_images> getClass_images ()
     {
-        return title;
+        return class_images;
     }
 
-    public void setTitle (String title)
+    public void setClass_images (List<Class_images> class_images)
     {
-        this.title = title;
+        this.class_images = class_images;
     }
 
     public String getCategory ()
@@ -198,26 +285,54 @@ public class TalentDetail implements Serializable
         this.category = category;
     }
 
-    public String getAverage_rate ()
+    public String getNumber_of_class ()
     {
-        return average_rate;
+        return number_of_class;
     }
 
-    public void setAverage_rate (String average_rate)
+    public void setNumber_of_class (String number_of_class)
     {
-        this.average_rate = average_rate;
+        this.number_of_class = number_of_class;
     }
 
-
-
-    public Tutor getTutor ()
+    public List<Curriculums> getCurriculums ()
     {
-        return tutor;
+        return curriculums;
     }
 
-    public void setTutor (Tutor tutor)
+    public void setCurriculums (List<Curriculums> curriculums)
     {
-        this.tutor = tutor;
+        this.curriculums = curriculums;
+    }
+
+    public String getRegistration_count ()
+    {
+        return registration_count;
+    }
+
+    public void setRegistration_count (String registration_count)
+    {
+        this.registration_count = registration_count;
+    }
+
+    public Average_rates getAverage_rates ()
+    {
+        return average_rates;
+    }
+
+    public void setAverage_rates (Average_rates average_rates)
+    {
+        this.average_rates = average_rates;
+    }
+
+    public String getUser ()
+    {
+        return user;
+    }
+
+    public void setUser (String user)
+    {
+        this.user = user;
     }
 
     public String getPk ()
@@ -230,33 +345,9 @@ public class TalentDetail implements Serializable
         this.pk = pk;
     }
 
-    public List<Class_images> getClass_images() {
-        return class_images;
-    }
-
-    public void setClass_images(List<Class_images> class_images) {
-        this.class_images = class_images;
-    }
-
-    public List<Locations> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Locations> locations) {
-        this.locations = locations;
-    }
-
-    public List<Curriculums> getCurriculums() {
-        return curriculums;
-    }
-
-    public void setCurriculums(List<Curriculums> curriculums) {
-        this.curriculums = curriculums;
-    }
-
     @Override
     public String toString()
     {
-        return "ClassPojo [cover_image = "+cover_image+", class_info = "+class_info+", hours_per_class = "+hours_per_class+", review_count = "+review_count+", is_soldout = "+is_soldout+", tutor_info = "+tutor_info+", type = "+type+", video2 = "+video2+", video1 = "+video1+", price_per_hour = "+price_per_hour+", class_images = "+class_images+", number_of_class = "+number_of_class+", title = "+title+", category = "+category+", average_rate = "+average_rate+", locations = "+locations+", curriculums = "+curriculums+", tutor = "+tutor+", pk = "+pk+"]";
+        return "ClassPojo [hours_per_class = "+hours_per_class+", is_verified = "+is_verified+", review_count = "+review_count+", tutor_info = "+tutor_info+", is_soldout = "+is_soldout+", qna = "+qna+", type = "+type+", price_per_hour = "+price_per_hour+", location_message = "+location_message+", title = "+title+", locations = "+locations+", tutor_message = "+tutor_message+", tutor = "+tutor+", reviews = "+reviews+", class_info = "+class_info+", cover_image = "+cover_image+", video2 = "+video2+", video1 = "+video1+", min_number_student = "+min_number_student+", max_number_student = "+max_number_student+", class_images = "+class_images+", category = "+category+", number_of_class = "+number_of_class+", curriculums = "+curriculums+", registration_count = "+registration_count+", average_rates = "+average_rates+", user = "+user+", pk = "+pk+"]";
     }
 }

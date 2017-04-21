@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
+
 
 public class MyPageTuteeOfListFragment extends Fragment {
 
@@ -24,16 +26,17 @@ public class MyPageTuteeOfListFragment extends Fragment {
     private String mListType = "";
 
     // 뭔진 모르지만 나중에 혹시 사용될 거 같애서.......(예상 : 이미지파일들)
-    private List<?> datas;
+    MyPage myPage_tutee = null;
 
     public MyPageTuteeOfListFragment() {
         // Required empty public constructor
     }
 
-    public static MyPageTuteeOfListFragment newInstance(String typeFlag) {
+    public static MyPageTuteeOfListFragment newInstance(String typeFlag, MyPage myPage_tutee) {
         Bundle args = new Bundle();
         MyPageTuteeOfListFragment myPageTuteeOfListFragment = new MyPageTuteeOfListFragment();
         args.putString(ARG_TAP_TYPE, typeFlag);
+        args.putSerializable("mypage",myPage_tutee);
         myPageTuteeOfListFragment.setArguments(args);
         return myPageTuteeOfListFragment;
     }
@@ -44,8 +47,10 @@ public class MyPageTuteeOfListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null){
+            myPage_tutee = (MyPage)getArguments().getSerializable("mypage");
             mListType = getArguments().getString(ARG_TAP_TYPE);
 
+            /*
             if(TYPE_APPLICATION.equals(mListType)){
                 //datas = DataLoader.getMusic(getContext());
                 //여기서 데이터를 로드한다.
@@ -54,6 +59,7 @@ public class MyPageTuteeOfListFragment extends Fragment {
             } else if(TYPE_WISHLIST.equals(mListType)){
                 //datas = DataLoader.getMusic(getContext());
             }
+            */
         }
 
     }
@@ -68,7 +74,7 @@ public class MyPageTuteeOfListFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerViewTutee = (RecyclerView) view;
             // 여기서 탭별로 데이터를 따로 보내야한다.
-            recyclerViewTutee.setAdapter(new MyPageAdapter(getContext(), datas, mListType));
+            recyclerViewTutee.setAdapter(new MyPageAdapter(getContext(), myPage_tutee, mListType));
         }
         return view;
 

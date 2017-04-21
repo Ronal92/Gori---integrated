@@ -42,6 +42,7 @@ import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
 import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewResponse;
 import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import goriproject.ykjw.com.myapplication.domain_review_retrieve.User;
 import goriproject.ykjw.com.myapplication.domain_review_retrieve.Results;
@@ -56,6 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.MODE_PRIVATE;
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
+import static goriproject.ykjw.com.myapplication.Statics.key;
 
 
 /**
@@ -65,10 +67,11 @@ import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 public class Second_ThreeFragment extends Fragment {
     private static final String TAG = "RAPSTAR";
     private static final String KEY_FOR_TALENTDETAIL = "threeFragmentTL";
-    private static final String KEY_FOR_TALENTDETAIL_INT = "threeFragmentTL_INT";
-    private static final String KEY_FOR_TOKEN = "threeFragmentToken";
+    private static final String KEY_FOR_REVIEW = "threeFragmentTL_REVIEW";
+
 
     Context context = null;
+    View view = null;
     PagerAdapter adapter = null;
 
     List<goriproject.ykjw.com.myapplication.domain_review_retrieve.Results> results_list = null;
@@ -88,10 +91,13 @@ public class Second_ThreeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static Second_ThreeFragment newInstance(TalentDetail td ){
+
+
+    public static Second_ThreeFragment newInstance(TalentDetail td , ReviewsSecThreeFrag reviewsSecThreeFrag){
         Second_ThreeFragment secondThreeFragment = new Second_ThreeFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_FOR_TALENTDETAIL, td);
+        args.putSerializable(KEY_FOR_REVIEW, reviewsSecThreeFrag);
         secondThreeFragment.setArguments(args);
         return secondThreeFragment;
     }
@@ -101,8 +107,14 @@ public class Second_ThreeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
             this.td = (TalentDetail)getArguments().getSerializable(KEY_FOR_TALENTDETAIL);
+            this.reviewsSecThreeFrag = (ReviewsSecThreeFrag)getArguments().getSerializable(KEY_FOR_REVIEW);
+
+//            SecondActivity sa = new SecondActivity();
+//            this.reviewsSecThreeFrag = sa.reviewsSecThreeFrag;
+
+
         }
-        createRetrofitGET();
+        //createRetrofitUserGet(false, null);
     }
 
 
@@ -111,7 +123,8 @@ public class Second_ThreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = null;
+        Log.e("ksdjflds", "========= key in Second_ThreeFragment " + key);
+
         if(view != null){
             return view;
         }
@@ -150,6 +163,15 @@ public class Second_ThreeFragment extends Fragment {
 
         // 리사이클러뷰 설정
         recyclerReview = (RecyclerView) view.findViewById(R.id.recycView_fragmentsecond_three);
+        adapter = new PagerAdapter(getContext());
+        results_list = new ArrayList<>();
+        for (int i = 0; i < reviewsSecThreeFrag.getResults().length; i++) {
+            results_list.add(reviewsSecThreeFrag.getResults()[i]);      // Results() --> List<Results>로 : 동적할당
+        }
+        adapter.setData(results_list);
+        recyclerReview.setAdapter(adapter);
+        recyclerReview.setLayoutManager(new LinearLayoutManager(context));
+
 
         return view;
     }
@@ -164,36 +186,35 @@ public class Second_ThreeFragment extends Fragment {
         User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
 
         // 프로그레스 다이얼로그
-        final ProgressDialog asyncDialog = new ProgressDialog(context);
+        final ProgressDialog asyncDialog = new ProgressDialog(getContext());
         asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         asyncDialog.setMessage("로딩중입니다..");
         asyncDialog.show();
 
         // 토큰 받아오기
-        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
-        String token = pref.getString("token", null);
+//        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
+//        String token = pref.getString("token", null);
 
-        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + token);
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
 
         tds.enqueue(new Callback<UserDetail>() {
             @Override
             public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
                 userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+
                 if(showDialogCheck){
                     // 3. POST 이후 데이터를 따로 데이터 저장소에 보낸다.
+                    User user  = new User();
+                    user.setName(userDetail.getName());
+                    user.setProfile_image(userDetail.getProfile_image());
+
+                    Log.i(TAG, "=============== userID : " + userDetail.getName() + " profile_image : " + userDetail.getProfile_image());
+
+                    passedResults.setUser(user);
+
                     results_list.add(passedResults);
                     adapter.setData(results_list);                     // 2.1 데이터 추가하고
                     adapter.notifyDataSetChanged();                // 2.2 어뎁터 갱신
-                } else {
-                    // 리사이클러뷰에서 데이터 세팅
-                    adapter = new Second_ThreeFragment.PagerAdapter(getContext());
-                    results_list = new ArrayList<>();
-                    for (int i = 0; i < reviewsSecThreeFrag.getResults().length; i++) {
-                        results_list.add(reviewsSecThreeFrag.getResults()[i]);      // Results() --> List<Results>로 : 동적할당
-                    }
-                    adapter.setData(results_list);
-                    recyclerReview.setAdapter(adapter);
-                    recyclerReview.setLayoutManager(new LinearLayoutManager(context));
                 }
                 asyncDialog.dismiss();
             }
@@ -218,7 +239,6 @@ public class Second_ThreeFragment extends Fragment {
         params.width = 950;      //params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.height = 1500;    //params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
 
         // Dialog 위젯
         ImageButton btnFinish = (ImageButton)dialog.findViewById(R.id.btnReviewFinish_second_review);
@@ -262,12 +282,6 @@ public class Second_ThreeFragment extends Fragment {
                 // 1. POST 처리
                 createRetrofitPOST(editReview, rtCurriculum, rtReadiness, rtTimeliness, rtDelivery, rtFriendness );
 
-
-                // 2. GET : User 정보 받아오기
-                createRetrofitUserGet(true, createLocalDateStore(editReview, rtCurriculum, rtReadiness, rtTimeliness, rtDelivery, rtFriendness));
-
-
-
                 // 다이얼로그 처리
                 if(dialog != null && dialog.isShowing()){
                     Log.i(TAG, "============================================dialog 1");
@@ -277,29 +291,10 @@ public class Second_ThreeFragment extends Fragment {
         });
     }
 
-    public Results createLocalDateStore(String editReview, String rtCurriculum, String rtReadiness, String rtTimeliness, String rtDelivery, String rtFriendness ){
-        User user  = new User();
-        user.setName(userDetail.getName());
-        user.setProfile_image(userDetail.getProfile_image());
 
-        Log.i(TAG, "=================user id " + userDetail.getUser_id());
-        Log.i(TAG, "=================user image " + userDetail.getProfile_image());
-
-        Results results = new Results();
-        results.setCurriculum(rtCurriculum);
-        results.setReadiness(rtReadiness);
-        results.setTimeliness(rtTimeliness);
-        results.setDelivery(rtDelivery);
-        results.setFriendliness(rtFriendness);
-        results.setComment(editReview);
-        results.setUser(user);
-        results.setCreated_date(new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + "T");
-
-        return results;
-    }
 
     public void createRetrofitGET() {
-        Log.i("RAPSTAR","======================== This is createRetrofitGET_Three()");
+
 
         // 1. 레트로핏을 생성하고
         Retrofit retrofit = new Retrofit.Builder()
@@ -316,7 +311,7 @@ public class Second_ThreeFragment extends Fragment {
                 // 데이터 받아오고
                 reviewsSecThreeFrag = response.body();
                 // 현재 사용하고 있는 유저정보 받고 시작하라
-                createRetrofitUserGet(false, null);
+                //createRetrofitUserGet(false, null);
 
             }
             @Override
@@ -328,7 +323,7 @@ public class Second_ThreeFragment extends Fragment {
 
     }
 
-    public void createRetrofitPOST(String editReview, String rtCurriculum, String rtReadiness, String rtTimeliness, String rtDelivery, String rtFriendness ){
+    public void createRetrofitPOST(final String editReview,final String rtCurriculum,final String rtReadiness,final String rtTimeliness,final String rtDelivery,final String rtFriendness ){
         // 2. POST 통신
         // 2.1 통신 로그 확인
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -347,11 +342,12 @@ public class Second_ThreeFragment extends Fragment {
         Review_Detail_Interface service = retrofit.create(Review_Detail_Interface.class);
 
         // 토큰 받아오기
-        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
-        String token = pref.getString("token", null);
+//        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
+//        String token = pref.getString("token", null);
+        Log.i(TAG, "=========================token : " + key);
 
         // 2.3 데이터 받아오기
-        Call<String> reviewData = service.setReviewRetrieve("Token " + token ,
+        Call<ReviewResponse> reviewData = service.setReviewRetrieve("Token " + key ,
                 Integer.valueOf(td.getPk()),
                 Integer.valueOf(rtCurriculum) ,
                 Integer.valueOf(rtReadiness) ,
@@ -362,19 +358,38 @@ public class Second_ThreeFragment extends Fragment {
         );
 
 
-        reviewData.enqueue(new Callback<String>() {
+        reviewData.enqueue(new Callback<ReviewResponse>() {
             // POST는 Response가 안온다.
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
+                Log.i(TAG, "=============================POST 완료");
+                // 2. GET : User 정보 받아오기
+                createRetrofitUserGet(true, createLocalDateStore(editReview, rtCurriculum, rtReadiness, rtTimeliness, rtDelivery, rtFriendness));
             }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<ReviewResponse> call, Throwable t) {
             }
 
         });
 
 
 
+    }
+
+    public Results createLocalDateStore(String editReview, String rtCurriculum, String rtReadiness, String rtTimeliness, String rtDelivery, String rtFriendness ){
+
+
+        Results results = new Results();
+        results.setCurriculum(rtCurriculum);
+        results.setReadiness(rtReadiness);
+        results.setTimeliness(rtTimeliness);
+        results.setDelivery(rtDelivery);
+        results.setFriendliness(rtFriendness);
+        results.setComment(editReview);
+
+        results.setCreated_date(new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + "T");
+
+        return results;
     }
 
     public void createRetrofitDelete(String review_pk){
@@ -396,11 +411,11 @@ public class Second_ThreeFragment extends Fragment {
         Review_Detail_Interface service = retrofit.create(Review_Detail_Interface.class);
 
         // 토큰 받아오기
-        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
-        String token = pref.getString("token", null);
+//
 
-        // 2.4 데이터 받아오기
-        Call<Void> reviewDelete = service.deleteReview("Token " + token, review_pk);
+        // 2.4 데이터 받아오기        SharedPreferences pref = getContext().getSharedPreferences("pref", MODE_PRIVATE);
+//        String token = pref.getString("token", null);
+        Call<Void> reviewDelete = service.deleteReview("Token " + key, review_pk);
         // Log.i(TAG, "==========================token : " + token + ", pk : " + reviews_Pager.get(review_position).getPk());
 
         reviewDelete.enqueue(new Callback<Void>() {
@@ -479,7 +494,7 @@ public class Second_ThreeFragment extends Fragment {
             // 버튼 : 리뷰삭제
             // if(holder.txtName.getText().equals(td.getUser())){ // 현재 사용자랑 같은 이름인지 체크
             if(is_signin && userDetail != null){
-                if(holder.txtName.getText().equals(userDetail.getUser_id())){
+                if(holder.txtName.getText().equals(userDetail.getName())){
                     final int review_position = position;
                     final String review_pk = results.get(position).getPk();   // 현재 아이템에 해당하는 PK
                     holder.btnDelete_fragment_review.setVisibility(View.VISIBLE);
@@ -572,23 +587,25 @@ public class Second_ThreeFragment extends Fragment {
                 ratingBar = (RatingBar)itemView.findViewById(R.id.rb_tutee_fragment_review);
                 btnDelete_fragment_review = (Button)itemView.findViewById(R.id.btnDelete_fragment_review);
 
+                /*  코멘트 화면의 사이즈를 조절(불필요)
                 csLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if( !clicked) {
+                        if( !clicked ) {
                             ViewGroup.LayoutParams params = txtComment.getLayoutParams();
                             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                             txtComment.setLayoutParams(params);
                             clicked = true;
-                        } else if (clicked) {
+                        } else if (clicked && txtComment.getText().length()>10) {
                             ViewGroup.LayoutParams params = txtComment.getLayoutParams();
                             params.height = 75;
                             txtComment.setLayoutParams(params);
                             clicked = false;
                         }
                     }
-                });
+                });*/
             }
+
 
         }
     }

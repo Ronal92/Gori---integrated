@@ -1,15 +1,24 @@
 package goriproject.ykjw.com.myapplication;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
+
+import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
+import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
 
 /**
  * 실질적으로 MyPage 데이터들을 뿌려주는 곳.
@@ -21,15 +30,15 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
     private static final String TAG = "RAPSTAR";
 
     private Context context = null;
-    private List<?> datas;
+    MyPage mypageFromServer = null;
     private String typeFlag;
 
     // 탭에 보여줄 xml 식별자
     private int tap_layout_id = 0;
 
-    public MyPageAdapter(Context context, List<?> datas, String typeFlag){
+    public MyPageAdapter(Context context, MyPage mypageFromServer, String typeFlag){
         this.context = context;
-        this.datas = datas;
+        this.mypageFromServer = mypageFromServer;
         this.typeFlag = typeFlag;
         switch(typeFlag){
             case MyPageTuteeOfListFragment.TYPE_APPLICATION:
@@ -56,7 +65,6 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(tap_layout_id, parent, false);
-
         SimpleViewHolder svh = new SimpleViewHolder(view);
         return svh;
     }
@@ -70,17 +78,40 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
 
         switch(typeFlag){
             case MyPageTuteeOfListFragment.TYPE_APPLICATION:
-                Glide.with(context).load(R.drawable.test2).into(holder.img_tutee_fragment_one);
+                holder.txtWriter_tutee_fragment_one.setText(mypageFromServer.getResults().getRegistrations()[position].getTutor_info().getName());
+                holder.txtTitle_tutee_fragment_one.setText(mypageFromServer.getResults().getRegistrations()[position].getTalent().getTitle());
+                String date = mypageFromServer.getResults().getRegistrations()[position].getJoined_date();
+                date = date.substring(0,date.indexOf("."));
+                holder.txtDate_tutee_fragment_one.setText(date.replace("T"," "));
+                Glide.with(context).load(mypageFromServer.getResults().getRegistrations()[position].getTalent().getCover_image()).into(holder.img_tutee_fragment_one);
                 break;
+
             case MyPageTuteeOfListFragment.TYPE_CLASSLIST:
-                Glide.with(context).load(R.drawable.test).into(holder.img_tutee_fragment_one);
+                Glide.with(context).load(mypageFromServer.getResults().getEnrollment()[position].getTutor_info().getProfile_image()).into(holder.img_tutee_profile_fragment_two);
+                Glide.with(context).load(mypageFromServer.getResults().getEnrollment()[position].getTalent().getCover_image()).thumbnail(0.1f).into(new ViewTarget<ConstraintLayout, GlideDrawable>(holder.img_tutee_cover_fragment_two) {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation anim) {
+                        ConstraintLayout myView = this.view;
+                        // Set your resource on myView and/or start your animation here.
+                        myView.setBackground(resource);
+                    }
+                });
+                holder.txtName_tutee_fragment_two.setText(mypageFromServer.getResults().getEnrollment()[position].getTutor_info().getName());
+                holder.txtTitler_tutee_fragment_two.setText(mypageFromServer.getResults().getEnrollment()[position].getTalent().getTitle());
+                long ratinglong = Math.round(Double.parseDouble(mypageFromServer.getResults().getEnrollment()[position].getTalent().getAverage_rate()));
+                int rating = (int)ratinglong;
+                holder.ratingBar_tutee_fragment_two.setRating(rating);
+
                 break;
+
             case MyPageTuteeOfListFragment.TYPE_WISHLIST:
                 Glide.with(context).load(R.drawable.test2).into(holder.img_tutee_fragment_one);
                 break;
+
             case MyPageTutorOfListFragment.TYPE_RESUME:
                 Glide.with(context).load(R.drawable.test).into(holder.img_tutee_fragment_one);
                 break;
+
             case MyPageTutorOfListFragment.TYPE_MYCLASS:
                 Glide.with(context).load(R.drawable.test2).into(holder.img_tutee_fragment_one);
                 break;
@@ -92,7 +123,29 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
 
     @Override
     public int getItemCount() {
-        return 10;
+        int returnValue = 0;
+        switch(typeFlag){
+            case MyPageTuteeOfListFragment.TYPE_APPLICATION:
+                returnValue = mypageFromServer.getResults().getRegistrations().length;
+                break;
+            case MyPageTuteeOfListFragment.TYPE_CLASSLIST:
+                returnValue = mypageFromServer.getResults().getEnrollment().length;
+                break;
+            case MyPageTuteeOfListFragment.TYPE_WISHLIST:
+                returnValue = mypageFromServer.getResults().getRegistrations().length;
+                break;
+
+            case MyPageTutorOfListFragment.TYPE_RESUME:
+                returnValue = mypageFromServer.getResults().getRegistrations().length;
+                break;
+
+            case MyPageTutorOfListFragment.TYPE_MYCLASS:
+                returnValue = mypageFromServer.getResults().getRegistrations().length;
+                break;
+
+        }
+
+        return returnValue;
     }
 
     /*
@@ -101,12 +154,36 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder{
 
+        // TYPE : registration
         ImageView img_tutee_fragment_one;
+        TextView txtWriter_tutee_fragment_one;
+        TextView txtDate_tutee_fragment_one;
+        TextView txtTitle_tutee_fragment_one;
+
+        // TYPE : enrollment
+        ConstraintLayout img_tutee_cover_fragment_two;
+        CircleImageView img_tutee_profile_fragment_two;
+        RatingBar ratingBar_tutee_fragment_two;
+        TextView txtTitler_tutee_fragment_two;
+        TextView txtName_tutee_fragment_two;
+
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
+
+            // TYPE : registration
             img_tutee_fragment_one = (ImageView)itemView.findViewById(R.id.img_tutee_fragment_one);
-            img_tutee_fragment_one.bringToFront();
+            txtWriter_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtWriter_tutee_fragment_one);
+            txtDate_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtDate_tutee_fragment_one);
+            txtTitle_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtTitle_tutee_fragment_one);
+
+            // TYPE : enrollment
+            img_tutee_cover_fragment_two = (ConstraintLayout)itemView.findViewById(R.id.img_tutee_cover_fragment_two);
+            img_tutee_profile_fragment_two = (CircleImageView)itemView.findViewById(R.id.img_tutee_profile_fragment_two);
+            ratingBar_tutee_fragment_two = (RatingBar)itemView.findViewById(R.id.ratingBar_tutee_fragment_two);
+            txtTitler_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtTitler_tutee_fragment_two);
+            txtName_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtName_tutee_fragment_two);
+
         }
 
     }

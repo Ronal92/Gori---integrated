@@ -25,6 +25,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
+
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
@@ -40,11 +42,18 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
     DrawerLayout drawer;
     NavigationView navigationView;
 
+    MyPage myPage = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
+
+        Intent intent = getIntent();
+        myPage = (MyPage)intent.getSerializableExtra("mypage");
+
+        Log.i("RAPSTAR","====================================mypage" + " " + myPage.getName());
 
         // 드로어레이아웃
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mypage);
@@ -52,7 +61,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
         // 프래그먼트
-        TuteeFragment = new MypageTuteeFragment();
+        TuteeFragment = MypageTuteeFragment.newInstance(myPage);
         TutorFragment = new MypageTutorFragment();
 
         TabLayout outerTab = (TabLayout)findViewById(R.id.outerTab);
@@ -147,7 +156,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mypage);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -165,8 +174,26 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
         private static final String TAG = "RAPSTAR";
         View view = null;
 
+        MyPage mypage = null;
+
         public MypageTuteeFragment() {
             // Required empty public constructor
+        }
+
+        public static MypageTuteeFragment newInstance(MyPage mypage){
+            Bundle args = new Bundle();
+            MypageTuteeFragment mypageTuteeFragment = new MypageTuteeFragment();
+            args.putSerializable("mypage", mypage);
+            mypageTuteeFragment.setArguments(args);
+            return mypageTuteeFragment;
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            if(getArguments() != null) {
+                mypage = (MyPage)getArguments().getSerializable("mypage");
+            }
         }
 
         @Override
@@ -189,9 +216,9 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
             PagerAdapter pagerTuteeAdapter = new PagerAdapter(getChildFragmentManager());
 
             // 어뎁터에 프래그먼트 추가
-            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_APPLICATION));
-            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_CLASSLIST));
-            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_WISHLIST));
+            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_APPLICATION, mypage ));
+            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_CLASSLIST, mypage));
+            pagerTuteeAdapter.add(MyPageTuteeOfListFragment.newInstance(MyPageTuteeOfListFragment.TYPE_WISHLIST, mypage));
 
             // 리스너
             viewPagerTutee.setAdapter(pagerTuteeAdapter);
@@ -214,11 +241,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
             super.onDestroyView();
         }
 
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            Log.i(TAG, "==================================TuteeFragment OnCreate()");
-            super.onCreate(savedInstanceState);
-        }
+
 
         public class PagerAdapter extends FragmentStatePagerAdapter {
 

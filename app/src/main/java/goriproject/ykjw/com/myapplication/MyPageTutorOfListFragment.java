@@ -68,7 +68,7 @@ public class MyPageTutorOfListFragment extends Fragment {
         if(view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerViewTutor = (RecyclerView) view;
-            recyclerViewTutor.setAdapter(new MyPageAdapter(getContext(), datas, mListType));
+           // recyclerViewTutor.setAdapter(new MyPageAdapter(getContext(), datas, mListType));
         }
         return view;
 

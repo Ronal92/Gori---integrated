@@ -8,9 +8,21 @@ import java.io.Serializable;
 
 public class Class_images implements Serializable
 {
+    private String talent_pk;
+
     private String image;
 
     private String pk;
+
+    public String getTalent_pk ()
+    {
+        return talent_pk;
+    }
+
+    public void setTalent_pk (String talent_pk)
+    {
+        this.talent_pk = talent_pk;
+    }
 
     public String getImage ()
     {
@@ -35,6 +47,6 @@ public class Class_images implements Serializable
     @Override
     public String toString()
     {
-        return "ClassPojo [image = "+image+", pk = "+pk+"]";
+        return "ClassPojo [talent_pk = "+talent_pk+", image = "+image+", pk = "+pk+"]";
     }
 }

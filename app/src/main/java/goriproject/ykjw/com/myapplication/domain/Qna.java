@@ -13,7 +13,7 @@ public class Qna implements Serializable
 
     private String created_date;
 
-    private List<String> replies;
+    private String[] replies;
 
     private String user;
 
@@ -41,11 +41,13 @@ public class Qna implements Serializable
         this.created_date = created_date;
     }
 
-    public List<String> getReplies() {
+    public String[] getReplies ()
+    {
         return replies;
     }
 
-    public void setReplies(List<String> replies) {
+    public void setReplies (String[] replies)
+    {
         this.replies = replies;
     }
 

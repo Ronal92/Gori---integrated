@@ -40,6 +40,7 @@ import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
@@ -73,6 +74,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     Talent talent;
     TalentDetail td = new TalentDetail();
+    ReviewsSecThreeFrag reviewsSecThreeFrag = null;
     float txtTitle_y_position = 0;
     float tab_y_position = 0;
 
@@ -120,7 +122,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         Intent intent = getIntent();
         final int id = intent.getExtras().getInt("id");
         Results item = (Results)intent.getSerializableExtra("item");
+
         td = (TalentDetail)intent.getSerializableExtra("td");
+        reviewsSecThreeFrag = (ReviewsSecThreeFrag)intent.getSerializableExtra("reivew");
 
 
 
@@ -150,11 +154,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         // 프래그먼트 초기화
         one = new Second_OneFragment();
         two = Second_TwoFragment.newInstance(td);
-        three = Second_ThreeFragment.newInstance(td);
-        four = new Second_FourFragment();
+        three = Second_ThreeFragment.newInstance(td, reviewsSecThreeFrag);
+        four = Second_FourFragment.newInstance(td);
         Log.e("sdfdfdfadfasd2222", String.valueOf(td.getTitle()));
         one.setTalent(talent,item, td);
-        four.setTalent(talent,item);
+        //four.setTalent(talent,item);
         one.setActivity(this);
 
         // 버튼 초기화

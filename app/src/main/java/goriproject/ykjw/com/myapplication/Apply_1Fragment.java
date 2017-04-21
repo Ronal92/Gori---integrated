@@ -335,7 +335,7 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
                     btn.setTextColor(Color.WHITE);
                 }
             }
-        setTime(((int)v.getTag()/10),((int)v.getTag()%10));
+            setTime(((int)v.getTag()/10),((int)v.getTag()%10));
         }
 
     };

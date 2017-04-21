@@ -2,6 +2,7 @@ package goriproject.ykjw.com.myapplication.Interfaces;
 
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewResponse;
 import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -25,7 +26,7 @@ public interface Review_Detail_Interface {
 //    @Headers("Content-Type:multipart/form-data")
     @Multipart
     @POST("talent/add/review/")
-    Call<String> setReviewRetrieve(
+    Call<ReviewResponse> setReviewRetrieve(
             @Header("Authorization") String token,
             @Part("talent_pk") int talent_pk,
             @Part("curriculum") int curriculum,

@@ -78,6 +78,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(SignInActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                     key = response.body().getKey();
 
+                    Log.e("ksdjflds", "========= key in SignInActivity " + key);
                     if(cb_login.isChecked()) {
                         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
