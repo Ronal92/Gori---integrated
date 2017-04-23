@@ -20,15 +20,23 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
+import static goriproject.ykjw.com.myapplication.Statics.user_name;
 
 /**
  * MyPage에서 수강생 탭과 튜터 탭을 보여준다.
@@ -43,7 +51,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
     NavigationView navigationView;
 
     MyPage myPage = null;
-
+    UserDetail userDetail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +60,16 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
 
         Intent intent = getIntent();
         myPage = (MyPage)intent.getSerializableExtra("mypage");
+        userDetail = (UserDetail)intent.getSerializableExtra("userInformation");
 
-        Log.i("RAPSTAR","====================================mypage" + " " + myPage.getName());
+
+        // mypage 상단 부분분
+       TextView txtName_profile_mypage = (TextView)findViewById(R.id.txtName_profile_mypage);
+        ImageView img_profile_mypage = (ImageView)findViewById(R.id.img_profile_mypage);
+        txtName_profile_mypage.setText(userDetail.getName());
+        Glide.with(this).load(userDetail.getProfile_image()).placeholder(R.mipmap.ic_launcher).into(img_profile_mypage); // 이미지 표시
+
+
 
         // 드로어레이아웃
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mypage);
@@ -144,7 +160,7 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
             }
 
         } else if (id == R.id.menu_mypage) {
-
+            // 동작할 필요 없음.
         } else if (id == R.id.menu_tutor_go) {
             // 아직 구현할 생각 없음
             Toast.makeText(MyPageActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_LONG).show();

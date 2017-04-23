@@ -1,10 +1,12 @@
 package goriproject.ykjw.com.myapplication.domain_User_detail_all;
 
+import java.io.Serializable;
+
 /**
  * Created by JINWOO on 2017-04-20.
  */
 
-public class UserDetail {
+public class UserDetail implements Serializable{
 
     private String sent_registrations;
 

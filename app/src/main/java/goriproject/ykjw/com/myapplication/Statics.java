@@ -14,5 +14,7 @@ public class Statics {
     public static String key = null;
     public static List<Results> datas = new ArrayList<>();
     public static int maxsize;
+    public static String user_name = null;
+
 
 }

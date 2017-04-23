@@ -37,10 +37,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import goriproject.ykjw.com.myapplication.Interfaces.Mypage_Detail_Interface;
-import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
+import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
+import goriproject.ykjw.com.myapplication.domain.Reviews;
+import goriproject.ykjw.com.myapplication.domain.User;
+import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
-import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -663,21 +665,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
 
-        // 토큰 받아오기
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        String token = pref.getString("token", null);
+        Log.i("RAPSTAR","========================token : " + key);
 
-        Log.i("RAPSTAR","========================token : " + token);
-
-        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + token);
+        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + key);
         myPageCalla.enqueue(new Callback<MyPage>() {
             @Override
             public void onResponse(Call<MyPage> call, Response<MyPage> response) {
-
                 MyPage myPageFromServer = response.body();
-                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
-                intent.putExtra("mypage",myPageFromServer);
-                startActivity(intent);
+                createRetrofitUserGet(myPageFromServer);
+
+
             }
             @Override
             public void onFailure(Call<MyPage> call, Throwable t) {
@@ -687,6 +684,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
+    public void createRetrofitUserGet(final MyPage myPageFromServer){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
+
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+
+        tds.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                intent.putExtra("mypage",myPageFromServer);
+                intent.putExtra("userInformation", userDetail);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
 
 

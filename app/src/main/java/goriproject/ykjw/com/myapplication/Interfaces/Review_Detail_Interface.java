@@ -1,9 +1,7 @@
 package goriproject.ykjw.com.myapplication.Interfaces;
 
-import java.util.List;
-
 import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewResponse;
-import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewDetail;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -19,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface Review_Detail_Interface {
     @GET("talent/detail/{talent_pk}/review/")
-    Call<ReviewsSecThreeFrag> getReviewRetrieve(@Path("talent_pk") String talent_pk);
+    Call<ReviewDetail> getReviewRetrieve(@Path("talent_pk") String talent_pk);
 
 
     //    @FormUrlEncoded

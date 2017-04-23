@@ -1,13 +1,10 @@
-package goriproject.ykjw.com.myapplication.domain;
+package goriproject.ykjw.com.myapplication.domain_qna_retrieve;
 
-import java.io.Serializable;
-import java.util.List;
+/**
+ * Created by JINWOO on 2017-04-22.
+ */
 
-
-
-
-public class Qna implements Serializable
-{
+public class Results {
     private String content;
 
     private String created_date;
@@ -19,8 +16,6 @@ public class Qna implements Serializable
     private String user_image;
 
     private String pk;
-
-    public boolean isAnonymous;
 
     public String getContent ()
     {

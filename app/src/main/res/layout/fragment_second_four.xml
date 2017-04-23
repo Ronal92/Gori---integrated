@@ -41,10 +41,10 @@
         android:layout_marginTop="8dp"
         android:text="수업과 관련해서 궁금한 점이 있으세요?"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintLeft_toLeftOf="@+id/editText2" />
+        app:layout_constraintLeft_toLeftOf="@+id/edTxt_secondfour_content" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edTxt_secondfour_content"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
@@ -65,14 +65,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_secondfour2" />
 
     <CheckBox
+        android:visibility="invisible"
         android:id="@+id/cb_secondfour_anomy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="익명으로 쓰기"
         android:textSize="10sp"
-        app:layout_constraintLeft_toLeftOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintLeft_toLeftOf="@+id/edTxt_secondfour_content"
+        app:layout_constraintTop_toBottomOf="@+id/edTxt_secondfour_content" />
 
     <Button
         android:id="@+id/btn_secondfour_qna"
@@ -83,8 +84,8 @@
         android:text="질문하기"
         android:textColor="@color/colorAccent"
         android:textSize="10sp"
-        app:layout_constraintRight_toRightOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintRight_toRightOf="@+id/edTxt_secondfour_content"
+        app:layout_constraintTop_toBottomOf="@+id/edTxt_secondfour_content"
         android:layout_marginRight="-1dp" />
 
     <android.support.v7.widget.RecyclerView

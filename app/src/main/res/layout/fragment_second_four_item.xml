@@ -96,6 +96,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.166" />
 
+        <Button
+            android:id="@+id/btnDelete_fragmentFour_qna"
+            android:layout_width="47dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorAccent"
+            android:text="삭제"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/txtComment_tutee_fragment_qna"
+            app:layout_constraintHorizontal_bias="0.943"
+            app:layout_constraintLeft_toRightOf="@+id/txName_tutee_fragment_qna"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.166" />
+
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

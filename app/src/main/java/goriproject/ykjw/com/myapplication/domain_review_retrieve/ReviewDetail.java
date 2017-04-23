@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by JINWOO on 2017-04-18.
  */
 
-public class ReviewsSecThreeFrag implements Serializable {
+public class ReviewDetail implements Serializable {
     private Results[] results;
 
     private String previous;

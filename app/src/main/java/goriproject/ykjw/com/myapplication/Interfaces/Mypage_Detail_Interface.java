@@ -13,6 +13,6 @@ import retrofit2.http.Path;
 
 public interface Mypage_Detail_Interface {
 
-    @GET("member/my-page/")
-    Call<MyPage> getMyPageRetrieve(@Header("Authorization") String token);
+        @GET("member/my-page/")
+        Call<MyPage> getMyPageRetrieve(@Header("Authorization") String token);
 }

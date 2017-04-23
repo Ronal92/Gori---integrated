@@ -20,11 +20,16 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
+import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
+import goriproject.ykjw.com.myapplication.domain.Qna;
 import goriproject.ykjw.com.myapplication.domain.Result;
 import goriproject.ykjw.com.myapplication.domain.Result2;
 import goriproject.ykjw.com.myapplication.Interfaces.SignUpInterface;
+import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
+import static goriproject.ykjw.com.myapplication.Statics.user_name;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -91,9 +97,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         editor.commit();
                     }
 
+
+
                     is_signin = true;
-                    // goriproject.ykjw.com.myapplication.domain.Result@42ca77a0
-                    finish();
+
+                    createRetrofitUserGet();
+
+
                 } else {
                     Toast.makeText(SignInActivity.this, "아이디와 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -104,6 +114,35 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         });
+    }
+
+    public void createRetrofitUserGet(){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
+
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+
+        tds.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+
+
+                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+                user_name = userDetail.getName();
+                Log.i("RAPSTAR", "=============================  user_name  : " + user_name);
+                finish();
+            }
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+
+            }
+        });
+
     }
 
     @Override
@@ -142,7 +181,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 loginData.enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
-                        Log.e("ddddddddddddd", String.valueOf(response.code()));
                         if (response.code() == 201) {
                             Toast.makeText(SignInActivity.this, "페이스북 로그인 성공", Toast.LENGTH_SHORT).show();
                         } else {

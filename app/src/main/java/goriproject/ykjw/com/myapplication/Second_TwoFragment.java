@@ -56,7 +56,7 @@ public class Second_TwoFragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
-    //
+
     public static Second_TwoFragment newInstance(TalentDetail talentDetail){
         Second_TwoFragment secondTwoFragment = new Second_TwoFragment();
         Bundle args = new Bundle();
@@ -83,12 +83,10 @@ public class Second_TwoFragment extends Fragment implements View.OnClickListener
         }
         view = inflater.inflate(R.layout.fragment_second_two, container, false);
 
-
+        // 위젯 초기화
         tv_apply1_plusinfo = (TextView)view.findViewById(R.id.tv_apply1_plusinfo);
-
         img_apply1_profile = (ImageView)view.findViewById(R.id.img_apply1_profile);
         Glide.with(getContext()).load(td.getTutor().getProfile_image()).into(img_apply1_profile);
-
         btn1layout = (GridLayout)view.findViewById(R.id.li_apply1_btnlayout1);
         btn2layout = (LinearLayout)view.findViewById(R.id.li_apply1_btnlayout2);
         btn3layout = (GridLayout) view.findViewById(R.id.li_apply1_btnlayout3);

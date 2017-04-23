@@ -15,8 +15,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 
-import java.util.List;
-
 import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
 
@@ -65,7 +63,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(tap_layout_id, parent, false);
-        SimpleViewHolder svh = new SimpleViewHolder(view);
+        SimpleViewHolder svh = new SimpleViewHolder(view, typeFlag);
         return svh;
     }
 
@@ -98,14 +96,22 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
                 });
                 holder.txtName_tutee_fragment_two.setText(mypageFromServer.getResults().getEnrollment()[position].getTutor_info().getName());
                 holder.txtTitler_tutee_fragment_two.setText(mypageFromServer.getResults().getEnrollment()[position].getTalent().getTitle());
-                long ratinglong = Math.round(Double.parseDouble(mypageFromServer.getResults().getEnrollment()[position].getTalent().getAverage_rate()));
-                int rating = (int)ratinglong;
+                long ratinglong_enrollment = Math.round(Double.parseDouble(mypageFromServer.getResults().getEnrollment()[position].getTalent().getAverage_rate()));
+                int rating = (int)ratinglong_enrollment;
                 holder.ratingBar_tutee_fragment_two.setRating(rating);
 
                 break;
 
             case MyPageTuteeOfListFragment.TYPE_WISHLIST:
-                Glide.with(context).load(R.drawable.test2).into(holder.img_tutee_fragment_one);
+                Glide.with(context).load(mypageFromServer.getResults().getWishlist()[position].getCover_image()).into(holder.img_mypage_tutee_three);
+                holder.txtTitle_mypage_tutee_three.setText(mypageFromServer.getResults().getWishlist()[position].getTitle());
+                String registration_cnt = mypageFromServer.getResults().getWishlist()[position].getRegistration_count();
+                holder.txtRegistrationCnt_mypage_tutee_three.setText(registration_cnt + "명");
+                holder.txtPrice_mypage_tutee_three.setText(mypageFromServer.getResults().getWishlist()[position].getPrice_per_hour() + "\u20a9" );
+                holder.txtRegions_mypage_tutee_three.setText(mypageFromServer.getResults().getWishlist()[position].getRegions()[0]); // 대표적으로 지역 하나만 출력
+                holder.txtType_mypage_tutee_three.setText(mypageFromServer.getResults().getWishlist()[position].getType());
+                long ratinglong_wishlist = Math.round(Double.parseDouble(mypageFromServer.getResults().getWishlist()[position].getAverage_rate()));
+                holder.rb_mypage_tutee_three.setRating((int)ratinglong_wishlist);
                 break;
 
             case MyPageTutorOfListFragment.TYPE_RESUME:
@@ -132,7 +138,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
                 returnValue = mypageFromServer.getResults().getEnrollment().length;
                 break;
             case MyPageTuteeOfListFragment.TYPE_WISHLIST:
-                returnValue = mypageFromServer.getResults().getRegistrations().length;
+                returnValue = mypageFromServer.getResults().getWishlist().length;
                 break;
 
             case MyPageTutorOfListFragment.TYPE_RESUME:
@@ -151,14 +157,11 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
     /*
     위젯 아이디는 xml 모두 똑같아야 onBindViewHolder에서 같이 지정할 수 있다.
      */
-
     public class SimpleViewHolder extends RecyclerView.ViewHolder{
 
         // TYPE : registration
         ImageView img_tutee_fragment_one;
-        TextView txtWriter_tutee_fragment_one;
-        TextView txtDate_tutee_fragment_one;
-        TextView txtTitle_tutee_fragment_one;
+        TextView txtWriter_tutee_fragment_one, txtDate_tutee_fragment_one, txtTitle_tutee_fragment_one;
 
         // TYPE : enrollment
         ConstraintLayout img_tutee_cover_fragment_two;
@@ -167,22 +170,44 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
         TextView txtTitler_tutee_fragment_two;
         TextView txtName_tutee_fragment_two;
 
+        // TYPE : wishList
+        ImageView img_mypage_tutee_three;
+        TextView txtTitle_mypage_tutee_three, txtPrice_mypage_tutee_three, txtType_mypage_tutee_three, txtRegions_mypage_tutee_three, txtRegistrationCnt_mypage_tutee_three;
+        RatingBar rb_mypage_tutee_three;
 
-        public SimpleViewHolder(View itemView) {
+        // TYPE : applicants
+
+
+        public SimpleViewHolder(View itemView, String typeflag_viewHolder) {
             super(itemView);
+            switch (typeflag_viewHolder){
+                case MyPageTuteeOfListFragment.TYPE_APPLICATION :
+                    // TYPE : registration
+                    img_tutee_fragment_one = (ImageView)itemView.findViewById(R.id.img_wishList_one);
+                    txtWriter_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtWriter_tutor_fragment_one);
+                    txtDate_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtDate_tutee_fragment_one);
+                    txtTitle_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtTitle_tutee_fragment_one);
+                    break;
+                case MyPageTuteeOfListFragment.TYPE_CLASSLIST :
+                    // TYPE : enrollment
+                    img_tutee_cover_fragment_two = (ConstraintLayout)itemView.findViewById(R.id.img_tutee_cover_fragment_two);
+                    img_tutee_profile_fragment_two = (CircleImageView)itemView.findViewById(R.id.img_tutee_profile_fragment_two);
+                    ratingBar_tutee_fragment_two = (RatingBar)itemView.findViewById(R.id.ratingBar_tutee_fragment_two);
+                    txtTitler_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtTitler_tutee_fragment_two);
+                    txtName_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtName_tutee_fragment_two);
+                    break;
+                case MyPageTuteeOfListFragment.TYPE_WISHLIST :
+                    // TYPE : wishList
+                    img_mypage_tutee_three = (ImageView)itemView.findViewById(R.id.img_mypage_tutee_three);
+                    txtTitle_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtTitle_mypage_tutee_three);
+                    txtPrice_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtPrice_mypage_tutee_three);
+                    txtType_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtType_mypage_tutee_three);
+                    txtRegions_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtRegions_mypage_tutee_three);
+                    txtRegistrationCnt_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtRegistrationCnt_mypage_tutee_three);
+                    rb_mypage_tutee_three = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutee_three);
+                    break;
+            }
 
-            // TYPE : registration
-            img_tutee_fragment_one = (ImageView)itemView.findViewById(R.id.img_tutee_fragment_one);
-            txtWriter_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtWriter_tutee_fragment_one);
-            txtDate_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtDate_tutee_fragment_one);
-            txtTitle_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtTitle_tutee_fragment_one);
-
-            // TYPE : enrollment
-            img_tutee_cover_fragment_two = (ConstraintLayout)itemView.findViewById(R.id.img_tutee_cover_fragment_two);
-            img_tutee_profile_fragment_two = (CircleImageView)itemView.findViewById(R.id.img_tutee_profile_fragment_two);
-            ratingBar_tutee_fragment_two = (RatingBar)itemView.findViewById(R.id.ratingBar_tutee_fragment_two);
-            txtTitler_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtTitler_tutee_fragment_two);
-            txtName_tutee_fragment_two = (TextView)itemView.findViewById(R.id.txtName_tutee_fragment_two);
 
         }
 

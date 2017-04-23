@@ -21,14 +21,13 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 
-import java.io.IOException;
 import java.util.List;
 
 import goriproject.ykjw.com.myapplication.Interfaces.Review_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.Talent_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewsSecThreeFrag;
+import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewDetail;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -129,7 +128,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
              itemback = (ConstraintLayout)itemView.findViewById(R.id.itemback);
              tutor_name = (TextView)itemView.findViewById(R.id.tutor_name);
              class_name = (TextView)itemView.findViewById(R.id.class_name);
-             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
+             ratingBar = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutee_three);
              tv_soldout = (TextView)itemView.findViewById(R.id.tv_soldout);
              soldout = (View)itemView.findViewById(R.id.view_sold_out);
 
@@ -187,7 +186,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
                 @Override
                 public void onResponse(Call<TalentDetail> call, Response<TalentDetail> response) {
                     td = response.body();
-                    createRetrofitGET_review(td);
+
+                    intent.putExtra("td",td);
+                    context.startActivity(intent);
+
+                    if(asyncDialog.isShowing() || asyncDialog != null) {
+                        asyncDialog.dismiss();
+                    }
                 }
 
                 @Override
@@ -195,14 +200,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
                 }
             });
-//            try {
-//                td = tds.execute().body();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
-
-
             return null;
         }
 
@@ -214,7 +211,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
         }
     }
 
-    public void createRetrofitGET_review(final TalentDetail td) {
+    public void createRetrofitGET(final TalentDetail td) {
 
 
         // 1. 레트로핏을 생성하고
@@ -225,11 +222,11 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
         Review_Detail_Interface tdService = retrofit.create(Review_Detail_Interface.class);
 
-        Call<ReviewsSecThreeFrag> tds = tdService.getReviewRetrieve(td.getPk());
-        tds.enqueue(new Callback<ReviewsSecThreeFrag>() {
+        Call<ReviewDetail> tds = tdService.getReviewRetrieve(td.getPk());
+        tds.enqueue(new Callback<ReviewDetail>() {
             @Override
-            public void onResponse(Call<ReviewsSecThreeFrag> call, Response<ReviewsSecThreeFrag> response) {
-                ReviewsSecThreeFrag reviewsSecThreeFrag = response.body();
+            public void onResponse(Call<ReviewDetail> call, Response<ReviewDetail> response) {
+                ReviewDetail reviewsSecThreeFrag = response.body();
 
                 if(asyncDialog.isShowing() || asyncDialog != null) {
                     asyncDialog.dismiss();
@@ -241,7 +238,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
 
             }
             @Override
-            public void onFailure(Call<ReviewsSecThreeFrag> call, Throwable t) {
+            public void onFailure(Call<ReviewDetail> call, Throwable t) {
 
             }
         });
