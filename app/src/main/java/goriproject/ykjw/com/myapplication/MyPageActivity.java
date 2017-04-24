@@ -31,6 +31,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import goriproject.ykjw.com.myapplication.Custom.CircleImageView;
 import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
 
@@ -65,9 +66,9 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
 
         // mypage 상단 부분분
        TextView txtName_profile_mypage = (TextView)findViewById(R.id.txtName_profile_mypage);
-        ImageView img_profile_mypage = (ImageView)findViewById(R.id.img_profile_mypage);
-        txtName_profile_mypage.setText(userDetail.getName());
-        Glide.with(this).load(userDetail.getProfile_image()).placeholder(R.mipmap.ic_launcher).into(img_profile_mypage); // 이미지 표시
+       txtName_profile_mypage.setText(userDetail.getName());
+        CircleImageView img_profile_mypage = (CircleImageView)findViewById(R.id.img_profile_mypage);
+       Glide.with(this).load(userDetail.getProfile_image()).placeholder(R.mipmap.ic_launcher).into(img_profile_mypage); // 이미지 표시
 
 
 

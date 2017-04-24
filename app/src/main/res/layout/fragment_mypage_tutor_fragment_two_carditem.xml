@@ -20,8 +20,8 @@
             android:background="@mipmap/ic_launcher">
 
 
-            <ImageView
-                android:id="@+id/img_mypage_tutee_three"
+            <goriproject.ykjw.com.myapplication.Custom.CircleImageView
+                android:id="@+id/img_mypage_tutor_two"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
@@ -33,7 +33,7 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cd"
                 app:layout_constraintRight_toRightOf="@+id/cd"
-                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.0" />
 
             <android.support.v7.widget.CardView
@@ -53,7 +53,7 @@
                     android:elevation="0dp">
 
                     <TextView
-                        android:id="@+id/tutor_name"
+                        android:id="@+id/txtName_mypage_tutor_two"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="7dp"
@@ -64,25 +64,29 @@
                         android:text="이윤규/코딩마스터"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintLeft_toRightOf="@+id/rb_mypage_tutee_three"
+                        app:layout_constraintLeft_toRightOf="@+id/rb_mypage_tutor_two"
                         app:layout_constraintRight_toRightOf="parent" />
 
                     <TextView
-                        android:id="@+id/class_name"
-                        android:layout_width="0dp"
+                        android:id="@+id/txtClassName_mypage_tutor_two"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
                         android:maxLines="1"
                         android:text="지겨운 코딩공부는 그만!"
                         android:textSize="24sp"
-                        app:layout_constraintBottom_toTopOf="@+id/tutor_name"
-                        app:layout_constraintLeft_toLeftOf="@+id/tutor_name"
-                        app:layout_constraintRight_toRightOf="parent" />
+                        app:layout_constraintBottom_toTopOf="@+id/txtName_mypage_tutor_two"
+                        app:layout_constraintHorizontal_bias="0.83"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <RatingBar
-                        android:id="@+id/rb_mypage_tutee_three"
+                        android:id="@+id/rb_mypage_tutor_two"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"

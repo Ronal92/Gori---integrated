@@ -85,6 +85,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
                 break;
 
             case MyPageTuteeOfListFragment.TYPE_CLASSLIST:
+                holder.img_tutee_profile_fragment_two.bringToFront();
                 Glide.with(context).load(mypageFromServer.getResults().getEnrollment()[position].getTutor_info().getProfile_image()).into(holder.img_tutee_profile_fragment_two);
                 Glide.with(context).load(mypageFromServer.getResults().getEnrollment()[position].getTalent().getCover_image()).thumbnail(0.1f).into(new ViewTarget<ConstraintLayout, GlideDrawable>(holder.img_tutee_cover_fragment_two) {
                     @Override
@@ -160,7 +161,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
     public class SimpleViewHolder extends RecyclerView.ViewHolder{
 
         // TYPE : registration
-        ImageView img_tutee_fragment_one;
+        CircleImageView img_tutee_fragment_one;
         TextView txtWriter_tutee_fragment_one, txtDate_tutee_fragment_one, txtTitle_tutee_fragment_one;
 
         // TYPE : enrollment
@@ -183,8 +184,8 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
             switch (typeflag_viewHolder){
                 case MyPageTuteeOfListFragment.TYPE_APPLICATION :
                     // TYPE : registration
-                    img_tutee_fragment_one = (ImageView)itemView.findViewById(R.id.img_wishList_one);
-                    txtWriter_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtWriter_tutor_fragment_one);
+                    img_tutee_fragment_one = (CircleImageView)itemView.findViewById(R.id.img_wishList_one);
+                    txtWriter_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtWriter_tutee_fragment_one);
                     txtDate_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtDate_tutee_fragment_one);
                     txtTitle_tutee_fragment_one = (TextView)itemView.findViewById(R.id.txtTitle_tutee_fragment_one);
                     break;
@@ -198,13 +199,13 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.SimpleView
                     break;
                 case MyPageTuteeOfListFragment.TYPE_WISHLIST :
                     // TYPE : wishList
-                    img_mypage_tutee_three = (ImageView)itemView.findViewById(R.id.img_mypage_tutee_three);
+                    img_mypage_tutee_three = (ImageView)itemView.findViewById(R.id.img_mypage_tutor_two);
                     txtTitle_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtTitle_mypage_tutee_three);
                     txtPrice_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtPrice_mypage_tutee_three);
                     txtType_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtType_mypage_tutee_three);
                     txtRegions_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtRegions_mypage_tutee_three);
                     txtRegistrationCnt_mypage_tutee_three = (TextView)itemView.findViewById(R.id.txtRegistrationCnt_mypage_tutee_three);
-                    rb_mypage_tutee_three = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutee_three);
+                    rb_mypage_tutee_three = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutor_two);
                     break;
             }
 

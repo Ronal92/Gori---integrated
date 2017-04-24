@@ -126,9 +126,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Custom
              imageView2 = (ImageView)itemView.findViewById(R.id.iv_second_profile);
              imageView2.bringToFront();
              itemback = (ConstraintLayout)itemView.findViewById(R.id.itemback);
-             tutor_name = (TextView)itemView.findViewById(R.id.tutor_name);
-             class_name = (TextView)itemView.findViewById(R.id.class_name);
-             ratingBar = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutee_three);
+             tutor_name = (TextView)itemView.findViewById(R.id.txtName_mypage_tutor_two);
+             class_name = (TextView)itemView.findViewById(R.id.txtClassName_mypage_tutor_two);
+             ratingBar = (RatingBar) itemView.findViewById(R.id.rb_mypage_tutor_two);
              tv_soldout = (TextView)itemView.findViewById(R.id.tv_soldout);
              soldout = (View)itemView.findViewById(R.id.view_sold_out);
 

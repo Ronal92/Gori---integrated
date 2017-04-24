@@ -20,23 +20,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <goriproject.ykjw.com.myapplication.Custom.CircleImageView
                 android:id="@+id/img_wishList_one"
-                android:layout_width="51dp"
-                android:layout_height="46dp"
-                android:layout_marginLeft="16dp"
+                android:layout_width="55dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher" />
+                android:layout_marginTop="8dp" />
 
             <TextView
-                android:id="@+id/txtWriter_tutor_fragment_one"
+                android:id="@+id/txtWriter_tutee_fragment_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -47,32 +47,30 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_wishList_one"
-                app:layout_constraintVertical_bias="0.006" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txtDate_tutor_fragment_one"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtDate_tutee_fragment_one"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="10dp"
                 android:text="2017-04-03 09:22:25"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toRightOf="@+id/img_wishList_one"
+                android:layout_marginLeft="9dp" />
 
             <TextView
                 android:id="@+id/txtTitle_tutee_fragment_one"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="3dp"
                 android:text="댄스로 ★매력발산/몸치탈출★"
                 android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDate_tutor_fragment_one" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDate_tutee_fragment_one"
+                app:layout_constraintLeft_toRightOf="@+id/img_wishList_one" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -90,7 +88,7 @@
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@+id/txtWriter_tutor_fragment_one"
+                app:layout_constraintLeft_toRightOf="@+id/txtWriter_tutee_fragment_one"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
