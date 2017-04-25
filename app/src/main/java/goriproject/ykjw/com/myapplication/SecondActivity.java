@@ -37,19 +37,18 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import goriproject.ykjw.com.myapplication.Custom.CustomScrollView;
 import goriproject.ykjw.com.myapplication.Custom.RadiusImageView;
-
 import goriproject.ykjw.com.myapplication.Interfaces.Mypage_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.WishList_Toggle_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
 import goriproject.ykjw.com.myapplication.domain.TalentDetail;
-
 import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
-import goriproject.ykjw.com.myapplication.domain_review_retrieve.ReviewDetail;
-
 import goriproject.ykjw.com.myapplication.domain_wishlist.WishList;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,24 +68,49 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     Second_TwoFragment two;
     Second_ThreeFragment three;
     Second_FourFragment four;
+    RatingBar rating_second;
+    FrameLayout frameLayout;
+    @BindView(R.id.btnApplySecondTemp)  Button btnApplySecondTemp;
+    ImageView imageView1;                   // 이미지뷰
+    RadiusImageView imageView2;
 
+    CheckBox checkbox_wishList;             // 체크박스
 
+    Button btn_second_apply;                   // 버튼 드로어
+    RelativeLayout drawer_relativeLayout;
+    ImageButton btnDrawerMenu;
+    TextView subTitle, txtTitle;
+    TabLayout tab, subTab;
+    CustomScrollView scrollView;
 
     DrawerLayout drawer;
     NavigationView navigationView;
-
+    int id;
     Talent talent;
     TalentDetail td = new TalentDetail();
-
-
+    float txtTitle_y_position = 0;
+    float tab_y_position = 0;
 
     private TabLayout mTabLayout;
 
+
+/*
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        txtTitle_y_position = txtTitle.getTop();
+        tab_y_position = tab.getTop();
+        Log.i(TAG,"=========================txtTitle_y_position : " + txtTitle_y_position + ", tab_y_position : " + tab_y_position);
+        scrollView.setTxtTitleForY(txtTitle_y_position + 180);
+        scrollView.setTabForY(tab_y_position + 120);
+        super.onWindowFocusChanged(hasFocus);
+    }
+*/
 
 
     @Override
     protected void onResume() {
         super.onResume();
+
         if(is_signin) {
             navigationView = (NavigationView) findViewById(R.id.nav_view);
             // get menu from navigationView
@@ -95,30 +119,28 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             MenuItem logoutitem = menu.findItem(R.id.menu_signinout);
             logoutitem.setTitle(R.string.logoutitem);
         }
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_view);
+        ButterKnife.bind(this);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
         Intent intent = getIntent();
-        final int id = intent.getExtras().getInt("id");
-        Results item = (Results) intent.getSerializableExtra("item");
-
-        td = (TalentDetail) intent.getSerializableExtra("td");
-
-
-
+        id = intent.getExtras().getInt("id");
+        Results item = (Results)intent.getSerializableExtra("item");
+        td = (TalentDetail)intent.getSerializableExtra("td");
 
 
         // 탭 레이아웃 & 뷰페이저 초기화
-        ViewPager viewPager_second_activity = (ViewPager) findViewById(R.id.viewPager_second_activity);
+        ViewPager viewPager_second_activity = (ViewPager)findViewById(R.id.viewPager_second_activity);
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        if (viewPager_second_activity != null) viewPager_second_activity.setAdapter(adapter);
+        if(viewPager_second_activity != null) viewPager_second_activity.setAdapter(adapter);
         mTabLayout = (TabLayout) findViewById(R.id.tab_second_activity);
         mTabLayout.addTab(mTabLayout.newTab().setText("수업 소개"));
         mTabLayout.addTab(mTabLayout.newTab().setText("장소/시간"));
@@ -128,11 +150,10 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager_second_activity));
         viewPager_second_activity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-
         //드로어레이아웃
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView  = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // 프래그먼트 초기화
@@ -140,29 +161,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         two = Second_TwoFragment.newInstance(td);
         three = Second_ThreeFragment.newInstance(td);
         four = Second_FourFragment.newInstance(td);
-        one.setTalent(talent, item, td);
-        //four.setTalent(talent,item);
+        one.setTalent(talent,item, td);
         one.setActivity(this);
 
-        // 버튼 초기화
-        Button btnApplySecondTemp = (Button) findViewById(R.id.btnApplySecondTemp);
-        btnApplySecondTemp.bringToFront();
-        btnApplySecondTemp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (is_signin) {
-                    Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("td", td);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(SecondActivity.this, SignInActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+        //btnApplySecondTemp.bringToFront();
 
-        // 버튼 위시리스트 초기화
         ImageButton btnWishList = (ImageButton) findViewById(R.id.btnWishList);
         btnWishList.bringToFront();
         btnWishList.setOnClickListener(new View.OnClickListener() {
@@ -178,44 +181,21 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
             }
         });
+
     }
 
-    public void createRetrofitGET_WishList(){
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        WishList_Toggle_Interface wishList_toggle_interface = retrofit.create(WishList_Toggle_Interface.class);
-
-        // 프로그레스 다이얼로그
-        final ProgressDialog asyncDialog = new ProgressDialog(SecondActivity.this);
-        asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        asyncDialog.setMessage("잠시만 기다려주십시오..");
-        asyncDialog.show();
-
-
-        Call<WishList> tds = wishList_toggle_interface.getWishList("Token " + key, td.getPk());
-
-        tds.enqueue(new Callback<WishList>() {
-            @Override
-            public void onResponse(Call<WishList> call, Response<WishList> response) {
-                if (response.code() == 201) {
-                    Toast.makeText(SecondActivity.this, "위시리스트에 추가되었습니다", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 200) {
-                    Toast.makeText(SecondActivity.this, "위시리스트에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SecondActivity.this, response.code(), Toast.LENGTH_SHORT).show();
-                }
-                asyncDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<WishList> call, Throwable t) {
-
-            }
-        });
+    @OnClick(R.id.btnApplySecondTemp) void submit() {
+        if(is_signin) {
+            Intent intent = new Intent(SecondActivity.this, ApplyActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("td", td);
+            startActivity(intent);
+            overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        } else {
+            Intent intent = new Intent(SecondActivity.this, SignInActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        }
     }
 
     // 위시리스트 결과를 보여주는 대화상자
@@ -247,6 +227,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         if (id == R.id.menu_introduce_gori) {
             //TODO 고리소개 페이지로드
+
+            overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+
         } else if (id == R.id.menu_signinout) {
             if(is_signin) {
                 key = null;
@@ -254,7 +237,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                 item.setTitle("로그인");
                 SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("autologin", null);
+                editor.putString("token", null);
                 editor.commit();
                 Toast.makeText(SecondActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
@@ -263,6 +246,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             }
 
         } else if (id == R.id.menu_mypage) {
+
             if(is_signin){
                 createRetrofitGET_MYPAGE();
             } else {
@@ -277,72 +261,6 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    public void createRetrofitGET_MYPAGE() {
-        Log.i("RAPSTAR","======================== This is createRetrofitGET_Mypage()");
-
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
-
-        // 토큰 받아오기
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        String token = pref.getString("token", null);
-
-
-
-        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + key);
-        myPageCalla.enqueue(new Callback<MyPage>() {
-            @Override
-            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
-                MyPage myPageFromServer = response.body();
-                createRetrofitUserGet(myPageFromServer);
-
-
-
-            }
-            @Override
-            public void onFailure(Call<MyPage> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-
-    }
-
-    public void createRetrofitUserGet(final MyPage myPageFromServer){
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
-
-        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
-
-        tds.enqueue(new Callback<UserDetail>() {
-            @Override
-            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
-                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
-                Intent intent = new Intent(SecondActivity.this, MyPageActivity.class);
-                intent.putExtra("mypage",myPageFromServer);
-                intent.putExtra("userInformation", userDetail);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<UserDetail> call, Throwable t) {
-
-            }
-        });
-
     }
 
     @Override
@@ -413,6 +331,109 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         ShareDialog shareDialog = new ShareDialog(this);
         shareDialog.show(content, ShareDialog.Mode.FEED);   //AUTOMATIC, FEED, NATIVE, WEB 등이 있으며 이는 다이얼로그 형식을 말합니다.
+    }
+
+    public void createRetrofitGET_MYPAGE() {
+        Log.i("RAPSTAR","======================== This is createRetrofitGET_Mypage()");
+
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
+
+        // 토큰 받아오기
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String token = pref.getString("token", null);
+
+
+
+        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + key);
+        myPageCalla.enqueue(new Callback<MyPage>() {
+            @Override
+            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
+                MyPage myPageFromServer = response.body();
+                createRetrofitUserGet(myPageFromServer);
+
+
+
+            }
+            @Override
+            public void onFailure(Call<MyPage> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+    }
+
+    public void createRetrofitUserGet(final MyPage myPageFromServer){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
+
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+
+        tds.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+                Intent intent = new Intent(SecondActivity.this, MyPageActivity.class);
+                intent.putExtra("mypage",myPageFromServer);
+                intent.putExtra("userInformation", userDetail);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void createRetrofitGET_WishList(){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        WishList_Toggle_Interface wishList_toggle_interface = retrofit.create(WishList_Toggle_Interface.class);
+
+        // 프로그레스 다이얼로그
+        final ProgressDialog asyncDialog = new ProgressDialog(SecondActivity.this);
+        asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        asyncDialog.setMessage("잠시만 기다려주십시오..");
+        asyncDialog.show();
+
+
+        Call<WishList> tds = wishList_toggle_interface.getWishList("Token " + key, td.getPk());
+
+        tds.enqueue(new Callback<WishList>() {
+            @Override
+            public void onResponse(Call<WishList> call, Response<WishList> response) {
+                if (response.code() == 201) {
+                    Toast.makeText(SecondActivity.this, "위시리스트에 추가되었습니다", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 200) {
+                    Toast.makeText(SecondActivity.this, "위시리스트에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SecondActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                }
+                asyncDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<WishList> call, Throwable t) {
+
+            }
+        });
     }
 
 }

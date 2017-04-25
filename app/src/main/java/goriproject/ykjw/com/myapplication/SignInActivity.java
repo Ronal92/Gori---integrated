@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,12 +21,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
-import goriproject.ykjw.com.myapplication.domain.Qna;
 import goriproject.ykjw.com.myapplication.domain.Result;
 import goriproject.ykjw.com.myapplication.domain.Result2;
 import goriproject.ykjw.com.myapplication.Interfaces.SignUpInterface;
@@ -84,7 +82,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(SignInActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                     key = response.body().getKey();
 
-                    Log.e("ksdjflds", "========= key in SignInActivity " + key);
                     if(cb_login.isChecked()) {
                         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
@@ -97,13 +94,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         editor.commit();
                     }
 
-
-
                     is_signin = true;
-
                     createRetrofitUserGet();
-
-
+                    // goriproject.ykjw.com.myapplication.domain.Result@42ca77a0
+                    View view = getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    finish();
+                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
                 } else {
                     Toast.makeText(SignInActivity.this, "아이디와 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -116,41 +116,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    public void createRetrofitUserGet(){
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
-
-        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
-
-        tds.enqueue(new Callback<UserDetail>() {
-            @Override
-            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
-
-
-                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
-                user_name = userDetail.getName();
-                Log.i("RAPSTAR", "=============================  user_name  : " + user_name);
-                finish();
-            }
-            @Override
-            public void onFailure(Call<UserDetail> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.singupgo :
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);
                 finish();
                 break;
         }
@@ -181,6 +153,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 loginData.enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
+                        Log.e("ddddddddddddd", String.valueOf(response.code()));
                         if (response.code() == 201) {
                             Toast.makeText(SignInActivity.this, "페이스북 로그인 성공", Toast.LENGTH_SHORT).show();
                         } else {
@@ -218,6 +191,35 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void createRetrofitUserGet(){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
+
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+
+        tds.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+
+
+                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+                user_name = userDetail.getName();
+                Log.i("RAPSTAR", "=============================  user_name  : " + user_name);
+                finish();
+            }
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public void finishsignin(View view ) {

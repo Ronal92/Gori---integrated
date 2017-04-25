@@ -2,10 +2,10 @@ package goriproject.ykjw.com.myapplication;
 
 import android.content.Context;
 import android.graphics.Color;
-
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -78,11 +78,8 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
         td = activity.td;
 
         btn_next2 = (Button)view.findViewById(R.id.btn_next2);
-        btn_next2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.goAp2();
-            }
+        btn_next2.setOnClickListener(v -> {
+            activity.goAp2();
         });
         tv_apply1_plusinfo = (TextView)view.findViewById(R.id.tv_apply1_plusinfo);
 
@@ -92,9 +89,6 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
         btn1layout = (GridLayout)view.findViewById(R.id.li_apply1_btnlayout1);
         btn2layout = (LinearLayout)view.findViewById(R.id.li_apply1_btnlayout2);
         btn3layout = (GridLayout) view.findViewById(R.id.li_apply1_btnlayout3);
-
-
-
 
 
         int tag = 0;
@@ -117,7 +111,7 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
             btn.setTag(tag);
             tag = tag +1;
             locationbtnlist.add(btn);
-            btn.setOnClickListener(this);
+            btn.setOnClickListener(v -> { ClickLocation(v); });
             btn.setClickable(true);
             locationbtnlist.add(btn);
             btn1layout.addView(btn);
@@ -128,125 +122,6 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
 
         setLocation(0);
         setTime(0, 0);
-
-
-
-//        for(String datas : location) {
-//            final Button btn = new Button(getContext());
-//            btn.setText(datas);
-//            final int width = DipCal.convertPixelsToDp(70,getContext());
-//            final int height = DipCal.convertPixelsToDp(40,getContext());
-//            btn.setWidth(width);
-//            btn.setHeight(height);
-//            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);
-//            p.weight = 0;
-//            p.leftMargin = 10;
-//            btn.setLayoutParams(p);
-//            btn.setTextSize(14);
-//            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//            btn.setBackgroundResource(R.drawable.custom_button6);
-//            btn.setTag("close");
-//            locationbtnlist.add(btn);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(btn.getTag().equals("close")) {
-//                        for(Button btn2 : locationbtnlist) {
-//                            btn2.setBackgroundResource(R.drawable.custom_button6);
-//                            btn2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                            btn2.setTag("close");
-//                        }
-//                        btn.setBackgroundResource(R.drawable.custom_button5);
-//                        btn.setTextColor(Color.WHITE);
-//                        btn.setTag("open");
-//                    } else {
-//                        btn.setBackgroundResource(R.drawable.custom_button6);
-//                        btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                        btn.setTag("close");
-//                    }
-//
-//                }
-//            });
-//            btn1layout.addView(btn);
-//        }
-//
-//        for(String datas : canday) {
-//            final Button btn = new Button(getContext());
-//            btn.setText(datas);
-//            final int width = DipCal.convertPixelsToDp(40,getContext());
-//            final int height = DipCal.convertPixelsToDp(40,getContext());
-//            btn.setWidth(width);
-//            btn.setHeight(height);
-//            btn.setTextSize(14);
-//            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);
-//            p.weight = 0;
-//            p.leftMargin = 10;
-//            btn.setLayoutParams(p);
-//            btn.setTag("close");
-//            candaybtnlist.add(btn);
-//            btn.setBackgroundResource(R.drawable.custom_button6);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(btn.getTag().equals("close")) {
-//                        for(Button btn2 : candaybtnlist) {
-//                            btn2.setBackgroundResource(R.drawable.custom_button6);
-//                            btn2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                            btn2.setTag("close");
-//                        }
-//                        btn.setBackgroundResource(R.drawable.custom_button5);
-//                        btn.setTextColor(Color.WHITE);
-//                        btn.setTag("open");
-//                    } else {
-//                        btn.setBackgroundResource(R.drawable.custom_button6);
-//                        btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                        btn.setTag("close");
-//                    }
-//
-//                }
-//            });
-//            btn2layout.addView(btn);
-//        }
-//
-//        for(String datas : cantime) {
-//            final Button btn = new Button(getContext());
-//            btn.setText(datas);
-//            final int width = DipCal.convertPixelsToDp(90,getContext());
-//            final int height = DipCal.convertPixelsToDp(40,getContext());
-//            btn.setWidth(width);
-//            btn.setHeight(height);
-//            btn.setTextSize(14);
-//            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);
-//            p.weight = 0;
-//            p.leftMargin = 10;
-//            btn.setLayoutParams(p);
-//            btn.setBackgroundResource(R.drawable.custom_button6);
-//            btn.setTag("close");
-//            cantimebtnlist.add(btn);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(btn.getTag().equals("close")) {
-//                        for(Button btn2 : cantimebtnlist) {
-//                            btn2.setBackgroundResource(R.drawable.custom_button6);
-//                            btn2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                            btn2.setTag("close");
-//                        }
-//                        btn.setBackgroundResource(R.drawable.custom_button5);
-//                        btn.setTextColor(Color.WHITE);
-//                        btn.setTag("open");
-//                    } else {
-//                        btn.setBackgroundResource(R.drawable.custom_button6);
-//                        btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-//                        btn.setTag("close");
-//                    }
-//
-//                }
-//            });
-//            btn3layout.addView(btn);
-//        }
 
         return view;
     }
@@ -324,21 +199,30 @@ public class Apply_1Fragment extends Fragment implements View.OnClickListener {
         super.onDetach();
     }
 
-    View.OnClickListener btn2li = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            for(Button btn : locationbtnlist2) {
-                btn.setBackgroundResource(R.drawable.custom_button6);
-                btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                if(v.getTag() == btn.getTag()) {
-                    btn.setBackgroundResource(R.drawable.custom_button5);
-                    btn.setTextColor(Color.WHITE);
-                }
+    View.OnClickListener btn2li = v -> {
+        for(Button btn : locationbtnlist2) {
+            btn.setBackgroundResource(R.drawable.custom_button6);
+            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            if(v.getTag() == btn.getTag()) {
+                btn.setBackgroundResource(R.drawable.custom_button5);
+                btn.setTextColor(Color.WHITE);
             }
-            setTime(((int)v.getTag()/10),((int)v.getTag()%10));
         }
-
+    setTime(((int)v.getTag()/10),((int)v.getTag()%10));
     };
+
+    public void ClickLocation(View v) {
+        for(Button btn : locationbtnlist) {
+            btn.setBackgroundResource(R.drawable.custom_button6);
+            btn.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+            if(v.getTag() == btn.getTag()) {
+                btn.setBackgroundResource(R.drawable.custom_button5);
+                btn.setTextColor(Color.WHITE);
+            }
+        }
+        setLocation((int)v.getTag());
+        setTime((int)v.getTag(), 0);
+    }
 
 
     @Override

@@ -80,16 +80,13 @@ public class Apply_2Fragment extends Fragment implements View.OnClickListener {
         btn_apply_sang.setOnClickListener(this);
         td = activity.td;
         btn_next3 = (Button)view.findViewById(R.id.btn_next3);
-        btn_next3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(et_msg.getText().toString().length() == 0) {
-                    Toast.makeText(getContext(), "튜터에게 남길 말을 입력해주세요", Toast.LENGTH_SHORT).show();
-                } else {
-                    activity.experience_length = Integer.parseInt(explength.getText().toString().trim());
-                    activity.tutor_msg = et_msg.getText().toString();
-                    activity.goAp3();
-                }
+        btn_next3.setOnClickListener(v -> {
+            if(et_msg.getText().toString().length() == 0) {
+                Toast.makeText(getContext(), "튜터에게 남길 말을 입력해주세요", Toast.LENGTH_SHORT).show();
+            } else {
+                activity.experience_length = Integer.parseInt(explength.getText().toString().trim());
+                activity.tutor_msg = et_msg.getText().toString();
+                activity.goAp3();
             }
         });
 

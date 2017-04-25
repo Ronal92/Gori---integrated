@@ -65,10 +65,10 @@ public class MyPageActivity extends AppCompatActivity implements NavigationView.
 
 
         // mypage 상단 부분분
-       TextView txtName_profile_mypage = (TextView)findViewById(R.id.txtName_profile_mypage);
-       txtName_profile_mypage.setText(userDetail.getName());
+        TextView txtName_profile_mypage = (TextView)findViewById(R.id.txtName_profile_mypage);
+        txtName_profile_mypage.setText(userDetail.getName());
         CircleImageView img_profile_mypage = (CircleImageView)findViewById(R.id.img_profile_mypage);
-       Glide.with(this).load(userDetail.getProfile_image()).placeholder(R.mipmap.ic_launcher).into(img_profile_mypage); // 이미지 표시
+        Glide.with(this).load(userDetail.getProfile_image()).placeholder(R.mipmap.ic_launcher).into(img_profile_mypage); // 이미지 표시
 
 
 

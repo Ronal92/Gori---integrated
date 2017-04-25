@@ -196,7 +196,7 @@ public class Second_ThreeFragment extends Fragment {
 
         User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
 
-         Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
 
         tds.enqueue(new Callback<UserDetail>() {
             @Override
@@ -235,8 +235,8 @@ public class Second_ThreeFragment extends Fragment {
 
         // Dialog 사이즈 조절 하기
         ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = 950;      //params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.height = 1500;    //params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
         // Dialog 위젯

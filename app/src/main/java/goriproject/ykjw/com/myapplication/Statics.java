@@ -16,5 +16,4 @@ public class Statics {
     public static int maxsize;
     public static String user_name = null;
 
-
 }

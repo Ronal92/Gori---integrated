@@ -46,14 +46,14 @@ public class MyPageTutorOfListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null){
-                mListType = getArguments().getString(ARG_TAP_TYPE);
+            mListType = getArguments().getString(ARG_TAP_TYPE);
 
-                if(TYPE_RESUME.equals(mListType)){
-                    //datas = DataLoader.getMusic(getContext());
-                    //여기서 데이터를 로드한다.
-                } else if(TYPE_MYCLASS.equals(mListType)){
-                    //datas = DataLoader.getMusic(getContext());
-                }
+            if(TYPE_RESUME.equals(mListType)){
+                //datas = DataLoader.getMusic(getContext());
+                //여기서 데이터를 로드한다.
+            } else if(TYPE_MYCLASS.equals(mListType)){
+                //datas = DataLoader.getMusic(getContext());
+            }
 
         }
 
@@ -68,7 +68,7 @@ public class MyPageTutorOfListFragment extends Fragment {
         if(view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerViewTutor = (RecyclerView) view;
-           // recyclerViewTutor.setAdapter(new MyPageAdapter(getContext(), datas, mListType));
+            // recyclerViewTutor.setAdapter(new MyPageAdapter(getContext(), datas, mListType));
         }
         return view;
 

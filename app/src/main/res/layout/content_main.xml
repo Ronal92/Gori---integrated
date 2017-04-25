@@ -286,7 +286,7 @@
                     app:layout_constraintTop_toTopOf="@+id/btn_location_jongro" />
 
                 <Button
-                    android:id="@+id/btn_location_hapjung"
+                    android:id="@+id/btn_location_habjung"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
@@ -311,7 +311,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_location_sadang" />
 
                 <Button
-                    android:id="@+id/btn_location_youngsan"
+                    android:id="@+id/btn_location_yongsan"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
@@ -331,8 +331,8 @@
                     android:background="@drawable/custom_button"
                     android:text="기타"
                     android:textColor="@drawable/text_color_selector"
-                    app:layout_constraintLeft_toRightOf="@+id/btn_location_youngsan"
-                    app:layout_constraintTop_toTopOf="@+id/btn_location_youngsan" />
+                    app:layout_constraintLeft_toRightOf="@+id/btn_location_yongsan"
+                    app:layout_constraintTop_toTopOf="@+id/btn_location_yongsan" />
 
                 <Button
                     android:id="@+id/btn_campus_korea"
@@ -429,7 +429,7 @@
                     app:layout_constraintTop_toTopOf="@+id/btn_campus_hanyang"></Button>
 
                 <Button
-                    android:id="@+id/btn_campus_others"
+                    android:id="@+id/btn_campus_other"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
@@ -534,7 +534,7 @@
                     app:layout_constraintTop_toTopOf="@+id/btn_category_helth" />
 
                 <Button
-                    android:id="@+id/btn_category_computer"
+                    android:id="@+id/btn_category_cumputer"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
@@ -614,7 +614,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

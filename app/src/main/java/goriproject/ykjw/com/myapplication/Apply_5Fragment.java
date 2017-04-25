@@ -59,13 +59,11 @@ public class Apply_5Fragment extends Fragment {
 
         td = activity.td;
         btn_applycomplete = (Button)view.findViewById(R.id.btn_matchcomplete);
-        btn_applycomplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                activity.finish();
-                startActivity(intent);
-            }
+        btn_applycomplete.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainActivity_.class);
+            activity.finish();
+            startActivity(intent);
+            activity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         });
 
         tv_apply5_tutorinfo = (TextView)view.findViewById(R.id.tv_apply5_tutorinfo);

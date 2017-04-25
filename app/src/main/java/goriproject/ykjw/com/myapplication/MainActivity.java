@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,14 +34,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import goriproject.ykjw.com.myapplication.Interfaces.Mypage_Detail_Interface;
 import goriproject.ykjw.com.myapplication.Interfaces.User_Detail_Interface;
 import goriproject.ykjw.com.myapplication.domain.Results;
-import goriproject.ykjw.com.myapplication.domain.Reviews;
-import goriproject.ykjw.com.myapplication.domain.User;
 import goriproject.ykjw.com.myapplication.domain_User_detail_all.UserDetail;
 import goriproject.ykjw.com.myapplication.domain_mypage_retrieve.MyPage;
 import retrofit2.Call;
@@ -53,6 +56,7 @@ import static goriproject.ykjw.com.myapplication.Statics.datas;
 import static goriproject.ykjw.com.myapplication.Statics.is_signin;
 import static goriproject.ykjw.com.myapplication.Statics.key;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, NavigationView.OnNavigationItemSelectedListener {
 
     int location_menu_count = 0;
@@ -64,16 +68,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText editText;
     RecyclerView rv;
     ConstraintLayout location_menu, category_menu;
-    Button btn_location_all, btn_campus_all, btn_campus_korea, btn_campus_yeonse,btn_campus_seoul,btn_campus_hongik,
-            btn_location_jamsil,btn_location_sadang,btn_location_sinchon,btn_location_gangnam;
-    Button btn_category_all, btn_campus_kunkuk, btn_campus_busan,btn_campus_ihwa,btn_campus_hanyang,
-            btn_campus_jungang, btn_location_jongro,btn_location_habjung,btn_location_yongsan,btn_location_hehwa, btn_location_mokdong;
-    Button btn_category_music, btn_category_helth,btn_category_other,btn_campus_other,btn_location_other,btn_category_language,
-            btn_category_cumputer, btn_category_sports, btn_category_major;
     TextView tv_location, tv_category;
 
     DrawerLayout drawer;
     NavigationView navigationView;
+
+    @ViewById
+    Button btn_location_all, btn_campus_all, btn_campus_korea, btn_campus_yeonse,btn_campus_seoul,btn_campus_hongik,
+            btn_location_jamsil,btn_location_sadang,btn_location_sinchon,btn_location_gangnam, btn_category_all, btn_campus_kunkuk, btn_campus_busan,btn_campus_ihwa,btn_campus_hanyang,
+            btn_campus_jungang, btn_location_jongro,btn_location_habjung,btn_location_yongsan,btn_location_hehwa, btn_location_mokdong, btn_category_music, btn_category_helth,btn_category_other,btn_campus_other,btn_location_other,btn_category_language,
+            btn_category_cumputer, btn_category_sports, btn_category_major;
 
     @Override
     protected void onResume() {
@@ -82,14 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         if(pref.getString("token", "") != null && pref.getString("token", "").length() > 0) {
             key = pref.getString("token", "");
-            Log.e("kkkkknjjjjjjjjjjjk",key);
         }
-
+        // Log.e("kkkkknjjjjjjjjjjjk",key);
         if(key != null && key.length() > 0) {
             is_signin = true;
         }
-
-
 
         if(datas2.size() == 0) {
             CheckTypesTask task = new CheckTypesTask();
@@ -114,10 +115,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    @AfterViews
+    protected void onCreate() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView  = (NavigationView) findViewById(R.id.nav_view);
@@ -152,43 +164,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Glide.with(this).load(R.drawable.main_img).thumbnail(0.1f).into(mainimg);
 
         button_connect();
-
     }
 
+
     public void button_connect() {
-        btn_location_all = (Button)findViewById(R.id.btn_location_all);
-        btn_campus_all = (Button)findViewById(R.id.btn_campus_all);
-        btn_campus_seoul = (Button)findViewById(R.id.btn_campus_seoul);
-        btn_campus_korea = (Button)findViewById(R.id.btn_campus_korea);
-        btn_campus_yeonse = (Button)findViewById(R.id.btn_campus_yeonse);
-        btn_campus_hongik = (Button)findViewById(R.id.btn_campus_hongik);
-        btn_campus_kunkuk = (Button)findViewById(R.id.btn_campus_kunkuk);
-        btn_campus_busan = (Button)findViewById(R.id.btn_campus_busan);
-        btn_campus_ihwa = (Button)findViewById(R.id.btn_campus_ihwa);
-        btn_campus_jungang = (Button)findViewById(R.id.btn_campus_jungang);
-        btn_campus_hanyang = (Button)findViewById(R.id.btn_campus_hanyang);
-        btn_campus_other = (Button)findViewById(R.id.btn_campus_others);
-
-        btn_location_gangnam = (Button)findViewById(R.id.btn_location_gangnam);
-        btn_location_sadang = (Button)findViewById(R.id.btn_location_sadang);
-        btn_location_sinchon = (Button)findViewById(R.id.btn_location_sinchon);
-        btn_location_jamsil = (Button)findViewById(R.id.btn_location_jamsil);
-        btn_location_jongro = (Button)findViewById(R.id.btn_location_jongro);
-        btn_location_habjung = (Button)findViewById(R.id.btn_location_hapjung);
-        btn_location_hehwa = (Button)findViewById(R.id.btn_location_hehwa);
-        btn_location_yongsan = (Button)findViewById(R.id.btn_location_youngsan);
-        btn_location_mokdong = (Button)findViewById(R.id.btn_location_mokdong);
-        btn_location_other = (Button)findViewById(R.id.btn_location_other);
-
-        btn_category_all = (Button)findViewById(R.id.btn_category_all);
-        btn_category_major = (Button)findViewById(R.id.btn_category_major);
-        btn_category_music = (Button)findViewById(R.id.btn_category_music);
-        btn_category_cumputer = (Button)findViewById(R.id.btn_category_computer);
-        btn_category_language = (Button)findViewById(R.id.btn_category_language);
-        btn_category_sports = (Button)findViewById(R.id.btn_category_sports);
-        btn_category_helth = (Button)findViewById(R.id.btn_category_helth);
-        btn_category_other = (Button)findViewById(R.id.btn_category_other);
-
 
         btn_location_all.setOnClickListener(this);
         btn_campus_all.setOnClickListener(this);
@@ -357,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv_location.setText("부산대");
                 button_search(1);
                 break;
-            case R.id.btn_campus_others :
+            case R.id.btn_campus_other :
                 tv_location.setText("기타");
                 button_search(1);
                 break;
@@ -381,11 +360,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv_location.setText("혜화");
                 button_search(1);
                 break;
-            case R.id.btn_location_hapjung :
+            case R.id.btn_location_habjung :
                 tv_location.setText("합정");
                 button_search(1);
                 break;
-            case R.id.btn_location_youngsan :
+            case R.id.btn_location_yongsan:
                 tv_location.setText("용산");
                 button_search(1);
                 break;
@@ -425,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv_category.setText("외국어");
                 button_search(2);
                 break;
-            case R.id.btn_category_computer :
+            case R.id.btn_category_cumputer :
                 tv_category.setText("컴퓨터");
                 button_search(2);
                 break;
@@ -484,15 +463,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if(searchtype == 1) {
                 if(datas2.size() == 0) {
-                    Toast.makeText(MainActivity.this, "아직 조건에 맞는 클래스가 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "아직 조건에 맞는 클래스가 없습니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
                     tv_location.setText("전체 지역");
+                    tv_category.setText("전체 카테고리");
                     img.setImageResource(R.drawable.arrow_down);
                     location_menu_count++;
                     datas2.addAll(datas);
                 } else {
-                    Toast.makeText(MainActivity.this, "조건에 맞는 강의는 " + datas2.size() +"개입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "조건에 맞는 강의는 " + datas2.size() +"개입니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
                     img.setImageResource(R.drawable.arrow_down);
@@ -500,15 +480,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (searchtype == 2) {
                 if(datas2.size() == 0) {
-                    Toast.makeText(MainActivity.this, "아직 조건에 맞는 클래스가 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "아직 조건에 맞는 클래스가 없습니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
+                    tv_location.setText("전체 지역");
                     tv_category.setText("전체 카테고리");
                     img2.setImageResource(R.drawable.arrow_down);
                     category_menu_count++;
                     datas2.addAll(datas);
                 } else {
-                    Toast.makeText(MainActivity.this, "조건에 맞는 강의는 " + datas2.size() +"개입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "조건에 맞는 강의는 " + datas2.size() +"개입니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
                     img2.setImageResource(R.drawable.arrow_down);
@@ -518,7 +499,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
             if(searchtype == 1) {
-                    Toast.makeText(MainActivity.this, "전체 목록입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "전체 목록입니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
                     img.setImageResource(R.drawable.arrow_down);
@@ -526,7 +507,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     datas2.addAll(datas);
 
             } else if (searchtype == 2) {
-                    Toast.makeText(MainActivity.this, "전체 목록입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "전체 목록입니다.", Toast.LENGTH_SHORT).show();
                     location_menu.setVisibility(View.GONE);
                     category_menu.setVisibility(View.GONE);
                     img2.setImageResource(R.drawable.arrow_down);
@@ -608,8 +589,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // 여기는 소트 부분인데 지금은 나중에 rating이 들어오면 수정할 예정
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -621,20 +600,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.menu_introduce_gori) {
             intent= new Intent(MainActivity.this, IntroduceGoriActivity.class);
             startActivity(intent);
-            //TODO 고리소개 페이지로드
+            overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         } else if (id == R.id.menu_signinout) {
             if(is_signin) {
-                key = null;
+                key = "";
                 is_signin = false;
                 item.setTitle("로그인");
                 SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("token", null);
+                editor.putString("token", "");
                 editor.commit();
                 Toast.makeText(MainActivity.this, "정상적으로 로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }else {
                 intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);
             }
 
         } else if (id == R.id.menu_mypage) {
@@ -644,79 +624,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
+            overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         } else if (id == R.id.menu_tutor_go) {
             // 아직 구현할 생각 없음
-            Toast.makeText(MainActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "튜터등록은 웹사이트에서 해주세요!", Toast.LENGTH_SHORT).show();
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-    public void createRetrofitGET_MYPAGE() {
-        Log.i("RAPSTAR","======================== This is createRetrofitGET_Mypage()");
-
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
-
-        Log.i("RAPSTAR","========================token : " + key);
-
-        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + key);
-        myPageCalla.enqueue(new Callback<MyPage>() {
-            @Override
-            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
-                MyPage myPageFromServer = response.body();
-                createRetrofitUserGet(myPageFromServer);
-
-
-            }
-            @Override
-            public void onFailure(Call<MyPage> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-
-    }
-
-
-    public void createRetrofitUserGet(final MyPage myPageFromServer){
-        // 1. 레트로핏을 생성하고
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mozzi.co.kr/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
-
-        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
-
-        tds.enqueue(new Callback<UserDetail>() {
-            @Override
-            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
-                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
-                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
-                intent.putExtra("mypage",myPageFromServer);
-                intent.putExtra("userInformation", userDetail);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<UserDetail> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -766,6 +682,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rcanoti();
             super.onPostExecute(result);
         }
+    }
+
+    public void createRetrofitGET_MYPAGE() {
+        Log.i("RAPSTAR","======================== This is createRetrofitGET_Mypage()");
+
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Mypage_Detail_Interface mypage_detail_interface = retrofit.create(Mypage_Detail_Interface.class);
+
+        Log.i("RAPSTAR","========================token : " + key);
+
+        Call<MyPage> myPageCalla = mypage_detail_interface.getMyPageRetrieve("Token " + key);
+        myPageCalla.enqueue(new Callback<MyPage>() {
+            @Override
+            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
+                MyPage myPageFromServer = response.body();
+                createRetrofitUserGet(myPageFromServer);
+
+
+            }
+            @Override
+            public void onFailure(Call<MyPage> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+    }
+
+    public void createRetrofitUserGet(final MyPage myPageFromServer){
+        // 1. 레트로핏을 생성하고
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mozzi.co.kr/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        User_Detail_Interface tdService = retrofit.create(User_Detail_Interface.class);
+
+        Call<UserDetail> tds = tdService.getUserRetrieve("Token " + key);
+
+        tds.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+                UserDetail userDetail = response.body();   // 현재 사용하는 유저 정보를 먼저 불러온다.
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                intent.putExtra("mypage",myPageFromServer);
+                intent.putExtra("userInformation", userDetail);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+
+            }
+        });
+
     }
 
 

@@ -27,7 +27,6 @@ public class TutorLoader {
 
     public static void loadData() {
 
-
         // 1. 레트로핏을 생성하고
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://mozzi.co.kr/api/")
@@ -52,44 +51,11 @@ public class TutorLoader {
         Statics.maxsize = datas.size();
 
 
-
         if(MainActivity.datas2.size() == 0) {
             MainActivity.datas2.addAll(datas);
         }
 
         Log.e("Retrofit---------------", "adapternoti");
-
-
-//        // 4. 데이터를 가져오는 부분은 네트웍을 통해서 오기 때문에 비동기 처리된다.
-//        result.enqueue(new Callback<List<Results>>() {
-//            @Override
-//            public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-//                if(response.isSuccessful()) {
-//                    Log.e("Retrofit---------------",response.body().toString());
-//                    datas = response.body();
-//                    Log.e("Retrofit---------------", String.valueOf(datas.size()));
-//
-//                    //sortTop(datas);
-//
-//                    Statics.maxsize = datas.size();
-//
-//                    if(MainActivity.datas2.size() == 0) {
-//                        MainActivity.datas2.addAll(datas);
-//                    }
-//
-//                    Log.e("Retrofit---------------", "adapternoti");
-//                    MainActivity.rcanoti();
-//
-//                } else {
-//                    Log.e("Retrofit",response.message()); // 정상적이지 않을 경우 message에 오류내용이 담겨 온다.
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Results>> call, Throwable t) {
-//
-//            }
-//        });
 
     }
 

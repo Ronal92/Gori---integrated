@@ -64,11 +64,9 @@ public class Apply_3Fragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_apply_3, container, false);
         td = activity.td;
         btn_next_4 = (Button)view.findViewById(R.id.btn_next4);
-        btn_next_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.goAp4();
-            }
+        btn_next_4.setOnClickListener(v -> {
+
+            activity.goAp4();
         });
         img = (ImageView)view.findViewById(R.id.img_apply_profile4);
         Glide.with(getContext()).load(td.getTutor().getProfile_image()).into(img);

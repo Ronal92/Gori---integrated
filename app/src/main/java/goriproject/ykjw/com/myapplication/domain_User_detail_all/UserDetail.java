@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by JINWOO on 2017-04-20.
  */
 
-public class UserDetail implements Serializable{
+public class UserDetail implements Serializable {
 
     private String sent_registrations;
 

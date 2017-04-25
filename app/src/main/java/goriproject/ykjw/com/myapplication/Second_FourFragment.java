@@ -265,10 +265,10 @@ public class Second_FourFragment extends Fragment {
         });
     }
 
-//    public void createRetrofitDelete(String qna_pk, final List<Qna> qnaList, final int qna_position, final ProgressDialog  dialog_qna_delete){
-        public void createRetrofitDelete(String qna_pk){
+    //    public void createRetrofitDelete(String qna_pk, final List<Qna> qnaList, final int qna_position, final ProgressDialog  dialog_qna_delete){
+    public void createRetrofitDelete(String qna_pk){
 
-            // 1 .delete 통신
+        // 1 .delete 통신
         final ProgressDialog dialog_qna_delete = new ProgressDialog(context);
         dialog_qna_delete.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog_qna_delete.setMessage("로딩중입니다..");
@@ -289,7 +289,7 @@ public class Second_FourFragment extends Fragment {
 
         Qna_Detail_Interface service = retrofit.create(Qna_Detail_Interface.class);
 
-       // 2.3 데이터 받아오기
+        // 2.3 데이터 받아오기
         Call<Void> reviewDelete = service.deleteQna("Token " + key, qna_pk);
         reviewDelete.enqueue(new Callback<Void>() {
             @Override

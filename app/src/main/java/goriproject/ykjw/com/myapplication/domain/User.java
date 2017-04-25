@@ -1,11 +1,11 @@
 package goriproject.ykjw.com.myapplication.domain;
 
+
 import java.io.Serializable;
 
 /**
- * Created by Younkyu on 2017-04-19.
+ * Created by JINWOO on 2017-04-13.
  */
-
 public class User implements Serializable
 {
     private String profile_image;
@@ -15,9 +15,9 @@ public class User implements Serializable
     private String pk;
 
     public String getProfile_image ()
-{
-    return profile_image;
-}
+    {
+        return profile_image;
+    }
 
     public void setProfile_image (String profile_image)
     {
@@ -50,3 +50,4 @@ public class User implements Serializable
         return "ClassPojo [profile_image = "+profile_image+", name = "+name+", pk = "+pk+"]";
     }
 }
+

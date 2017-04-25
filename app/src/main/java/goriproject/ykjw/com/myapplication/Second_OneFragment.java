@@ -236,6 +236,8 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
             tv_title_youtube.setVisibility(View.GONE);
             FrameLayout yt = (FrameLayout)view.findViewById(R.id.fragment_youtube_player);
             yt.setVisibility(View.GONE);
+            View view6 = (View)view.findViewById(R.id.viewOne6);
+            view6.setVisibility(View.GONE);
         }
         //관련 이미지
         if(td.getClass_images() != null) {
@@ -392,7 +394,7 @@ public class Second_OneFragment extends Fragment implements YouTubePlayer.OnInit
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if(!wasRestored){
-            // https://youtu.be/84SnMVQVYkY
+           // https://youtu.be/84SnMVQVYkY
             if(!td.getVideo1().equals("")) {
                 int yt = td.getVideo1().indexOf("be/");
                 String ytt = td.getVideo1().substring(yt+3,td.getVideo1().length());

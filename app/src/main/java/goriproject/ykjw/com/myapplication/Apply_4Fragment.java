@@ -106,7 +106,7 @@ public class Apply_4Fragment extends Fragment {
         @Override
         protected void onPreExecute() {
             asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("데이터 로딩중..");
+            asyncDialog.setMessage("수업 등록 중..");
 
             // show dialog
             asyncDialog.show();
